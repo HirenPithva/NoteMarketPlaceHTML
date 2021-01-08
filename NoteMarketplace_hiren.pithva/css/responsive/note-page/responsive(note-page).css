@@ -1,0 +1,171 @@
+
+@media (min-width: 992px) and (max-width: 1219.97px){
+    
+    /*about*/
+    .about-book{
+        margin-left: 20px;
+    }
+    .cover-page img{
+        width: 180px;
+        height: 100%;
+    }
+    .about-book h4 {
+        margin-top: 0px;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 30px;
+        margin-bottom: 10;
+    }
+
+    .about-book h6 {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 22px;
+        margin-bottom: 20px;
+    }
+
+    .about-book p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-bottom: 20px;
+    }
+    .w-download-btn a.download-btn {
+        padding: 8px 20px;
+        background-color: #6255a5;
+        color: #fff;
+        font-size: 14px;
+    }
+    
+    /*biodata notes*/
+    .biodata-of-note p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 30px;
+        
+
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.97px){
+    
+    .w-costumer-img img {
+        height: 50px;
+        width: 50px;
+        margin-right: 10px;
+    }
+    .w-coment p{
+        font-size: 14px;
+    }
+    .w-coment h6{
+        font-size: 16px;
+    }
+    
+    /*preview*/
+    #Iframe-Cicis-Menu-To-Go{
+        height: 500px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.97px){
+    .cover-page img{
+        height: 100%;
+        width: 220px;
+    }
+    .biodata-of-note{
+        margin-top: 40px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767.97px){
+    .cover-page img{
+        
+    }
+    .about-book{
+        margin-top: 20px;
+        text-align: center;
+    }
+    .w-sub-heading{
+        text-align: center;
+        margin-bottom: 20px;
+        
+    }
+    .w-sub-heading h5{
+        font-size: 30px;
+    }
+    .biodata-of-note{
+        margin-top: 40px;
+    }
+    .w-coment{
+        padding-left:10px;
+    }
+    .about-book h4{
+        font-size: 26px;
+    }
+    .w-download-btn a.download-btn{
+        width: 90%;
+    }
+}
+
+@media (max-width: 575.97px){
+    .container-bgs{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .cover-page img{
+        height: 100%;
+        width: 100%;
+    }
+    .about-book{
+        margin-top: 20px;
+        text-align: center;
+    }
+    .w-sub-heading{
+        text-align: center;
+        margin-bottom: 20px;
+        
+    }
+    .w-sub-heading h5{
+        font-size: 26px;
+    }
+    .biodata-of-note{
+        margin-top: 40px;
+    }
+    .w-coment{
+        padding-left:10px;
+    }
+    .about-book h4{
+        font-size: 26px;
+    }
+    .w-download-btn a.download-btn{
+        width: 90%;
+    }
+    .w-coment p{
+        font-size: 14px;
+    }
+    .w-coment h6{
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

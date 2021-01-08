@@ -1,0 +1,12 @@
+.table thead th:nth-child(8), td:nth-child(8){
+    text-align: left;
+}
+.table thead th:nth-child(9), td:nth-child(9){
+    text-align: center;
+}
+td:nth-child(9){
+    color: #6255a5;
+}
+td:nth-child(6){
+    white-space: pre;
+}

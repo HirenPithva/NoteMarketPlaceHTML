@@ -1,0 +1,16 @@
+.table thead th:nth-child(1){
+    color: #333333;
+    text-align-last: center;
+}
+
+.table thead th:nth-child(6), td:nth-child(6){
+    color: #333333;
+}
+ td:nth-child(6){
+    text-align: left;
+}
+.table thead th:nth-child(6){
+    line-height: normal;
+    text-align-last: left;
+    text-align: left;
+}

@@ -1,0 +1,137 @@
+/*generic css*/
+h1,h2,h3,h4,h5,h6,p,a{
+    font-family: Open Sans;
+}
+.user-heading h1{
+    white-space: nowrap;
+}
+.heading-0f-accordian h2{
+    margin-top: 60px;
+    font-size: 32px;
+    color: #6255a5;
+    line-height: 38px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.container-bgs-lst{
+    padding-bottom:40px; 
+}
+.card{
+    border: 1px solid #d1d1d1;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #333333;
+    position: relative;
+    top: -70px;
+    z-index: 99;
+    margin-bottom: -64px;
+    border-radius: 3px;
+}
+.msg-window{
+    height: 60px;
+    width: 100%;
+    background-color: #f3f3f3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+#collapseExample-1{
+    z-index: 10;
+     
+}
+.new-msg-window{
+    height: 60px;
+    width: 100%;
+    background-color: #f3f3f3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    z-index: 1;
+}
+.new-msg-window h5{
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.msg-window a.plus-popup{
+    border-radius: 3px;
+    display: block;
+    height: 100%;
+    z-index: 1;
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 20px;
+    color: #333333;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 18px;
+}
+.card-body strong{
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.card-body strong .minus-fade-gone{
+    padding: 20px;
+    padding-top:0;
+    padding-right: 0px;
+    cursor: pointer;
+}
+@media( max-width: 768px){
+    .user-heading h1{
+        font-size: 32px;
+    }
+}
+@media (max-width: 575.97px){
+    .heading-0f-accordian h2{
+        text-align: center;
+        font-size: 26px;
+    }
+    .new-msg-window h5, .msg-window a.plus-popup{
+        font-size: 16px;
+    }
+    .new-msg-window, .msg-window{
+        height: 45px;
+        
+    }
+    .msg-window a.plus-popup{
+        padding-top: 11px;
+    }
+    .card{
+        top: -54px;
+        font-size: 13px;
+        margin-bottom: -45px;
+    }
+    .card-body strong{
+        font-size: 16px;
+    }
+    .user-heading h1{
+        font-size: 28px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

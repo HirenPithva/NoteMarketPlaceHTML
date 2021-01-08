@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="css/dropdown/style(dropdown).css" />
+
+    <link rel="stylesheet" type="text/css" href="css/deshboard/style(desshboard).css"/>
+    <link rel="stylesheet" type="text/css" href="css/my-download/style(my-downloads).css"/>
+    
+    
+    
+    
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="css/responsive/deshboard/responsive(deshboard).css"/>
+    <style>
+        td:nth-child(5){
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span id="mobile-nav-open-bar">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="#">Search Notes</a> </li>
+                                <li class="navbar-text"><a href="#">Sell Your Notes</a></li>
+                                <li class="navbar-text"><a href="#">Buyer Requests</a></li>
+                                <li class="navbar-text"><a href="#">FAQ</a></li>
+                                <li class="navbar-text"><a href="#">Contact Us</a></li>
+                                <li class="navbar-text img-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="images/User-Profile/user-1.jpg"></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">My Profile</a>
+                                            <a class="dropdown-item" href="#">My Downloads</a>
+                                            <a class="dropdown-item" href="#">My Sold Notes</a>
+                                            <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                            <a class="dropdown-item" href="#">Change Password</a>
+                                            <a class="dropdown-item changing-color" href="#">LOGOUT</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="#">Serch Notes</a> </li>
+            <li class=""><a href="#">Sell Your Notes</a></li>
+            <li class=""><a href="#">Buyer Requests</a></li>
+            <li class=""><a href="#">FAQ</a></li>
+            <li class=""><a href="#">Contact Us</a></li>
+            <li class="img-item"><a href="#"><img class="rounded-circle" src="images/User-Profile/user-1.jpg" alt=""></a></li>
+            <li class="gayab"><a class="dro" href="#">My Profile</a></li>
+            <li class="gayab"><a class="dro" href="#">My Downloads</a></li>
+            <li class="gayab"><a class="dro" href="#">My Sold Notes</a></li>
+            <li class="gayab"><a class="dro" href="#">My Rejected Notes</a></li>
+            <li class="gayab"><a class="dro" href="#">Change Password</a></li>
+            <li class="gayab"><a class="dro" href="#">Logout</a></li>
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+
+    
+     <!--in progress notes-->
+    <section id="progress-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                   
+                   <!--heading & serch-bar-->
+                    <div class="col-md-12">
+                        <div class="w-heading-searchbar">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="small-heading">
+                                        <h5>Buyer Request</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="search-bar-in-progress-section text-right">
+                                        <input class="form-control" type="text" placeholder="search">
+                                        <button type="button" class="btn search-btn">SEARCH</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--table-->
+                    <div class="col-md-12">
+                        <div class="w-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">NOTE TITLE</th>
+                                        <th scope="col">CATEGOTY</th>
+                                        <th scope="col">BUYER</th>
+                                        <th scope="col">PHONE NO.</th>
+                                        <th scope="col">SELL TYPE</th>
+                                        <th scope="col">PRICE</th>
+                                        <th scope="col">DOWNLOAD DATE/TIME</th>
+                                        <th scope="col "><p class="my-downloads-vidiblity">eyeanddots</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover-effect">
+                                        <td>1</td>
+                                        <td>Data Science</td>
+                                        <td>science</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>paid</td>
+                                        <td>$250</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>2</td>
+                                        <td>Accounts</td>
+                                        <td>Commerce</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>3</td>
+                                        <td>Social Studies</td>
+                                        <td>Social</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>4</td>
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Paid</td>
+                                        <td>$555</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>5</td>
+                                        <td> Lorem ipsum</td>
+                                        <td>Lorem</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>6</td>
+                                        <td>Data Science</td>
+                                        <td>science</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>paid</td>
+                                        <td>$250</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+ 
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>7</td>
+                                        <td>Accounts</td>
+                                        <td>Commerce</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>8</td>
+                                        <td>Social Studies</td>
+                                        <td>Social</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>9</td>
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Paid</td>
+                                        <td>$555</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>10</td>
+                                        <td> Lorem ipsum</td>
+                                        <td>Lorem</td>
+                                        <td>testing123@gmail.com</td>
+                                        <td>+91 9854372838</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>27 Nov 2020, 11:24:34</td>
+                                        <td class="action-logo">
+                                            <img src="images/dashboard/eye.png" class="img-fluid"> 
+                                            
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/dashboard/three-dots.png" class="img-fluid"/>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Allow Download</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            </div>                    
+                        </div>
+                        
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="#" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    
+                                    <li class="page-item">
+                                        <a class="page-link first" href="#" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+       <!--jquery-->
+    <script src="javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!--bootstrap-->
+    <script src="javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="../css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="../style(user-profile).css"/>
+    <link rel="stylesheet" type="text/css" href="../admin-style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dropdown/style(dropdown).css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin/add-category.css"/>
+    
+    <!--responsive style-->
+    
+    
+   
+</head>
+
+<body>
+
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span id="mobile-nav-open-bar" class="change">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="../images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="1-deshboard.html">Deshboard</a> </li>
+                                <li class="navbar-text notes-item">
+                                
+                                    
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuforNotes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notes</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuforNotes">
+                                            <a class="dropdown-item" href="16-note-under-review.html">Notes Under Review</a>
+                                            <a class="dropdown-item" href="17-published-notes.html">Published Notes</a>
+                                            <a class="dropdown-item" href="18-download-notes.html">Downloaded Notes</a>
+                                            <a class="dropdown-item" href="19-Reject_notes.html">Rejected Notes</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                <li class="navbar-text"><a href="12-members.html">Members</a></li>
+                                <li class="navbar-text"><a href="15-spam-reports.html">Reports</a></li>
+                                <li class="navbar-text setting-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownSettingButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Setting</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownSettingButton">
+                                            <a class="dropdown-item" href="14-manage-system-configuration.html">Manage System Configuration</a>
+                                            <a class="dropdown-item" href="3-manage-adminstrator.html">Manage Administrator</a>
+                                            <a class="dropdown-item" href="4-manage-category.html">Manage Category</a>
+                                            <a class="dropdown-item" href="9-manage-type.html">Manage Type</a>
+                                            <a class="dropdown-item" href="7-manage-country.html">Manage Countries</a>
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text img-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="2-my-profile.html">Update Profile</a>
+                                            <a class="dropdown-item" href="../change-password.html">Change Password</a>
+                                            <a class="dropdown-item changing-color" href="">LOGOUT</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="1-deshboard.html">Deshboard</a> </li>
+            <li class="notes-item">
+                <a href="#">Notes</a>
+            </li>
+            <li class="notes-gayab"><a class="dro" href="16-note-under-review.html">Notes Under Review</a></li>
+            <li class="notes-gayab"><a class="dro" href="17-published-notes.html">Published Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="18-download-notes.html">Downloaded Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="19-Reject_notes.html">Rejected Notes</a></li>
+            
+            <li class=""><a href="12-members.html">Members</a></li>
+            <li class=""><a href="15-spam-reports.html">Reports</a></li>
+            <li class="setting-item">
+                <a href="#">Settings</a>    
+            </li>
+            
+            <li class="setting-gayab"><a  href="14-manage-system-configuration.html">Manage System Configuration</a></li>
+            <li class="setting-gayab"><a  href="3-manage-adminstrator.html">Manage Administrator</a></li>
+            <li class="setting-gayab"><a  href="4-manage-category.html">Manage Category</a></li>
+            <li class="setting-gayab"><a  href="9-manage-type.html">Manage Type</a></li>
+            <li class="setting-gayab"><a  href="7-manage-country.html">Manage Countries</a></li>
+            <li class="img-item">
+              
+                <a href="#">   <img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                
+            </li>
+            
+            <li class="gayab"><a class="dro" href="2-my-profile.html">Update Profile</a></li>
+            <li class="gayab"><a class="dro" href="../change-password.html">Change Password</a></li>
+            <li class="gayab"><a class="dro" href="#">Logout</a></li>
+            
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+    
+    
+
+    <section id="profile-details">
+        <div class="big-container">
+            
+            <div class="container">
+                <div class="row">
+                
+                <!--heading-->
+                <div class="col-md-12">
+                    <div class="heading-of-basics">
+
+                        <h2>Add Category</h2>
+
+                    </div>
+                </div>
+                
+                <!--first name-->
+                    <div class="col-md-6 col-sm-12">
+                        
+                        <div class="form-group">
+                            <label for="Category-Name">Category Name*</label>
+                            <input id="Category-Name" type="text" class="form-control"  placeholder="Enter Category">
+                        </div>
+                        
+                    </div>
+                </div> 
+                <div class="row">
+                    <!--last name-->
+                    <div class="col-md-6 col-sm-12">
+                        
+                        <div class="form-group">
+                            <label for="comment/question">Description*</label>
+                                <div class="w-comment">
+                                   
+                                    <textarea id="comment/question" form="add-catogory" placeholder="Enter Your Description" row="15"></textarea>
+                                </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-4 offset-4 col-md-3 offset-md-0 offset-sm-4 col-sm-4">
+                        <div class="w-submit-btn">
+                            
+                            <button class="submit-btn text-center" role="button">SUBMIT</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--jquery-->
+    <script src="../javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="../javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="../javascript/admin-navbar/admin-script.js"></script>
+</body></html>

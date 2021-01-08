@@ -1,0 +1,12 @@
+form .login-btn{
+    width: 100%;
+    margin-top: 30px;
+    background-color: #6255a5;
+    border-radius: 3px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: Open Sans;
+    line-height: 22px;
+    border-color:#6255a5;
+}

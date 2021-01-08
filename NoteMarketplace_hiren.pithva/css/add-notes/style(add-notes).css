@@ -1,0 +1,143 @@
+.custom-select{
+    border-radius: 3px;
+    font-family: Open Sans;
+    font-size: 16px;
+    background: url("../../images/User-Profile/down-arrow.png") no-repeat right 0.75rem center/18px 10px;
+    border: 1px solid #d1d1d1;
+    color: #8a8a8a; 
+   
+}
+.custom-select:invalid:focus{
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    border-color: #6255a5;
+}
+
+/*file type*/
+.container-for-relative-add-notes{
+    position: relative;
+    height: 110px;
+   
+}
+.apply-position-inboth,.costume-file-upload-class{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.costume-file-upload-class{
+    display: none;
+    
+}
+.note-preview-max-height .apply-position-inboth{
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+}
+
+.note-preview-max-height .apply-position-inboth:focus{
+    border-color: #6255a5;
+}
+.note-preview-max-height{
+    position: relative;
+   width: 100%;
+    height: 115px;
+    
+}
+.form-check{
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+}
+.label-for-radio-display{
+    display: block;
+}
+.set-height-of-description{
+    min-height: 150px!important;
+   resize: none;
+}
+.form-control{
+    color: #8a8a8a;
+}
+
+
+/*radio button*/
+.form-check{
+    
+}
+.form-check-input{
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
+        position: relative;
+    margin-right:10px;
+    margin-top: 0;
+    border: 1px solid #d1d1d1;
+}
+
+.form-check-label{
+   position: relative;
+    top: -50%;
+    transform: translateY(50%);
+}
+
+/*background-imeges*/
+.label-upload-note-preview-add-notes{
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.label-upload-note-preview-add-notes p{
+    color: #8a8a8a;
+    font-size: 12px;
+}
+.form-check-input::before{
+    content:"";
+    display: none;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 7px;
+    left: 8px;
+    background-color: #6255a5;
+}
+.form-check-input:checked:before{
+    display: block;
+}
+.form-check-input::after{
+    content: "";
+    display: none;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #6255a5;
+    background-color: transparent;
+}
+.form-check-input:checked:after{
+    display: block;
+}
+@media (max-width: 785.97px){
+    .w-submit-btn{
+        margin-top: 30px;
+    }
+} 
+text-area{
+    resize: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

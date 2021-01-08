@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="css/user-profile/style(user-profile).css"/>
+    <link rel="stylesheet" type="text/css" href="css/front-style/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/serch-note/style(serch-notes2.0).css"/>
+    
+    <!--responsive style-->
+    
+        <link rel="stylesheet" type="text/css" href="css/responsive/serch-note/responsive(serch-notes).css"/>
+    
+    <style>
+        
+        .w-comment{
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
+        textarea{
+            display: block;
+            height: 80%;
+            width: 100%;
+            border-color: #d1d1d1;
+            padding-left:8px;
+            padding-top: 2px;
+            resize:none;
+        }
+        
+        textarea:focus{
+            outline: none!important;
+            border: 1px solid #6255a5;
+        }
+        @media (max-width: 767.97px){
+            .submit-btn{
+                margin-top: 30px;
+            }
+            textarea{
+                height: 150px;
+            }
+            .heading-of-basics p{
+                text-align: center;
+                font-size: 13px;
+            }
+            .heading-of-basics h2{
+                text-align: center;
+            }
+        }
+        
+    </style>
+    
+    </head>
+<body>
+    
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span class="" id="mobile-nav-open-bar">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="#">Serch Notes</a> </li>
+                                <li class="navbar-text"><a href="#">Sell your Notes</a></li>
+                                <li class="navbar-text"><a href="#">FAQ</a></li>
+                                <li class="navbar-text"><a href="#">Contact us</a></li>
+                                
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="#">Serch Notes</a> </li>
+            <li class=""><a href="#">Sell Your Notes</a></li>
+            <li class=""><a href="#">FAQ</a></li>
+            <li class=""><a href="#">Contact Us</a></li>
+            
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+
+
+    <!--banner-->
+    <section id="user-banner">
+        <div class="w-user-banner">
+            <div class="user-heading text-center">
+                <h1>Contact Us</h1>
+            </div>
+        </div>
+        
+    </section>
+    
+    <section id="get-in-touch">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                        <div class="heading-of-basics">
+                            
+                            <h2>Get In Touch</h2>
+                            <p>Let Us know how to get back to you</p>
+                        </div>
+                        
+                    </div>
+                    
+                    <!--form-->
+                    <div class="col-md-12">
+                        
+                        <div class="row">
+                           
+                            <!--info-->
+                            <div class="col-md-6 col-sm-12">
+                                <form id="usr-form">
+                                    
+                                    <div class="form-group">
+                                        <label for="first-name">First Name*</label>
+                                        <input type="text" class="form-control" id="first-name" placeholder="Enter your first name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name*</label>
+                                        <input type="text" class="form-control" id="last-name" placeholder="Enter your last name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Subject">Subject*</label>
+                                        <input type="text" class="form-control" id="Subject" placeholder="Enter your Subject">
+                                    </div>                                    
+                                </form>
+                            </div>
+                            
+                            <!--comments-->
+                            <div class="col-md-6 col-sm-12">
+                               <label for="comment/question">Comments/Questions*</label>
+                                <div class="w-comment">
+                                   
+                                    <textarea id="comment/question" form="usr-form" placeholder="Comments.."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-2 col-4 offset-4 col-md-3 offset-md-0 offset-sm-4 col-sm-4">
+                                <div class="w-submit-btn">
+
+                                    <button class="submit-btn text-center" role="button">SUBMIT</button>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <!--footer-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--jquery-->
+    <script src="javascript/jquery/jquery.js" ></script>
+
+    <!--bootstrap-->
+    <script src="javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

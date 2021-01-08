@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="../css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="../css/note-page/style(note-page).css"/>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../admin-style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dropdown/style(dropdown).css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin/admin-deshboard.css"/>
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="../css/responsive/note-page/responsive(note-page).css"/>
+
+    
+   
+</head>
+
+<body>
+
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span id="mobile-nav-open-bar" class="change">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="../images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="1-deshboard.html">Deshboard</a> </li>
+                                <li class="navbar-text notes-item">
+                                
+                                    
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuforNotes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notes</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuforNotes">
+                                            <a class="dropdown-item" href="16-note-under-review.html">Notes Under Review</a>
+                                            <a class="dropdown-item" href="17-published-notes.html">Published Notes</a>
+                                            <a class="dropdown-item" href="18-download-notes.html">Downloaded Notes</a>
+                                            <a class="dropdown-item" href="19-Reject_notes.html">Rejected Notes</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                <li class="navbar-text"><a href="12-members.html">Members</a></li>
+                                <li class="navbar-text"><a href="15-spam-reports.html">Reports</a></li>
+                                <li class="navbar-text setting-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownSettingButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Setting</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownSettingButton">
+                                            <a class="dropdown-item" href="14-manage-system-configuration.html">Manage System Configuration</a>
+                                            <a class="dropdown-item" href="3-manage-adminstrator.html">Manage Administrator</a>
+                                            <a class="dropdown-item" href="4-manage-category.html">Manage Category</a>
+                                            <a class="dropdown-item" href="9-manage-type.html">Manage Type</a>
+                                            <a class="dropdown-item" href="7-manage-country.html">Manage Countries</a>
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text img-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="2-my-profile.html">Update Profile</a>
+                                            <a class="dropdown-item" href="../change-password.html">Change Password</a>
+                                            <a class="dropdown-item changing-color" href="">LOGOUT</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="1-deshboard.html">Deshboard</a> </li>
+            <li class="notes-item">
+                <a href="#">Notes</a>
+            </li>
+            <li class="notes-gayab"><a class="dro" href="16-note-under-review.html">Notes Under Review</a></li>
+            <li class="notes-gayab"><a class="dro" href="17-published-notes.html">Published Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="18-download-notes.html">Downloaded Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="19-Reject_notes.html">Rejected Notes</a></li>
+            
+            <li class=""><a href="12-members.html">Members</a></li>
+            <li class=""><a href="15-spam-reports.html">Reports</a></li>
+            <li class="setting-item">
+                <a href="#">Settings</a>    
+            </li>
+            
+            <li class="setting-gayab"><a  href="14-manage-system-configuration.html">Manage System Configuration</a></li>
+            <li class="setting-gayab"><a  href="3-manage-adminstrator.html">Manage Administrator</a></li>
+            <li class="setting-gayab"><a  href="4-manage-category.html">Manage Category</a></li>
+            <li class="setting-gayab"><a  href="9-manage-type.html">Manage Type</a></li>
+            <li class="setting-gayab"><a  href="7-manage-country.html">Manage Countries</a></li>
+            <li class="img-item">
+              
+                <a href="#">   <img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                
+            </li>
+            
+            <li class="gayab"><a class="dro" href="2-my-profile.html">Update Profile</a></li>
+            <li class="gayab"><a class="dro" href="../change-password.html">Change Password</a></li>
+            <li class="gayab"><a class="dro" href="#">Logout</a></li>
+            
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+    <!--note-details-->
+    <section id="note-details-deep">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    
+                    <!--heading 1-->
+                    <div class="col-md-12">
+                        <div class="w-sub-heading">
+                            <h5>Notes Details</h5>
+                        </div>
+                    </div>
+                    
+                    <!--notes details in deep-->
+                    <div class="col-md-12">
+                        <div class="w-deep-details">
+                            <div class="row">
+                                
+                                <!--cover page-->
+                                <div class=" col-lg-auto offset-lg-0 col-md-auto offset-md-0 col-sm-4 offset-sm-4 col-6 offset-3">
+                                    <div class="cover-page">
+                                        <img src="../images/Notes-Details/1.jpg" class="img-fluid">
+                                    </div>
+                                </div>
+                                
+                                <!--about book-->
+                                <div class="offset-lg-0 mr-lg-auto col-lg-4  col-md-7 offset-sm-0 col-sm-12 offset-0 col-12">
+                                    <div class="about-book">
+                                        <h4>Computer Science</h4>
+                                        <h6>Science</h6>
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quae doloribus nihil asperiores, quia itaque iure adipisci quibusdam vero nam voluptatum beatae veritatis nisi eligendi. </p>
+                                        
+                                        <div class="w-download-btn">
+                                            <a href="#" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$15</a>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-5 col-md-12">
+                                    <div class="biodata-of-note">
+                                        <p><span>Institution:</span><span class="float-right">University of California</span></p>
+                                        <p><span>country:</span><span class="float-right">United stats</span></p>
+                                        <p><span>course Name:</span><span class="float-right">Computer Engineering</span></p>
+                                        <p><span>Course code:</span><span class="float-right">248705</span></p>
+                                        <p><span>Professor:</span><span class="float-right">Mr. Richard Brown</span></p>
+                                        <p><span>Number of Pages:</span><span class="float-right">277</span></p>
+                                        <p><span>Approved Date:</span><span class="float-right">November 25 2020</span></p>
+                                        <div class="rating-span"><span><p>rating:</p></span>
+                                            <div class="float-right through-line">
+                                                <div class="rate">
+                                                                <input type="radio" id="star5-book3" name="rate" value="5" />
+                                                                <label for="star5-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book3" name="rate" value="4" />
+                                                                <label for="star4-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book3" name="rate" value="3" />
+                                                                <label for="star3-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book3" name="rate" value="2" />
+                                                                <label for="star2-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book3" name="rate" value="1" />
+                                                                <label for="star1-book3" title="text"><i class="fa fa-star"></i></label>
+                                                </div>
+                                                <p>10 reviews</p>
+                                            </div>
+                                            
+                                        </div>                                        
+                                        <p class="review">5 user mark this note as inappropriate</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--note prereview-->
+                    <div class="col-md-12 col-lg-6">
+                        <div class="w-note-preview">
+                            <div class="row">
+                                
+                                <!--heading 2-->
+                                <div class="col-md-12">
+                                    <div class="w-sub-heading">
+                                        <h5>Note preview</h5>
+                                    </div>
+                                </div>
+                                
+                                <!-- responsive iframe -->
+                                    <!-- ============== -->
+                                <div class="col-md-12">
+                                    
+
+                                    <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
+                                        <div class="responsive-wrapper responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: hidden ">
+                                            <iframe src="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">
+                                                
+                                            </iframe>
+                                        </div>
+                                    </div>
+
+                                </div>  
+                                
+                                
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    <!--costumer review-->
+                    <div class="col-md-12 col-lg-6">
+                        <div class="w--costumer-review">
+                            <div class="row">
+                                
+                                <!--heading 3-->
+                                <div class="col-md-12">
+                                    <div class="w-sub-heading">
+                                        <h5>costumer Reviews</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="w-costumer-content">
+                                        <div class="row no-gutters">
+                                           
+                                           <!--constumer-1-->
+                                            <div class="col-md-12">
+                                               <div class="througn-into-flex">
+                                                <div class="w-costumer-img">
+                                                    <img src="../images/costumer/team-5.jpg" class="rounded-circle">
+                                                </div>
+
+
+
+                                                <div class="w-coment">
+                                                    <h6>Richard brown</h6>
+                                                    <div class="star">
+                                                        <div class="rate">
+                                                            <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                            <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                            <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                            <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                            <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                            <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                        </div>
+                                                    </div>
+                                                    <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. consectetur adipisicing elit. Lorem ipsum dolor. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                            <hr>
+                                            
+                                            <!--constumer-2-->
+                                            <div class="col-md-12">
+                                               <div class="througn-into-flex">
+                                                <div class="w-costumer-img">
+                                                    <img src="../images/costumer/team-5.jpg" class="rounded-circle">
+                                                </div>
+
+
+
+                                                <div class="w-coment">
+                                                    <h6>Richard brown</h6>
+                                                    <div class="star">
+                                                        <div class="rate">
+                                                            <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                            <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                            <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                            <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                            <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                            <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                        </div>
+                                                    </div>
+                                                    <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing. consectetur adipisicing elit. Ea praesentiu, </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                            <hr> 
+                                            
+                                            <!--constumer-3-->
+                                        <div class="col-md-12">
+
+                                            <div class="througn-into-flex">
+                                                <div class="w-costumer-img">
+                                                    <img src="../images/costumer/team-5.jpg" class="rounded-circle">
+                                                </div>
+
+
+
+                                                <div class="w-coment">
+                                                    <h6>Richard brown</h6>
+                                                    <div class="star">
+                                                        <div class="rate">
+                                                            <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                            <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                            <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                            <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                            <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                            <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                        </div>
+                                                    </div>
+                                                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+    </section>
+
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="varified-img text-center img-fluid">
+                        <img src="../images/Notes-Details/SUCCESS.png" class="mx-auto">
+                        <h5>Thank you for Purchasing</h5>
+                    </div>
+                    <div class="message">
+                        <h6>Dear Smith,</h6>
+                        <p class="first">As this is paid notes - you need to pay to seller rahil shah offline. we will send him an email that you want to download this note. he may contact you further for payment process completion.</p>
+                        
+                        <p>incase, you have urgency,</p>
+                        <p>Please contact us on +919537784614.</p>
+                        
+                        <p>once he receives the payment and acknoeledge us - selected notes you can see over my downloads tab for download.</p>
+                        
+                        <p class="last">have a good day.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>    
+    </div>
+    
+
+
+
+    <!--jquery-->
+    <script src="../javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="../javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="../javascript/admin-navbar/admin-script.js"></script>
+</body></html>

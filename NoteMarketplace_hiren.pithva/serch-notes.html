@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="css/user-profile/style(user-profile).css"/>
+    
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="css/responsive/user-profile/responsive(user-profile).css"/>
+     <link rel="stylesheet" type="text/css" href="css/serch-note/style(serch-notes2.0).css"/>
+
+        <link rel="stylesheet" type="text/css" href="css/responsive/serch-note/responsive(serch-notes).css"/>
+    
+    </head>
+<body>
+    
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span id="mobile-nav-open-bar">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="#">Search Notes</a> </li>
+                                <li class="navbar-text"><a href="#">Sell Your Notes</a></li>
+                                <li class="navbar-text"><a href="#">FAQ</a></li>
+                                <li class="navbar-text"><a href="#">Contact Us</a></li>
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="#">Serch Notes</a> </li>
+            <li class=""><a href="#">Sell Your Notes</a></li>
+            <li class=""><a href="#">FAQ</a></li>
+            <li class=""><a href="#">Contact Us</a></li>
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+
+    <!--banner-->
+    <section id="user-banner">
+        <div class="w-user-banner">
+            <div class="user-heading text-center">
+                <h1>Serch Notes</h1>
+            </div>
+        </div>
+        
+    </section>
+    
+    <!--serch bar-->
+    <section id="serch-bar">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                   
+                    <!--heading-->
+                    <div class="col-md-12">
+                        <div class="top-left-hading">
+                            <h5>Serch and Filter notes</h5>
+                        </div>
+                    </div>
+                    
+                    <!--serch bar and filter-->
+                    <div class="col-md-12">
+                        <div class="w-serch-filter">
+                            <div class="row">
+                                
+                                <!--serch pannle-->
+                                <div class="col-md-12">
+                                    <div class="w-serch-pannle">
+                                        <input type="text" class="form-control" id="validationDefault01" placeholder="Serch notes here" value="" required>
+                                    </div>
+                                </div>
+                                
+                                <!--filter pannle 1-->
+                                <div class="col-md-12">
+                                <div class="w-filter-pannle">
+                                    <div class="row">
+
+                                        <div class="col-md-4 col-6 col-lg-2">
+                                            <select class="custom-select" id="validationDefault02" required>
+                                                <option selected disabled value="">select type</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+                                        <!--filter pannle 2-->
+                                        <div class="col-md-4 col-lg-2 col-6">
+                                            <select class="custom-select" id="validationDefault03" required>
+                                                <option selected disabled value="">select category</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+                                        <!--filter pannle 3-->
+                                        <div class="col-md-4 col-lg-2 col-6">
+                                            <select class="custom-select" id="validationDefault04" required>
+                                                <option selected disabled value="">Select university</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+                                        <!--filter pannle 4-->
+                                        <div class="col-md-4 col-lg-2 col-6">
+                                            <select class="custom-select" id="validationDefault05" required>
+                                                <option selected disabled value="">Select course</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+                                        <!--filter pannle 5-->
+                                        <div class="col-md-4 col-lg-2 col-6">
+                                            <select class="custom-select" id="validationDefault06" required>
+                                                <option selected disabled value="">Select country</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+                                        <!--filter pannle 6-->
+                                        <div class="col-md-4 col-lg-2 col-6">
+                                            <select class="custom-select" id="validationDefault07" required>
+                                                <option selected disabled value="">Select rating</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+                                </div> 
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--section slider-->    
+    <section id="notes-slider">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    
+                    <!--heading-->
+                    <div class="col-md-12">
+                        <div class="top-left-hading">
+                            <h5>Top 18 notes</h5>
+                        </div>
+                    </div>
+                    
+                    <!--notes-->
+                    <div class="col-md-12">
+                        <div class="w-notes-container">
+                           
+                            <!--slide 01-->
+                            <div class="w-notes-slide">
+                                <div class="row justify-content-sm-center">
+                                   
+                                    <!--note 01-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/1.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>computer operating system - Final Exam Book With Paper Solution</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5" name="rate" value="5" />
+                                                                <label for="star5" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4" name="rate" value="4" />
+                                                                <label for="star4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3" name="rate" value="3" />
+                                                                <label for="star3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2" name="rate" value="2" />
+                                                                <label for="star2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1" name="rate" value="1" />
+                                                                <label for="star1" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 02-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/2.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>Computer Science</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book2" name="rate" value="5" />
+                                                                <label for="star5-book2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book2" name="rate" value="4" />
+                                                                <label for="star4-book2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book2" name="rate" value="3" />
+                                                                <label for="star3-book2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book2" name="rate" value="2" />
+                                                                <label for="star2-book2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book2" name="rate" value="1" />
+                                                                <label for="star1-book2" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 03-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/3.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>Basics computer Engineering Tech India Publication Series</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book3" name="rate" value="5" />
+                                                                <label for="star5-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book3" name="rate" value="4" />
+                                                                <label for="star4-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book3" name="rate" value="3" />
+                                                                <label for="star3-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book3" name="rate" value="2" />
+                                                                <label for="star2-book3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book3" name="rate" value="1" />
+                                                                <label for="star1-book3" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 04-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/4.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>Computer Science  Illuminated - Seventh Edition</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book4" name="rate" value="5" />
+                                                                <label for="star5-book4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book4" name="rate" value="4" />
+                                                                <label for="star4-book4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book4" name="rate" value="3" />
+                                                                <label for="star3-book4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book4" name="rate" value="2" />
+                                                                <label for="star2-book4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book4" name="rate" value="1" />
+                                                                <label for="star1-book4" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 05-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/5.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>The Principles of Computer Hardware - Oxford</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5" name="rate" value="5" />
+                                                                <label for="star5" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4" name="rate" value="4" />
+                                                                <label for="star4" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3" name="rate" value="3" />
+                                                                <label for="star3" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2" name="rate" value="2" />
+                                                                <label for="star2" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1" name="rate" value="1" />
+                                                                <label for="star1" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 06-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/6.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>The Conmputer Book</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book6" name="rate" value="5" />
+                                                                <label for="star5-book6-book6" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book6" name="rate" value="4" />
+                                                                <label for="star4-book6" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book6" name="rate" value="3" />
+                                                                <label for="star3-book6" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book6" name="rate" value="2" />
+                                                                <label for="star2-book6" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book6" name="rate" value="1" />
+                                                                <label for="star1-book6" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 07-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/1.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>computer operating system - Final Exam Book With Paper Solution</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book7" name="rate" value="5" />
+                                                                <label for="star5-book7" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book7" name="rate" value="4" />
+                                                                <label for="star4-book7" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book7" name="rate" value="3" />
+                                                                <label for="star3-book7" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book7" name="rate" value="2" />
+                                                                <label for="star2-book7" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book7" name="rate" value="1" />
+                                                                <label for="star1-book7" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 08-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/2.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>Computer Science</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book8" name="rate" value="5" />
+                                                                <label for="star5-book8" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book8" name="rate" value="4" />
+                                                                <label for="star4-book8" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book8" name="rate" value="3" />
+                                                                <label for="star3-book8" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book8" name="rate" value="2" />
+                                                                <label for="star2-book8" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book8" name="rate" value="1" />
+                                                                <label for="star1-book8" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!--note 09-->
+                                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                                        <div class="w-note-content">
+                                            <img src="images/serch-notes/3.jpg" class="img-fluid">
+                                            
+                                                <div class="w-note-details">
+                                                    <div class="row no-gutters">
+
+                                                        <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="w-note-heading">
+                                                                <h6>Basics computer Engineering Tech India Publication Series</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>University of California,US</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>204 Pages</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p>Thu, Nov 26 2020</p>
+                                                        </div>
+
+                                                        <div class="col-md-1 col-sm-1 col-1"><img src="images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                                        <div class="col-md-11 col-sm-11 col-11">
+                                                            <p class="warning-msg">5 Users marked this note as inappropriate</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-auto col-sm-auto col-auto">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5-book9" name="rate" value="5" />
+                                                                <label for="star5-book9" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star4-book9" name="rate" value="4" />
+                                                                <label for="star4-book9" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star3-book9" name="rate" value="3" />
+                                                                <label for="star3-book9" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star2-book9" name="rate" value="2" />
+                                                                <label for="star2-book9" title="text"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" id="star1-book9" name="rate" value="1" />
+                                                                <label for="star1-book9" title="text"><i class="fa fa-star"></i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
+                                                    </div>
+
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!--slide 02-->
+                            <div class="w-notes-slide">
+                                <div class="row">
+                                
+                                </div>
+                            </div>
+                            
+                            <!--slide 03-->
+                            <div class="w-notes-slide">
+                                <div class="row">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link first" href="#" aria-label="Previous">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                            <li class="page-item">
+                                <a class="page-link first" href="#" aria-label="Next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        </nav>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--jquery-->
+    <script src="javascript/jquery/jquery.js" ></script>
+
+    <!--bootstrap-->
+    <script src="javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+.hover-effect img{
+    
+}
+.hover-effect i{
+    color: #8a8a8a;
+    padding-left: 15px;
+    font-size: 18px;
+}
+.hover-effect{
+    padding-right: 0;
+}
+.action-logo i{
+    color: #d1d1d1;
+}
+
+.action-logo img{
+    height: 15px;
+    width: 35px;
+    display: inline-block;
+}
+
+.pagination{
+    margin-bottom: 50px;
+}
+th{
+    white-space: nowrap;
+    font-size: 14px;
+    height: 30px;
+}
+td:nth-child(2){
+    color: #6255a5;
+}
+.w-table{
+    overflow: visible!important;
+}
+
+.dropdown{
+    display: inline-block;
+}
+
+.temp{
+    overflow: visible!important;
+}
+.w-model-add-review .modal{
+    margin-top: 200px;
+}
+.small-heading{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+.small-heading h5{
+    font-size: 30px;
+    margin-top: 0;
+}
+/*modal*/
+.modal-header{
+    border-bottom: 0px;
+    padding-top: 0;
+}
+.modal-footer{
+    border-top:0px;
+    justify-content: flex-start;
+}
+.modal-footer .submit-btn{
+    width: 150px;
+    font-family: Open Sans;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+.modal-content{
+    padding-left:30px;
+    padding-right: 30px;
+    padding-top: 25px;
+}
+.modal-title{
+    color: #6255a5;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Open Sans;
+}
+.close{
+    padding-top: 0;
+    position: relative;
+}
+.close span{
+    font-size: 40px;
+    font-weight: 300;
+    color: #8a8a8a;
+    position: absolute;
+    top: -20%;
+}
+.close span:focus{
+    border-style: none;
+}
+.form-group{
+    float:left;
+    margin-top: 30px;
+    margin-bottom: 0;
+    width: 100%;
+}
+.form-group textarea{
+    width: 100%;
+}
+.form-group label{
+    color: #333333;
+    
+    font-family: Open Sans;
+    font-weight: 600;
+}
+
+/*rating*/
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+    margin-left: -10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:40px;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:35px;
+    color:#ccc;
+    margin-right: 10px;
+}
+.rate:not(:checked) > label:before {
+    
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.my-downloads-vidiblity{
+   visibility: hidden;
+}
+
+@media (max-width: 767.97px){
+    .action-logo img{
+        width: 30px;
+        height: 12px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

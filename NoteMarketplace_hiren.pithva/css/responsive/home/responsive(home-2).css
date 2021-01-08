@@ -1,0 +1,527 @@
+/*learge device*/
+@media (min-width: 1250px) and (max-width: 1377px) {
+    .main-heading h1 {
+        font-size: 45px;
+
+    }
+}
+
+@media(min-width:1200px) and (max-width: 1249.97px) {
+    .main-heading h1 {
+        font-size: 42px;
+
+    }
+
+    .w-costumer-photo-content {
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1199.97px) {
+    .main-heading h1 {
+        font-size: 39px;
+    }
+
+    .main-heading p {
+        font-size: 16px;
+    }
+
+    .w-costumer-photo-content {
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1099.97px) {
+    .main-heading h1 {
+        font-family: open sans;
+        font-size: 35px;
+        font-weight: 700;
+        margin: 10px auto;
+        line-height: 52px;
+    }
+
+    .main-heading p {
+        font-size: 16px;
+
+    }
+
+    .main-heading-btn a {
+        padding-top: 3px;
+
+        width: 142px;
+        height: 35px;
+
+        line-height: 22px;
+
+        font-size: 16px;
+
+    }
+
+    .w-costumer-photo-content {
+        margin-left: 5px;
+    }
+}
+
+
+
+
+@media (min-width: 992px) and (max-width:1199.97px) {
+    .new-constumer-details h4 {
+        font-size: 20px;
+        color: #6255a5;
+        line-height: 28px;
+        margin-bottom: 0;
+        margin-top: 4px;
+    }
+
+    .new-constumer-details p {
+        font-size: 14px;
+        line-height: 30px;
+        color: #333333;
+        margin-top: 0;
+    }
+    
+
+
+
+    /*about*/
+    .center-heading h2,
+    .w-about .left-about h2 {
+        font-size: 29px;
+    }
+
+    .w-about .right-about p {
+        font-size: 14px;
+    }
+
+    .w-about .right-about p.f {
+        margin-bottom: 25px;
+    }
+
+
+
+    /*work*/
+    .w-work-content h4 {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    .w-work-content p {
+        font-size: 14px;
+    }
+
+    .w-work .main-heading-btn a {
+        width: 142px;
+        height: 30px;
+        line-height: 22px;
+        font-style: 700;
+        font-size: 14px;
+        padding-top: 3px;
+        margin-top: 10px;
+    }
+
+    .w-work .sell-btn a {
+        width: 110px;
+    }
+
+    .work-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+    }
+
+
+
+    /*coatumer*/
+    .w-costumer-content img {
+        height: 65px;
+        width: 65px;
+    }
+
+    .w-costumer-photo-content h4 {
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .w-costumer-photo-content p {
+        font-size: 11px;
+    }
+
+    .w-costumer-bottom-content p {
+        font-size: 14px;
+        line-height: 22px;
+        margin: 0;
+    }
+
+    .w-costumer-content {
+        padding: 20px
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.97px) {
+    
+    .new-constumer-details h4 {
+        font-size: 18px;
+        color: #6255a5;
+        line-height: 24px;
+        margin-bottom: 0;
+        
+    }
+
+    .new-constumer-details p {
+        font-size: 12px;
+        line-height: 28px;
+        color: #333333;
+        margin-top: 0;
+    }
+    
+    .main-heading h1 {
+        font-size: 27px;
+        line-height: 34px;
+    }
+
+    .main-heading {
+        top: 350px;
+    }
+
+    .main-heading p {
+        font-size: 12px;
+        line-height: 18px
+    }
+
+    .main-heading-btn a {
+
+        width: 132px;
+        height: 26px;
+        line-height: 20px;
+        font-style: 700;
+        font-size: 12px;
+    }
+
+    .w-about .left-about h2 {
+        font-size: 21px;
+    }
+
+
+    .center-heading h2 {
+        font-size: 28px;
+    }
+
+    .w-about .right-about p {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .w-about .right-about p.f {
+        margin-bottom: 20px;
+    }
+    
+    /*work*/
+    .w-work-content h4 {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    .w-work-content p {
+        font-size: 14px;
+    }
+
+    .w-work .main-heading-btn a {
+        width: 142px;
+        height: 30px;
+        line-height: 22px;
+        font-style: 700;
+        font-size: 14px;
+        padding-top: 3px;
+        margin-top: 10px;
+    }
+
+    .w-work .sell-btn a {
+        width: 110px;
+    }
+
+    .work-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+    }
+    
+    /*costumer*/
+    .w-costumer-content img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .w-costumer-photo-content h4 {
+        margin-top: -3px;
+        padding-top: 0;
+        font-size: 17px;
+        line-height: 17px;
+    }
+
+    .w-costumer-photo-content p {
+        font-size: 11px;
+    }
+
+    .w-costumer-bottom-content p {
+        font-size: 13px;
+        line-height: 20px;
+       
+    }
+
+    .w-costumer-content {
+        padding: 20px 15px
+    }
+
+    .w-costumer-photo-content {
+        margin-left: 0px;
+        padding-left: 1px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.97px) {
+    .main-heading {
+        top: 300px;
+    }
+    .new-constumer-details h4 {
+        font-size: 18px;
+        color: #6255a5;
+        line-height: 24px;
+        margin-bottom: 0;
+        
+    }
+    .w-costumer-bottom-content p {
+        font-size: 13px;
+        line-height: 20px;
+        
+    }
+    .new-img-content img{
+        height: 50px;
+        width: 50px;
+    }
+    .new-constumer-details p {
+        font-size: 12px;
+        line-height: 28px;
+        color: #333333;
+        margin-top: 0;
+    }
+    .main-heading h1 {
+        font-size: 23px;
+        line-height: 34px;
+    }
+
+    .main-heading p {
+        font-size: 11px;
+        line-height: 18px;
+        margin-bottom: 15px;
+    }
+
+    .main-heading-btn a {
+
+        width: 132px;
+        height: 30px;
+        line-height: 20px;
+        font-style: 700;
+        font-size: 13px;
+    }
+
+    .w-about .left-about h2 {
+        font-size: 23px;
+        text-align: center;
+        line-height: 30px;
+        margin-bottom: 30px;
+    }
+
+    .center-heading h2 {
+        font-size: 23px;
+    }
+
+    .w-about .right-about p {
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center
+    }
+
+    .w-about .right-about p.f {
+        margin-bottom: 30px;
+    }
+
+    .w-banner,
+    .w-about,
+    .w-costumer {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .w-costumer-photo-content {
+        margin-left: 5px;
+        padding-left: 0px;
+    }
+    .w-costumer-content img{
+       
+    }
+    /*work*/
+    .w-work-content h4 {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    .w-work-content p {
+        font-size: 14px;
+    }
+
+    .w-work .main-heading-btn a {
+        width: 142px;
+        height: 30px;
+        line-height: 22px;
+        font-style: 700;
+        font-size: 14px;
+        padding-top: 3px;
+        margin-top: 10px;
+    }
+
+    .w-work .sell-btn a {
+        width: 110px;
+    }
+
+    .work-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        
+    }
+    
+    /*footer*/
+    footer p{
+        text-align: center;
+        float: none;
+        margin-bottom: 4px;
+    }
+    .footer-icon{
+        float: none;
+        text-align: center;
+    }
+    .w-footer {
+        margin: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+}
+
+@media (max-width: 575.97px) {
+    .main-heading {
+        top: 350px;
+    }
+    .new-constumer-details h4 {
+        font-size: 18px;
+        color: #6255a5;
+        line-height: 24px;
+        margin-bottom: 0;
+        
+    }
+    .w-costumer-bottom-content p {
+        font-size: 13px;
+        line-height: 20px;
+        
+    }
+    .new-img-content img{
+        height: 50px;
+        width: 50px;
+    }
+    .new-constumer-details p {
+        font-size: 12px;
+        line-height: 28px;
+        color: #333333;
+        margin-top: 0;
+    }
+    
+    .main-heading h1 {
+        font-size: 26px;
+        line-height: 34px;
+        text-align: center;
+    }
+
+    .main-heading p {
+        margin-left: -40px;
+        margin-right: -40px;
+        font-size: 11px;
+        line-height: 18px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .main-heading-btn a {
+        margin: 0 auto;
+        width: 132px;
+        height: 30px;
+        line-height: 20px;
+        font-style: 700;
+        font-size: 13px;
+    }
+
+
+    .w-about .left-about h2 {
+        font-size: 23px;
+        text-align: center;
+        line-height: 30px;
+        margin-bottom: 30px;
+    }
+
+    .center-heading h2 {
+        font-size: 23px;
+    }
+
+    .w-about .right-about p {
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
+    }
+
+
+    /*work*/
+    .w-work-content h4 {
+        font-size: 16px;
+        margin-bottom: 2px;
+        margin-top: 10px;
+    }
+
+    .w-work-content p {
+        font-size: 13px;
+    }
+
+    .w-work .main-heading-btn a {
+        width: 112px;
+        height: 30px;
+        line-height: 22px;
+        font-style: 700;
+        font-size: 13px;
+        padding-top: 3px;
+        margin-top: 0px;
+    }
+
+    .w-work .sell-btn a {
+        width: 100px;
+    }
+
+    .work-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+    }
+    /*footer*/
+    footer p{
+        text-align: center;
+        float: none;
+        margin-bottom: 4px;
+    }
+    .footer-icon{
+        float: none;
+        text-align: center;
+    }
+    .w-footer {
+        margin: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+}

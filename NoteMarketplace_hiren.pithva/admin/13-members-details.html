@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="../css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="../admin-style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dropdown/style(dropdown).css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin/admin-deshboard.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin/member-details.css"/>
+    <!--responsive style-->
+    
+    
+   
+</head>
+
+<body>
+
+    <!--header-->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+            
+                <div class="w-navbar">
+                   
+                    <div class="navbar-header">
+                      
+                        <span id="mobile-nav-open-bar" class="change">
+                           <hr>
+                        </span> 
+                       <!--brand logo--> 
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="../images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+                    
+                    
+                       
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
+                                
+                                <li class="navbar-text"><a href="1-deshboard.html">Deshboard</a> </li>
+                                <li class="navbar-text notes-item">
+                                
+                                    
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="" id="dropdownMenuforNotes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notes</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuforNotes">
+                                            <a class="dropdown-item" href="16-note-under-review.html">Notes Under Review</a>
+                                            <a class="dropdown-item" href="17-published-notes.html">Published Notes</a>
+                                            <a class="dropdown-item" href="18-download-notes.html">Downloaded Notes</a>
+                                            <a class="dropdown-item" href="19-Reject_notes.html">Rejected Notes</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                <li class="navbar-text"><a href="12-members.html">Members</a></li>
+                                <li class="navbar-text"><a href="15-spam-reports.html">Reports</a></li>
+                                <li class="navbar-text setting-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownSettingButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Setting</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownSettingButton">
+                                            <a class="dropdown-item" href="14-manage-system-configuration.html">Manage System Configuration</a>
+                                            <a class="dropdown-item" href="3-manage-adminstrator.html">Manage Administrator</a>
+                                            <a class="dropdown-item" href="4-manage-category.html">Manage Category</a>
+                                            <a class="dropdown-item" href="9-manage-type.html">Manage Type</a>
+                                            <a class="dropdown-item" href="7-manage-country.html">Manage Countries</a>
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text img-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="2-my-profile.html">Update Profile</a>
+                                            <a class="dropdown-item" href="../change-password.html">Change Password</a>
+                                            <a class="dropdown-item changing-color" href="">LOGOUT</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+            </nav>
+        
+    </header>
+    <section id="mobile-menu">
+        <ul class="nav">
+                                
+            <li class=""><a href="1-deshboard.html">Deshboard</a> </li>
+            <li class="notes-item">
+                <a href="11-note-details.html">Notes</a>
+            </li>
+            <li class="notes-gayab"><a class="dro" href="16-note-under-review.html">Notes Under Review</a></li>
+            <li class="notes-gayab"><a class="dro" href="17-published-notes.html">Published Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="18-download-notes.html">Downloaded Notes</a></li>
+            <li class="notes-gayab"><a class="dro" href="19-Reject_notes.html">Rejected Notes</a></li>
+            
+            <li class=""><a href="12-members.html">Members</a></li>
+            <li class=""><a href="15-spam-reports.html">Reports</a></li>
+            <li class="setting-item">
+                <a href="#">Settings</a>    
+            </li>
+            
+            <li class="setting-gayab"><a  href="14-manage-system-configuration.html">Manage System Configuration</a></li>
+            <li class="setting-gayab"><a  href="3-manage-adminstrator.html">Manage Administrator</a></li>
+            <li class="setting-gayab"><a  href="4-manage-category.html">Manage Category</a></li>
+            <li class="setting-gayab"><a  href="9-manage-type.html">Manage Type</a></li>
+            <li class="setting-gayab"><a  href="7-manage-country.html">Manage Countries</a></li>
+            <li class="img-item">
+              
+                <a href="#">   <img class="img-fluid rounded-circle" src="../images/User-Profile/user-1.jpg"></a>
+                
+            </li>
+            
+            <li class="gayab"><a class="dro" href="2-my-profile.html">Update Profile</a></li>
+            <li class="gayab"><a class="dro" href="../change-password.html">Change Password</a></li>
+            <li class="gayab"><a class="dro" href="#">Logout</a></li>
+            
+            <li class="logout-btn"><a href="#">Logout</a></li>
+                                
+        </ul>
+    </section>
+    
+    <section id="admin-deshboard-details">
+        <div class="container-bga">
+            <div class="container">
+                <div class="row">
+                   
+                   <!--heading-->
+                    <div class="col-md-12">
+                        <div class="w-admin-deshboard-heading">
+                            <h4>Member Details</h4>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-12">
+                        <div class="w-img-members-details">
+                           <div class="img-of-member-with-detials">
+                                <img src="../images/costumer/team-2.jpg" class="img-fluid" alt="">
+                           </div>
+                            <div class="detailsOfMembers">
+                                <div class="main-details-of-members">
+                                    <div class="right-side-details-members">
+                                        <p><span>First Name:</span>                 <span>Richard</span></p>
+                                        <p><span>Last Name:</span>                 <span>Brown</span></p>
+                                        <p><span>Email:</span>                          <span>Richardbrown77@gmail.com</span></p>
+                                        <p><span>DOB:</span>                           <span>13-0801990</span></p>
+                                        <p><span>Phone Number:</span>        <span>9988746577</span></p>
+                                        <p><span>college/university:</span>    <span>university of California</span></p>
+                                    </div>
+                                </div>
+                                <div class="other-details-of-members">
+                                    <div class="right-side-details-members">
+                                        <p><span>Address 1:</span>                 <span>144-Diamond Height</span></p>
+                                        <p><span>Address 2:</span>                  <span>Star Colony</span></p>
+                                        <p><span>City:</span>                             <span>New York</span></p>
+                                        <p><span>State:</span>                          <span>New York State</span></p>
+                                        <p><span>Country:</span>                    <span>United State</span></p>
+                                        <p><span>zip Code:</span>                   <span>11004-05</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <!--published notes-->
+    <section id="published-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-heading-searchbar">
+                            
+                            <div class="small-heading">
+                                <h5>Notes</h5>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--table-->
+                    <div class="col-md-12">
+                        <div class="w-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">NOTE TITLE</th>
+                                        <th scope="col">CATEGOTY</th>
+                                        <th scope="col">STATUS</th>
+                                        <th scope="col">DOWNLOAD NOTESS</th>
+                                        <th scope="col">TOTAL EARNINGS</th>
+                                        <th scope="col">DATE ADDED</th>
+                                        <th scope="col">PUBLISH DATE</th>
+                                        <th scope="col" class="footag"><p>do</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover-effect">
+                                        <td>1</td>
+                                        <td>Software Devlopment</td>
+                                        <td>IT</td>
+                                        <td>Published</td>
+                                        <td>22</td>
+                                        <td>$204</td>
+                                        <td>09-10-2020, 10:10</td>
+                                        <td>09-10-2020, 10:10</td>
+                                        <td class="action-logo">
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="../images/dashboard/three-dots.png" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Download Note</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>2</td>
+                                        <td>Computer Basic</td>
+                                        <td>Computer</td>
+                                        <td>Published</td>
+                                        <td>4</td>
+                                        <td>$378</td>
+                                        <td>10-10-2020, 12:30</td>
+                                        <td>10-10-2020, 12:30</td>
+                                        <td class="action-logo ">
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="../images/dashboard/three-dots.png" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Download Note</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>3</td>
+                                        <td>Human Body</td>
+                                        <td>Science</td>
+                                        <td>In Review</td>
+                                        <td>28</td>
+                                        <td>$923</td>
+                                        <td>11-10-2020, 01:00</td>
+                                        <td>11-10-2020, 01:00</td>
+                                        <td class="action-logo">
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="../images/dashboard/three-dots.png" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Download Note</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>4</td>
+                                        <td>World War 2</td>
+                                        <td>History</td>
+                                        <td>Published</td>
+                                        <td>28</td>
+                                        <td>$15254</td>
+                                        <td>12-10-2020,10:10</td>
+                                        <td>12-10-2020,10:10</td>
+                                        <td class="action-logo ">
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="../images/dashboard/three-dots.png" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Download Note</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover-effect">
+                                        <td>5</td>
+                                        <td>Accounting</td>
+                                        <td>Account</td>
+                                        <td>Published</td>
+                                        <td>0</td>
+                                        <td>$69</td>
+                                        <td>13-10-2020,11:25</td>
+                                        <td>NA</td>
+                                        <td class="action-logon  j">
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="../images/dashboard/three-dots.png" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Download Note</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>                    
+                        </div>
+                        
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="#" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    
+                                    <li class="page-item">
+                                        <a class="page-link first" href="#" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!--jquery-->
+    <script src="../javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="../javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="../javascript/admin-navbar/admin-script.js"></script>
+</body></html>
