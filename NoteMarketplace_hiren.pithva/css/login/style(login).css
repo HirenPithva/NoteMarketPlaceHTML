@@ -52,7 +52,7 @@ h1,h2,h3,h4,h5,h6,p,label{
     border-radius: 3px;
     height: 100%;
     width: 100%;
-    padding: 35px 40px 0px 40px;
+    padding: 35px 40px 30px 40px;
 }
 
 .center-heading h2{
@@ -60,6 +60,7 @@ h1,h2,h3,h4,h5,h6,p,label{
     color: #6255a5;
     font-weight: 600;
     line-height: 38px;
+    white-space: nowrap;
 }
 .center-heading p{
     font-size: 15px;

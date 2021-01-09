@@ -63,3 +63,45 @@
         text-align: center;
     }
 }
+
+@media (max-width: 450.97px){
+    .w-note-details{
+        width: auto;
+    }
+    .w-note-details p{
+        margin-top: 6px;
+    }
+    p.review {
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    .top-left-hading{
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

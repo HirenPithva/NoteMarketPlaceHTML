@@ -285,11 +285,11 @@ th:nth-child(1), th:nth-child(4), th:nth-child(5), th:nth-child(9), td:nth-child
         width:100%;
     }
     .search-bar-in-progress-section a.search-btn{
-         margin-bottom: 15px;
+         
         margin-right: 0;
     }
     .search-bar-in-progress-section input{
-        margin-bottom: 15px;
+    
         width: 76%;
     }
     .custom-select{
@@ -305,7 +305,18 @@ th:nth-child(1), th:nth-child(4), th:nth-child(5), th:nth-child(9), td:nth-child
         text-align: center;
     }
 }
-
+@media (max-width: 450px){
+    .search-bar-in-progress-section input{
+        margin-right: 3%;
+        width: 65%;
+        margin-left: 0;
+    }
+    .search-bar-in-progress-section a.search-btn{
+        margin-right: 0;
+        margin-left:3%;
+        width: 25%;
+    }
+}
 
 
 
