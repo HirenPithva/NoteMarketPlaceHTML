@@ -306,7 +306,8 @@ footer .w-footer{
         width: 0%;
         background-color: rgba(230,230,230,0.9);
         z-index: 5;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y:visible;
         transition: all 400ms ease-in-out;
     }
     #mobile-menu ul{
