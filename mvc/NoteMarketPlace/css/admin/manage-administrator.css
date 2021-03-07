@@ -1,0 +1,94 @@
+.container-bgs{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.w-heading-searchbar{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.w-heading-searchbar .w-adminManagebtn-serchbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+a.manage-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: Open Sans;
+    font-size: 18px;
+    background-color: #6255a5;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 3px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.search-bar-in-progress-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+td{
+    text-align: left;
+}
+th:nth-child(1), th:nth-child(4), th:nth-child(5), th:nth-child(9), td:nth-child(1), td:nth-child(4), td:nth-child(5), td:nth-child(9){
+    text-align: left;
+}
+th:nth-child(1), th:nth-child(7), th:nth-child(8), td:nth-child(1), td:nth-child(7), td:nth-child(8){
+    text-align: center;
+}
+.w-seperate-images-for{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.w-seperate-images-for img{
+    margin: 5px;
+}
+@media (max-width: 768.97px){
+    .w-heading-searchbar .w-adminManagebtn-serchbar{
+        flex-direction: column;
+        align-items: center;
+    }
+    .w-heading-searchbar .w-adminManagebtn-serchbar a.manage-btn{
+        align-self: center;
+    }
+    .w-admin-deshboard-heading{
+        align-self: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

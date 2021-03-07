@@ -1,0 +1,208 @@
+﻿@model IEnumerable<NoteMarketPlace.viewModel.BuyerRequestViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/deshboard/style(desshboard).css" />
+    <link rel="stylesheet" type="text/css" href="/css/my-download/style(my-downloads).css" />
+
+
+
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/deshboard/responsive(deshboard).css" />
+    <style>
+        td:nth-child(5) {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--header-->
+
+    @Html.Partial("_navabrAuthenticat")
+
+    <!--in progress notes-->
+    @using (Html.BeginForm("ByuerRequest", "Home", FormMethod.Get))
+    {
+        <section id="progress-notes">
+            <div class="container-bgs">
+                <div class="container">
+                    <div class="row">
+
+                        <!--heading & serch-bar-->
+                        <div class="col-md-12">
+                            <div class="w-heading-searchbar">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="small-heading">
+                                            <h5>Buyer Request</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="search-bar-in-progress-section text-right">
+                                            @*<input class="form-control" type="text" placeholder="search">*@
+                                            @Html.TextBox("searchtext", null, new { @placeholder = "Search", @class = "form-control" })
+                                            <button type="submit" class="btn search-btn">SEARCH</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--table-->
+                        <div class="col-md-12">
+                            <div class="w-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SR NO.</th>
+                                            <th scope="col">@Html.ActionLink("NOTE TITLE", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "NOTETITLE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("CATEGOTY", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "CATEGOTY", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("BUYER", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "BUYER", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("PHONE NO", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "PHONENO", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("SELL TYPE", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "SELLTYPE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("PRICE", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "PRICE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("DOWNLOAD DATE/TIME", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "dsc" : ((@ViewBag.sortorder == "asc") ? "dsc" : "asc"), SortBy = "DATE" , pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col"><p class="my-downloads-vidiblity">eyeanddots</p></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        @{var x = ((ViewBag.pageNumber - 1) * 10);}
+                                           @foreach (var item in Model)
+                                           {
+                                               x =  x + 1; <tr class="hover-effect">
+                                        <td>@x</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.category</td>
+                                        <td>@item.emailID</td>
+                                        <td>@item.phoneNumber</td>
+                                        @if (item.sellType == true)
+                                        {
+                                            <td>paid</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Free</td>
+
+                                        }
+                                        <td>$@item.price</td>
+                                        <td>@item.DownloadedTime.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                        <td class="action-logo">
+                                            <img src="/images/dashboard/eye.png" class="img-fluid">
+
+                                            <div class="btn-group dropleft">
+                                                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="/images/dashboard/three-dots.png" class="img-fluid" />
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                    <a class="dropdown-item" href="@Url.Action("RequestApproved","Home",new { noteID=@item.noteID, buyerID=item.buyer})">Allow Download</a>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                           }
+
+
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("ByuerRequest", "Home", new { SortOrder = (@ViewBag.sortorder== null) ? "dsc" : @ViewBag.sortorder , SortBy= (ViewBag.sortby== null) ? "DATE" :ViewBag.sortby, pagenumber = (ViewBag.pageNumber== null) ? 1 : ((ViewBag.pageNumber== 1) ? 1 : (ViewBag.pageNumber - 1)) })" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= ViewBag.Totalpage; i++)
+                                    {
+                                        if (ViewBag.pageNumber == i)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link active" href="@Url.Action("ByuerRequest", "Home", new { SortOrder = (@ViewBag.sortorder == null) ? "dsc" : @ViewBag.sortorder , SortBy = (ViewBag.sortby== null) ? "DATE" : ViewBag.sortby, pagenumber = i })">@i</a>
+
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.Action("ByuerRequest", "Home", new { SortOrder = (@ViewBag.sortorder == null) ? "dsc" : @ViewBag.sortorder, SortBy = (ViewBag.sortby== null) ? "DATE" : ViewBag.sortby, pagenumber = i })">@i</a>
+
+                                            </li>
+                                        }
+
+                                    }
+
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("ByuerRequest", "Home", new { SortOrder = (@ViewBag.sortorder== null) ? "dsc" :@ViewBag.sortorder, SortBy = (ViewBag.sortby== null) ? "DATE" : ViewBag.sortby, pagenumber = (ViewBag.pageNumber == null) ? 1 : ((ViewBag.pageNumber ==ViewBag.Totalpage) ? ViewBag.Totalpage: (ViewBag.pageNumber + 1)) })" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                                            }
+<!--footer-->
+<footer class="fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="w-footer">
+                    <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                    <div class="footer-icon pull-right">
+                        <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                        <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                        <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--jquery-->
+<script src="/javascript/jquery/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<!--bootstrap-->
+<script src="/javascript/bootstrap.js"></script>
+
+<!--costume script-->
+<script src="/javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

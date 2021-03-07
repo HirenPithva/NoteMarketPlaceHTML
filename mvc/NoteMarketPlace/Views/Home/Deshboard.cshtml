@@ -1,0 +1,431 @@
+﻿@model NoteMarketPlace.viewModel.SellerNoteDownload
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/deshboard/style(desshboard).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/deshboard/responsive(deshboard).css" />
+
+</head>
+<body>
+
+    <!--header-->
+
+    @Html.Partial("_navabrAuthenticat")
+
+    @using (Html.BeginForm("Deshboard", "Home", FormMethod.Get))
+    {
+        <section id="deshboard">
+            <div class="container-bgs">
+                <div class="container">
+                    <div class="row">
+
+                        <!--heading-->
+                        <div class="col-md-12">
+                            <div class="main-heading-and-btn">
+                                <div class="deshboard-heading">
+                                    <h4>Deshboard</h4>
+                                </div>
+                                <div class="for-adding-btn">
+                                    <a href="@Url.Action("Add_note","Home")">ADD NOTE</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--without gutters-->
+                        <div class="col-md-12 col-lg-12 col-xl-6">
+
+                            <div class="w-no-gutter-content">
+
+                                <div class="w-sub-content-no-gutter-content">
+                                    <div class="only-for-img-content">
+                                        <img src="/images/dashboard/salary%20(1).png" class="img-fluid ">
+                                        <h5>My Earning</h5>
+                                    </div>
+                                </div>
+
+                                <div class="w-sub-content-no-gutter-content">
+                                    <h5>@Model.notesold</h5>
+                                    <p>Number of Note Sold</p>
+                                </div>
+
+                                <div class="w-sub-content-no-gutter-content">
+                                    <h5>$@Model.totalEarning</h5>
+                                    <p>Money Earnd</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--with gutters-->
+                        <div class="col-md-12 col-lg-12 col-xl-6">
+
+                            <div class="with-gutter-content-equal">
+                                <div class="new-w-deshboard-elemants ">
+                                    <div class="heading-center text-center">
+                                        <h5>@Model.NoOfDownload</h5>
+                                        <p>Downloads</p>
+                                    </div>
+                                </div>
+
+                                <div class="new-w-deshboard-elemants ">
+                                    <div class="heading-center text-center">
+                                        <h5>@Model.rejected</h5>
+                                        <p>my rejected <br>notes</p>
+                                    </div>
+                                </div>
+
+                                <div class="new-w-deshboard-elemants ">
+                                    <div id="Request" style="cursor:pointer;" data-action="@Url.Action("ByuerRequest","Home")" class="heading-center text-center">
+                                        <h5>@Model.Request</h5>
+                                        <p>Buyer Request</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--in progress notes-->
+        <section id="progress-notes">
+            <div class="container-bgs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="w-heading-searchbar">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="small-heading">
+                                            <h5>In Progress Notes</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="search-bar-in-progress-section text-right">
+                                            @*<input class="form-control" type="text" placeholder="search">*@
+                                            @Html.TextBox("SerchText", null, new { @placeholder = "Search", @class = "form-control" })
+
+                                            <button type="submit" class="btn search-btn">SEARCH</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--table-->
+                        <div class="col-md-12">
+                            <div class="w-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                @Html.ActionLink("ADDED DATE", "Deshboard", new { SortOrder = (ViewBag.sortordr == null) ? "asc" : ((ViewBag.sortordr == "dsc") ? "asc" : "dsc"), SortBy = "ADDED DATE", pageOfDraft = ViewBag.pagenumber == 0 ? 1 : ViewBag.pagenumber })
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("TITLE", "Deshboard", new { SortOrder = (ViewBag.sortordr == null) ? "asc" : ((ViewBag.sortordr == "dsc") ? "asc" : "dsc"), SortBy = "TITLE", pageOfDraft = ViewBag.pagenumber == 0 ? 1 : ViewBag.pagenumber })
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("CATEGOTY", "Deshboard", new { SortOrder = (ViewBag.sortordr == null) ? "asc" : ((ViewBag.sortordr == "dsc") ? "asc" : "dsc"), SortBy = "CATEGOTY", pageOfDraft = ViewBag.pagenumber == 0 ? 1 : ViewBag.pagenumber })
+
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("STATUS", "Deshboard", new { SortOrder = (ViewBag.sortordr == null) ? "asc" : ((ViewBag.sortordr == "dsc") ? "asc" : "dsc"), SortBy = "STATUS", pageOfDraft = ViewBag.pagenumber == 0 ? 1 : ViewBag.pagenumber })
+
+
+                                            </th>
+                                            <th scope="col">ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (SellerNote item in Model.sellernotes)
+                                        {
+                                            if (item.Status == 1 || item.Status == 2 || item.Status == 3)
+                                            {
+                                                <tr class="hover-effect">
+                                                    <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.CreatedDate))</td>
+                                                    <td>@item.Title</td>
+                                                    <td>@item.NoteCategory.Name</td>
+                                                    <td>@item.NoteStatu.value</td>
+                                                    @if (item.Status == 1)
+                                                    {
+                                                        <td class="action-logo-both">
+                                                            <a href="@Url.Action("Edit_notes","Home",new { noteID=item.id})"><img src="/images/dashboard/edit.png" class="img-fluid"></a>
+                                                            <a href="@Url.Action("Delete_notes","Home",new {noteID=item.id,
+                                                                SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ViewBag.sortordrpub,
+                                                                SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub,
+                                                            pageOfpublished = ViewBag.pagenumberpub == null ? 1 : ViewBag.pagenumberpub,
+                                                             SortOrder = (ViewBag.sortordr == null) ? "asc" : ViewBag.sortordr,
+                                                                SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby,
+                                                            pageOfDraft = ViewBag.pagenumber == null ? 1 : ViewBag.pagenumber})"><img src="/images/dashboard/delete-use.png" class="img-fluid"></a>
+
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="action-logo">
+                                                            <a href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.id })"><img src="/images/dashboard/eye.png"></a>
+
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            }
+
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = (ViewBag.pagenumber == null) ? 1 : ((ViewBag.pagenumber == 1) ? 1 : (ViewBag.pagenumber - 1)) })" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+
+                                    @{
+                                        double totalpages = ViewBag.TpageForReview;
+                                        for (int i = 1; i <= totalpages; i++)
+                                        {
+                                            if (ViewBag.pagenumber == i)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link active" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = i })">@i</a>
+
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = i })">@i</a>
+
+                                                </li>
+                                            }
+
+                                        }
+                                    }
+
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = (ViewBag.pagenumber == null) ? 1 : ((ViewBag.pagenumber == ViewBag.TpageForReview) ? ViewBag.TpageForReview : (ViewBag.pagenumber + 1)) })" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--published notes-->
+        <section id="published-notes">
+            <div class="container-bgs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="w-heading-searchbar">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="small-heading">
+                                            <h5>Published Notes</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="search-bar-in-progress-section text-right">
+                                            @Html.TextBox("publishedSerchText", null, new { @placeholder = "Search", @class = "form-control" })
+                                            <button type="submit" class="btn search-btn">SEARCH</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--table-->
+                        <div class="col-md-12">
+                            <div class="w-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                @Html.ActionLink("ADDED DATE", "Deshboard", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ((ViewBag.sortordrpub == "dsc") ? "asc" : "dsc"), SortBypub = "ADDEDDATEForPublished", pageOfpublished = ViewBag.pagenumberpub == 0 ? 1 : ViewBag.pagenumberpub })
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("TITLE", "Deshboard", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ((ViewBag.sortordrpub == "dsc") ? "asc" : "dsc"), SortBypub = "TITLEForPublished", pageOfpublished = ViewBag.pagenumberpub == 0 ? 1 : ViewBag.pagenumberpub })
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("CATEGOTY", "Deshboard", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ((ViewBag.sortordrpub == "dsc") ? "asc" : "dsc"), SortBypub = "CATEGOTYForPublished", pageOfpublished = ViewBag.pagenumberpub == 0 ? 1 : ViewBag.pagenumberpub })
+
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("SELL TYPE", "Deshboard", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ((ViewBag.sortordrpub == "dsc") ? "asc" : "dsc"), SortBypub = "SELLTYPEForPublished", pageOfpublished = ViewBag.pagenumberpub == 0 ? 1 : ViewBag.pagenumberpub })
+                                            </th>
+                                            <th scope="col">
+                                                @Html.ActionLink("PRICE", "Deshboard", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ((ViewBag.sortordrpub == "dsc") ? "asc" : "dsc"), SortBypub = "PRICEForPublished", pageOfpublished = ViewBag.pagenumberpub == 0 ? 1 : ViewBag.pagenumberpub })
+
+                                            </th>
+
+                                            <th scope="col">ACTION</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (SellerNote item in Model.sellernotes2)
+                                        {
+                                            if (item.Status == 4)
+                                            {
+                                                <tr class="hover-effect">
+                                                    <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.CreatedDate))</td>
+                                                    <td>@item.Title</td>
+                                                    <td>@item.NoteCategory.Name</td>
+
+                                                    @if (item.IsPaid == false)
+                                                    {
+                                                        <td>Free</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>Paid</td>
+
+                                                    }
+                                                    <td>@item.SellingPrice</td>
+                                                    <td class="action-logo">
+                                                        <a href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.id })">
+                                                            <img src="/images/dashboard/eye.png">
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "asc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = (ViewBag.pagenumberpub == null) ? 1 : ((ViewBag.pagenumberpub == 1) ? 1 : (ViewBag.pagenumberpub - 1)) })" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    @{
+                                        for (int i = 1; i <= ViewBag.TpageForpublished; i++)
+                                        {
+                                            if (ViewBag.pagenumberpub == i)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link active" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = i })">@i</a>
+
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = i })">@i</a>
+
+                                                </li>
+                                            }
+
+                                        }
+                                    }
+
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDED DATEADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = (ViewBag.pagenumberpub == null) ? 1 : ((ViewBag.pagenumberpub == ViewBag.TpageForpublished) ? ViewBag.TpageForpublished : (ViewBag.pagenumberpub + 1)) })" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+
+
+
+
+    <!--footer-->
+    @Html.Partial("footer")
+
+    @*<footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-footer">
+                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                            <div class="footer-icon pull-right">
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>*@
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("div#Request").click(function () {
+                var url = $(this).attr("data-action");
+                if (url !== undefined) {
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

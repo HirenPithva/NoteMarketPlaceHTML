@@ -1,0 +1,451 @@
+﻿@model NoteMarketPlace.viewModel.Edit_notesViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/add-notes/style(add-notes).css" />
+
+
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/user-profile/responsive(user-profile).css" />
+
+</head>
+
+<body>
+
+    @Html.Partial("_navabrAuthenticat")
+    <!--banner-->
+    <section id="user-banner">
+        <div class="w-user-banner">
+            <div class="user-heading text-center">
+                <h1>Add Notes</h1>
+            </div>
+        </div>
+    </section>
+
+    <!--basic profile details-->
+    @using (Html.BeginForm("Edit_notes", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+            @Html.HiddenFor(m => m.IDofNote)
+            @Html.HiddenFor(m => m.ImagePath)
+            @Html.HiddenFor(m => m.ImagePathForNote)
+            @Html.HiddenFor(m => m.ImagePathForPreview)
+
+
+            <section id="profile-details">
+                <div class="big-container">
+
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="heading-of-basics">
+                                    @Html.ValidationSummary(true)
+
+                                    <h2>Basics Note details</h2>
+
+                                </div>
+                            </div>
+
+                            <!--Title-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @*<label for="exampleInputEmail1">Title*</label>
+                                        <input type="text" class="form-control" placeholder="Enter your Notes Title">*@
+                                    @Html.LabelFor(m => m.Title)
+                                    @Html.TextBoxFor(m => m.Title, new { @placeholder = "Enter your Notes Title", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <!--Category-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.category)
+                                    @Html.DropDownListFor(m => m.category, new SelectList(Model.noteCategories, "Id", "Name"), "Select Category", new { @class = "custom-select form-control" })
+                                    @Html.ValidationMessageFor(m => m.category, "", new { @class = "text-danger" })
+
+
+                                    @*<label for="exampleInputEmail1">Category*</label>
+                                        <input type="text" class="form-control" placeholder="Select Your Category">*@
+                                </div>
+
+
+                            </div>
+
+                            <!--Display picture-->
+                            <div class="col-md-6 col-sm-12">
+                                <label for="exampleInputEmail1">Display Picture</label>
+                                <div class="form-group">
+
+                                    <div class="container-for-relative-add-notes">
+                                        <input name="ImageFile" id="for-file1" class="costume-file-upload-class" type="file">
+                                        <label name="ImagePath" class="label-upload-picture-add-notes apply-position-inboth" for="for-file1">
+                                            <div class="label-upload-note-preview-add-notes text-center">
+                                                <img class="text-center img-fluid" src="/images/User-Profile/upload.png">
+                                                <p>upload picture</p>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--Upload Notes-->
+                            <div class="col-md-6 col-sm-12">
+                                <label>Upload Notes*</label>
+                                <div class="form-group">
+
+                                    <div class="container-for-relative-add-notes">
+
+                                        <input name="ImageFileForNote" id="for-file2" class="costume-file-upload-class" type="file" >
+                                        <label class="label-upload-note-add-notes apply-position-inboth" for="for-file2"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" src="/images/User-Profile/upload%20(3)perfact.png"><p>upload your file</p></div></label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--Type-->
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    @*<label for="exampleInputEmail1">Type</label>
+                                        <select class="custom-select " id="validationDefault02" required>
+                                            <option selected disabled value="">select type</option>
+                                            <option>...</option>
+                                        </select>*@
+                                    @Html.LabelFor(m => m.NoteType)
+                                    @Html.DropDownListFor(m => m.NoteType, new SelectList(Model.noteTypes, "Id", "Name"), "Select Note Type", new { @class = "form-control custom-select" })
+
+                                </div>
+                            </div>
+
+
+                            <!--NUmber Of Pages-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NumberOfPages)
+                                    @Html.TextBoxFor(m => m.NumberOfPages, new { @placeholder = "Enter Number Of Pages", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.NumberOfPages, "", new { @class = "text-danger" })
+
+                                    @*<label for="exampleInputEmail1">Number Of Pages</label>
+                                        <input type="text" class="form-control" placeholder="Enter Number of NotePages">*@
+                                </div>
+
+                            </div>
+
+                            <!--Description-->
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Description)
+                                    @Html.TextAreaFor(m => m.Description, new { @placeholder = "Enter your description", @class = "form-control set-height-of-description" })
+                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+
+                                    @*<label>Description*</label>
+                                        <textarea class="form-control set-height-of-description" placeholder="Enter your description"></textarea>*@
+                                </div>
+
+                            </div>
+
+                            <!--heading 2-->
+                            <div class="col-md-12">
+                                <div class="heading-of-basics heading-of-additional">
+
+                                    <h2>Institution Information</h2>
+
+                                </div>
+                            </div>
+
+                            <!--country-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @*<label for="exampleInputEmail1">Country*</label>
+                                        <select class="custom-select form-control" id="validationDefault02" required>
+                                            <option selected disabled value="">select Your country</option>
+                                            <option>...</option>
+                                        </select>*@
+                                    @Html.LabelFor(m => m.Country)
+                                    @Html.DropDownListFor(m => m.Country, new SelectList(Model.countries, "ID", "Name"), "Select Note Type", new { @class = "custom-select form-control" })
+                                    @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <!--institute Name-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.UniversityName)
+                                    @Html.TextBoxFor(m => m.UniversityName, new { @placeholder = "INstitution Name", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UniversityName, "", new { @class = "text-danger" })
+
+                                    @*<label for="exampleInputEmail1">Institution Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your institution name">*@
+                                </div>
+
+                            </div>
+
+                            <!--heading 3-->
+                            <div class="col-md-12">
+                                <div class="heading-of-basics heading-of-additional">
+
+                                    <h2>Course Details</h2>
+
+                                </div>
+                            </div>
+
+
+                            <!--course name-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Course)
+                                    @Html.TextBoxFor(m => m.Course, new { @placeholder = "Enter your Course Name", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Course, "", new { @class = "text-danger" })
+
+                                    @*<label for="exampleInputEmail1">Course Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your Course Name">*@
+                                </div>
+
+                            </div>
+
+                            <!--course code-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CourseCode)
+                                    @Html.TextBoxFor(m => m.CourseCode, new { @placeholder = "Enter course code", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.CourseCode, "", new { @class = "text-danger" })
+
+                                    @*<label for="exampleInputEmail1">course code</label>
+                                        <input type="text" class="form-control" placeholder="Enter course code">*@
+                                </div>
+
+                            </div>
+
+                            <!--faculty-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Professor)
+                                    @Html.TextBoxFor(m => m.Professor, new { @placeholder = "Enter your professor name", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Professor, "", new { @class = "text-danger" })
+
+                                    @*<label for="exampleInputEmail1">professor/Lecturer</label>
+                                        <input type="text" class="form-control" placeholder="Enter your professor name">*@
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <!--heading 4-->
+                            <div class="col-md-12">
+                                <div class="heading-of-basics heading-of-additional">
+
+                                    <h2>Selling Information</h2>
+
+                                </div>
+                            </div>
+
+                            <!--usniversity-->
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <label class="label-for-radio-display" for="exampleInputEmail1">Sell for*</label>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="free">
+
+                                            <label class="form-check-label" for="gridRadios1">
+                                                Free
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="paid" checked="checked">
+
+                                            <label class="form-check-label" for="gridRadios2">
+                                                Paid
+                                            </label>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SellingPrice)
+                                            @Html.TextBoxFor(m => m.SellingPrice, new { @id = "priceID", @placeholder = "Sell Price", @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.SellingPrice, "", new { @class = "text-danger" })
+
+                                            @*<label for="exampleInputEmail1">Sell Price</label>
+                                                <input type="text" class="form-control" value="0" placeholder="Enter your price">*@
+                                        </div>
+                                        @if(ViewBag.price != null)
+                                        {
+                                            <p class="text-danger">@ViewBag.price</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--note preview-->
+                            <div class="col-md-6 col-sm-12">
+                                <label for="for-file3">Note Preview</label>
+                                <div class="form-group note-preview-max-height">
+
+
+                                    <input type="file" name="ImageFileForPreview" id="for-file3" class="costume-file-upload-class">
+                                    <label class=" apply-position-inboth" for="for-file3"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" src="/images/User-Profile/upload.png"><p>upload a file</p></div></label>
+
+                                </div>
+                                @if (ViewBag.preview != null)
+                                {
+                                    <p class="text-danger">@ViewBag.preview</p>
+                                }
+                            </div>
+
+
+
+                            <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
+
+                                <div class="w-submit-btn">
+
+                                    <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAVE</button>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
+
+                                <div class="w-submit-btn">
+
+                                    <button type="button" data-toggle="modal" data-target="#exampleModal" name="btn" value="btnSave" class="submit-btn text-center">PUBLISH</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <div class="w-model-add-review">
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                    <span aria-hidden="true">&times;</span>
+
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+
+                                    <p>
+                                        Publishing this note will send note to administrator for review, once administrator review and approve then this note will be published to portal. Press yes to continue.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="w-submit-btn">
+
+                                    <button type="submit" name="btn" value="btnPublish" class="submit-btn text-center float-left" href="">Yes</button>
+                                    <button name="btn" value="btnCancel" data-dismiss="modal" aria-label="Close" class="submit-btn text-center" href="">Cancel</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+        
+
+
+
+
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+    <script>
+        $(function () {
+            $("input[name='gridRadios']").click(function () {
+                if ($("#gridRadios1").is(":checked")) {
+                    //$("#for-file3").removeAttr("required", "required");
+                    $("#priceID").attr("disabled", "disabled");
+                }
+                else {
+                    //$("#for-file3").attr("required", "required");
+                    $("#priceID").removeAttr("disabled", "disabled");
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

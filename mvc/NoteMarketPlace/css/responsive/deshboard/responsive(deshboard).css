@@ -1,0 +1,213 @@
+@media (min-width: 992px) and (max-width: 1199.97px) {
+    .with-gutter-content-equal{
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.97px){
+    .with-gutter-content-equal{
+        margin-top: 30px;
+    }
+    .deshboard-heading h4{
+        font-size: 32px;
+        margin-bottom:0;
+    }
+    .main-heading-and-btn a{
+        font-size: 17px;
+        width: 140px;
+        height: 45px;
+    }
+    .search-bar-in-progress-section input{
+        width: 222px;
+        height: 40px;
+    }
+    .search-btn {
+        height: 40px;
+        padding-top: 4px;
+        width: 80px;
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    .search-bar-in-progress-section{
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.97px){
+    .with-gutter-content-equal{
+        margin-top: 20px;
+    }
+    .with-gutter-content-equal div:nth-child(2) {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .main-heading-and-btn a{
+        font-size: 17px;
+        width: 130px;
+        height: 40px;
+    }
+    .new-w-deshboard-elemants h5, .w-sub-content-no-gutter-content h5{
+        font-size: 25px;
+    }
+    
+    .w-sub-content-no-gutter-content p, .heading-center p{
+        font-size: 15px;
+    }
+    .deshboard-heading h4{
+        font-size: 28px;
+    }
+    
+    .search-bar-in-progress-section{
+        margin-top: 30px;
+    }
+    .search-bar-in-progress-section input.form-control {
+        display: block;
+        float: left;
+        margin-right: 10px;
+    }
+    
+    .search-bar-in-progress-section input{
+        width: 77%;
+        height: 40px;
+    }
+    .search-btn {
+        display: block;
+        height: 40px;
+        padding-top: 4px;
+        width: 20%;
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    .small-heading h5{
+    font-size: 28px;
+    }
+    .left-side-margine{
+    margin-left: 15px;
+    border-right-color: transparent;
+}
+.top-bottom-border{
+    border-right-color: transparent;
+}
+.left-border{
+    border-left-color: transparent;
+   
+}
+}
+@media (max-width: 575.97px){
+    .deshboard-heading h4{
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+     .with-gutter-content-equal{
+        margin-top: 15px;
+    }
+    .with-gutter-content-equal div:nth-child(2) {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .main-heading-and-btn a{
+        font-size: 16px;
+        width: 130px;
+        height: 40px;
+    }
+    .new-w-deshboard-elemants h5, .w-sub-content-no-gutter-content h5{
+        font-size: 22px;
+    }
+    
+    .w-sub-content-no-gutter-content p, .heading-center p{
+        font-size: 14px;
+    }
+    
+    .padding0-for-col{
+        padding-left: 15px;
+    }
+    .search-bar-in-progress-section input.form-control {
+        display: block;
+        float: left;
+        margin-right: 10px;
+    }
+    
+    .search-bar-in-progress-section input{
+        width: 70%;
+        height: 36px;
+    }
+    .search-btn {
+        display: block;
+        height: 36px;
+        padding-top: 4px;
+        width: 80px;
+        
+        font-size: 12px;
+        margin-left: 5px;
+    }
+    .search-bar-in-progress-section{
+        margin-top: 30px;
+    }
+    .small-heading h5 {
+        font-size: 28px;
+        text-align: center;
+    }
+    
+    .action-logo-both img{
+        padding-right: 5px;
+    }
+}
+@media (max-width: 480px){
+    .w-no-gutter-content{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        border: 1px solid #d1d1d1;
+    }
+    .w-no-gutter-content div:nth-child(1), .w-no-gutter-content div:nth-child(3){
+        border: 0 none;
+    }
+    .w-sub-content-no-gutter-content:nth-child(2){
+        border-bottom: none;
+    }
+    .w-sub-content-no-gutter-content{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .with-gutter-content-equal{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        
+    }
+    .with-gutter-content-equal div:nth-child(2){
+        margin-left:0;
+        margin-right: 0;
+        
+    }
+    .with-gutter-content-equal div{
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

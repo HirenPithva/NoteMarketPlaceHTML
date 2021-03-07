@@ -1,0 +1,111 @@
+body{
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+/*.form-group{
+    margin-top: 20px;
+    margin-bottom:20px;
+    
+}*/
+form .login-btn{
+    width: 100%;
+    margin-top: 30px;
+    background-color: #6255a5;
+    border-radius: 3px;
+    margin-bottom: 0;
+    margin-top: 25px;
+    font-size: 18px;
+    font-family: Open Sans;
+    line-height: 22px;
+    border-color:#6255a5;
+}
+form .login-btn:hover,
+form .login-btn.btn-primary:focus{
+    width: 100%;
+    margin-top: 30px;
+    background-color: #6255a5;
+    border-radius: 3px;
+    margin-bottom: 0;
+    margin-top: 25px;
+    font-size: 18px;
+    font-family: Open Sans;
+    line-height: 22px;
+    border-color:#6255a5;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+.verified, p.verified i{
+    color: forestgreen;
+}
+#login{
+    display: flex;
+    overflow: scroll;
+    flex-direction: column;
+    
+}
+.login-page{
+    
+   margin-top: 30%;
+   margin-bottom: 100px;
+    padding-bottom: 20px;
+   /* padding-top: 100px;*/
+       
+}
+.pass-form{
+    margin-bottom: 0;
+}
+.bottom-text{
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+pass-form1{
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+
+@media (max-width:992px){
+   .login-page{
+    
+   margin-top: 500px;
+   margin-bottom: 200px;
+   /* padding-bottom: 70px;
+    padding-top: 100px;*/
+       
+} 
+}
+@media (max-width:768px){
+   .login-page{
+    
+   margin-top: 400px;
+   margin-bottom: 120px;
+   /* padding-bottom: 70px;
+    padding-top: 100px;*/
+       
+} 
+}
+.form-page .bottom-text{
+    margin-bottom: 25px!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

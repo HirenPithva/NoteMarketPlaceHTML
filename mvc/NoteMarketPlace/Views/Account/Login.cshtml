@@ -1,0 +1,100 @@
+﻿@model NoteMarketPlace.viewModel.UserLoginRemember
+
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/login/style(login).css">
+
+    <!--responsive style-->
+</head>
+<body>
+   
+    <section id="login">
+        <div class="login-page">
+            <div class="w-login-page">
+                <div class="com-symbol">
+                    <img src="/images/login/top-logo.png" alt="">
+                </div>
+                <div class="page">
+                    <div class="center-heading text-center">
+                        <h2>Login</h2>
+                        <p>Enter your email address and password to login</p>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-page">
+                        <form action="@Url.Action("Login","Account")" method="post">
+                            <div class="form-group">
+
+
+                                @Html.LabelFor(m => m.userlogins.emailAddress)
+                                @Html.EditorFor(m => m.userlogins.emailAddress, new { htmlAttributes = new { @placeholder = "Email address", @class = "form-control", }, @Value = (Model == null) ? "" : Model.userlogins.emailAddress })
+                                @*
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+                                *@
+
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.userlogins.emailAddress, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(m => m.userlogins.password)
+                                <label class="forget float-right" for="exampleInputPassword1"><a href="@Url.Action("forget","Account")">Forget Password?</a></label>
+
+                                @Html.EditorFor(m => m.userlogins.password, new { htmlAttributes = new { @id = "InputPassword1", @placeholder = "Password", @class = "form-control", }, @Value = (Model == null) ? "" : Model.userlogins.password })
+
+                                @*
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                                *@
+                                <span class="eye"><i class="fa fa-eye toggelclas"></i></span>
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.userlogins.password, "", new { @class = "text-danger", @style="margin-top:-25px;" })
+
+                            <div class="form-check">
+                                @*<input type="checkbox" class="in-check form-check-input" id="exampleCheck1">
+                    <label class="lable-check form-check-label" for="exampleCheck1">Remember Me</label>
+                                *@
+                                @Html.CheckBoxFor(m => m.rememberMe, new { @class = "in-check form-check-input" })
+                                @Html.LabelFor(m => m.rememberMe, new { @class = "lable-check form-check-label" })
+
+                            </div>
+
+                            <button type="submit" class="login-btn btn btn-primary">Login</button>
+                            <p class="bottom-text text-center">Don't have an account? <span> <a style="cursor:pointer;" onclick="location.href='@Url.Action("Signup","Account")'">Sign UP</a></span></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/login/script(login).js"></script>
+</body>
+</html>

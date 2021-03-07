@@ -1,0 +1,501 @@
+﻿@model NoteMarketPlace.SellerNote
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/note-page/style(note-page).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css"
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/note-page/responsive(note-page).css" />
+
+</head>
+<body>
+
+    <!--header-->
+    @Html.Partial("_navabrAuthenticat")
+    <!--note-details-->
+    @using (Html.BeginForm("Note_details", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.id)
+        <section id="note-details-deep">
+            <div class="container-bgs">
+                <div class="container">
+                    <div class="row">
+
+                        <!--heading 1-->
+                        <div class="col-md-12">
+                            <div class="w-sub-heading">
+                                <h5>Notes Details</h5>
+                            </div>
+                        </div>
+
+                        <!--notes details in deep-->
+                        <div class="col-md-12">
+                            <div class="w-deep-details">
+                                <div class="row">
+
+                                    <!--cover page-->
+                                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
+                                        @if (Model.DisplayPicture != null)
+                                        {
+                                            <div class="cover-page">
+                                                <img src="@Url.Content(Model.DisplayPicture)" class="img-fluid">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="cover-page">
+                                                <img src="" class="img-fluid">
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                    <!--about book-->
+                                    <div class="col-lg-5  col-md-9  col-sm-8  col-6">
+                                        <div class="about-book">
+                                            <h4>@Model.Title</h4>
+                                            <h6>@Model.NoteCategory.Name</h6>
+                                            <p> @Model.Description</p>
+                                            @if (ViewBag.visited != null)
+                                            {
+                                                if (Model.IsPaid == true)
+                                                {
+                                                    <div class="w-download-btn">
+                                                        <button disabled type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.SellingPrice</button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="w-download-btn">
+                                                        <button type="submit" class="btn download-btn">DOWNLOAD</button>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (Model.IsPaid == true)
+                                                {
+                                                    <div class="w-download-btn">
+                                                        <button type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.SellingPrice</button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="w-download-btn">
+                                                        <button type="submit" class="btn download-btn">DOWNLOAD</button>
+                                                    </div>
+                                                }
+                                            }
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5 col-md-12">
+                                        <div class="biodata-of-note">
+                                            @if (Model.UniversityName != null)
+                                            {
+                                                <p><span>Institution:</span><span class="float-right">@Model.UniversityName</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>Institution:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.Country != null)
+                                            {
+                                                <p><span>country:</span><span class="float-right">@Model.Country1.Name</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>country:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.Course != null)
+                                            {
+                                                <p><span>course Name:</span><span class="float-right">@Model.Course</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>course Name:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.CourseCode != null)
+                                            {
+                                                <p><span>Course code:</span><span class="float-right">Model.CourseCode</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>Course code:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.Professor != null)
+                                            {
+                                                <p><span>Professor:</span><span class="float-right">@Model.Professor</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>Professor:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.NumberOfPages != null)
+                                            {
+                                                <p><span>Number of Pages:</span><span class="float-right">@Model.NumberOfPages</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>Number of Pages:</span><span class="float-right"></span></p>
+
+                                            }
+                                            @if (Model.Status == 4)
+                                            {
+                                                <p><span>Approved Date:</span><span class="float-right">@Model.PublishedDate.Value.ToString("MMMM dd yyyy")</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span>Approved Date:</span><span class="float-right"></span></p>
+
+                                            }
+                                            <div class="rating-span">
+                                                <span><p>rating:</p></span>
+                                                <div class="float-right through-line">
+                                                    <div class="rate">
+                                                        <input type="radio" id="star5-book3" name="rate" value="5" />
+                                                        <label for="star5-book3" title="text"><i class="fa fa-star"></i></label>
+                                                        <input type="radio" id="star4-book3" name="rate" value="4" />
+                                                        <label for="star4-book3" title="text"><i class="fa fa-star"></i></label>
+                                                        <input type="radio" id="star3-book3" name="rate" value="3" />
+                                                        <label for="star3-book3" title="text"><i class="fa fa-star"></i></label>
+                                                        <input type="radio" id="star2-book3" name="rate" value="2" />
+                                                        <label for="star2-book3" title="text"><i class="fa fa-star"></i></label>
+                                                        <input type="radio" id="star1-book3" name="rate" value="1" />
+                                                        <label for="star1-book3" title="text"><i class="fa fa-star"></i></label>
+                                                    </div>
+                                                    <p>10 reviews</p>
+                                                </div>
+
+                                            </div>
+                                            <p class="review">5 user mark this note as inappropriate</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--note prereview-->
+                        <div class="col-md-12 col-lg-6">
+                            <div class="w-note-preview">
+                                <div class="row">
+
+                                    <!--heading 2-->
+                                    <div class="col-md-12">
+                                        <div class="w-sub-heading">
+                                            <h5>Note preview</h5>
+                                        </div>
+                                    </div>
+
+                                    <!-- responsive iframe -->
+                                    <!-- ============== -->
+                                    <div class="col-md-12">
+
+
+                                        <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
+                                            <div class="responsive-wrapper responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: hidden ">
+                                                @if (Model.NotesPreview != null)
+                                                {
+                                                    <iframe src="@Url.Content(Model.NotesPreview)">
+                                                    </iframe>
+                                                }
+                                                else
+                                                {
+                                                    <iframe src="">
+                                                    </iframe>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--costumer review-->
+                        <div class="col-md-12 col-lg-6">
+                            <div class="w--costumer-review">
+                                <div class="row">
+
+                                    <!--heading 3-->
+                                    <div class="col-md-12">
+                                        <div class="w-sub-heading">
+                                            <h5>costumer Reviews</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="w-costumer-content">
+                                            <div class="row no-gutters">
+
+                                                <!--constumer-1-->
+                                                <div class="col-md-12">
+                                                    <div class="througn-into-flex">
+                                                        <div class="w-costumer-img">
+                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
+                                                        </div>
+
+
+
+                                                        <div class="w-coment">
+                                                            <h6>Richard brown</h6>
+                                                            <div class="star">
+                                                                <div class="rate">
+                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                </div>
+                                                            </div>
+                                                            <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. consectetur adipisicing elit. Lorem ipsum dolor. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!--constumer-2-->
+                                                <div class="col-md-12">
+                                                    <div class="througn-into-flex">
+                                                        <div class="w-costumer-img">
+                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
+                                                        </div>
+
+
+
+                                                        <div class="w-coment">
+                                                            <h6>Richard brown</h6>
+                                                            <div class="star">
+                                                                <div class="rate">
+                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                </div>
+                                                            </div>
+                                                            <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing. consectetur adipisicing elit. Ea praesentiu, </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!--constumer-3-->
+                                                <div class="col-md-12">
+
+                                                    <div class="througn-into-flex">
+                                                        <div class="w-costumer-img">
+                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
+                                                        </div>
+
+
+
+                                                        <div class="w-coment">
+                                                            <h6>Richard brown</h6>
+                                                            <div class="star">
+                                                                <div class="rate">
+                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
+                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
+                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
+                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
+                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
+                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
+                                                                </div>
+                                                            </div>
+                                                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            @*before confirmation*@
+            <div class="w-model-add-review">
+                <div class="modal fade my_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                    <span aria-hidden="true">&times;</span>
+
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+
+                                    <p>
+                                        Are you sure you want to download this Paid note. Please confirm.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="w-submit-btn">
+
+                                    <button type="submit" @*data-toggle="modal" data-target="#exampleModal"*@ onclick="$('.my_modal').modal('hide'); " @*data-dismiss="modal" aria-label="Close"*@ name="btn" value="btnPublish" class="submit-btn text-center float-left">YES</button>
+                                    <button name="btn" value="btnCancel" data-dismiss="modal" aria-label="Close" class="submit-btn text-center" href="">NO</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*after confirmation*@
+            <div class="modal fade my_model2" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="varified-img text-center img-fluid">
+                                <img src="/images/Notes-Details/SUCCESS.png" class="mx-auto">
+                                <h5>Thank you for Purchasing</h5>
+                            </div>
+                            <div class="message">
+                                <h6>Dear @ViewBag.buyerName,</h6>
+                                <p class="first">As this is paid notes - you need to pay to seller @ViewBag.sellerFullName offline. we will send him an email that you want to download this note. he may contact you further for payment process completion.</p>
+
+                                <p>incase, you have urgency,</p>
+                                <p>Please contact us on +919537784614.</p>
+
+                                <p>once he receives the payment and acknoeledge us - selected notes you can see over my downloads tab for download.</p>
+
+                                <p class="last">have a good day.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-footer">
+                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                            <div class="footer-icon pull-right">
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+    @if (ViewBag.forpopupModel != null)
+    {
+        <script>
+
+            $(document).ready(function () {
+                $('.my_model2').modal('show');
+            });
+                
+        </script>
+    }
+    </body>
+</html>

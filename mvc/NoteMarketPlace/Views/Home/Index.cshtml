@@ -1,0 +1,346 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/front-style/style.css" />
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/home/responsive(home-2).css" />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+        <style>
+            header {
+                padding-top: 0px;
+            }
+            ul.navbar-nav li a {
+                color: white;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    }
+
+</head>
+<body>
+
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <header>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md">
+
+                <div class="w-navbar">
+
+                    <div class="navbar-header">
+
+                        <span id="mobile-nav-open-bar">
+                            <hr>
+                        </span>
+                        <!--brand logo-->
+                        <a class="navbar-brand smooth-scroll" href="/Index">
+                            <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+
+
+
+                    <div class="collapse navbar-collapse ">
+                        <ul class="navbar-nav nav">
+
+                            <li class="navbar-text"><a href="@Url.Action("Serch_note","Home")">Search Notes</a> </li>
+                            <li class="navbar-text"><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
+                            <li class="navbar-text"><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
+                            <li class="navbar-text"><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+                            <li class="navbar-text"><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
+                            <li class="navbar-text img-item">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="/images/User-Profile/user-1.jpg"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">My Profile</a>
+                                        <a class="dropdown-item" href="#">My Downloads</a>
+                                        <a class="dropdown-item" href="#">My Sold Notes</a>
+                                        <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("changePassword","Account")">Change Password</a>
+                                        <a class="dropdown-item changing-color" href="@Url.Action("Logout","Account")">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="navbar-text logout-btn"><a href=@Url.Action("Logout","Account")>Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </header>
+        <section id="mobile-menu">
+            <ul class="nav">
+
+                <li class=""><a href="@Url.Action("Serch_note","Home")">Serch Notes</a> </li>
+                <li class=""><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
+                <li class=""><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
+                <li class=""><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+                <li class=""><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
+                <li class="img-item"><a href="#"><img class="rounded-circle" src="/images/User-Profile/user-1.jpg" alt=""></a></li>
+                <li class="gayab"><a class="dro" href="#">My Profile</a></li>
+                <li class="gayab"><a class="dro" href="#">My Downloads</a></li>
+                <li class="gayab"><a class="dro" href="#">My Sold Notes</a></li>
+                <li class="gayab"><a class="dro" href="#">My Rejected Notes</a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("changePassword","Account")">Change Password</a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("Logout","Account")">Logout</a></li>
+                <li class="logout-btn"><a href="@Url.Action("Logout","Account")">Logout</a></li>
+
+            </ul>
+        </section>
+    }
+    else
+    {
+        @Html.Partial("_navbar")
+
+    }
+    <section id="banner">
+        <div class="w-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-0 col-md-6 offset-md-0 col-sm-7 offset-sm-0 col-10 offset-1">
+
+                        <div class="main-heading">
+
+                            <h1>Download Free/Paid Notes <br>Or Sale your Book</h1>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi exceptu tempore fuga facilis. Vel doloremque tempore.
+                            </p>
+                            <div class="main-heading-btn">
+                                <a href="/FAQ" role="button" class="main-heading-button text-center">learn more</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <div class="w-about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-12">
+                        <div class="left-about">
+                            <h2>About<br>NotesMarketPlace</h2>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-8">
+                        <div class="right-about">
+                            <p class="f">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque nesciunt tempora accusamus architecto ipsam aperiam maxime rem sunt sapiente nam, tenetur dolorum ipsum magnam cupiditate earum ipsa officiis molestias sed?amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero soluta dolore reiciendis, qui voluptas consequatur distinctio vel dolores aperiam fugit.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde quisquam exercitationem, numquam repudiandae est. Suscipit sunt ab, dignissimos porro, pariatur.amet, Lorem ipsum dolor sit amet. consectetur adipisicing elit. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, ex! </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="work">
+        <div class="w-work">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-12 col-md-12 col-sm-12">
+                        <div class="center-heading text-center">
+                            <h2>How It Works?</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-5 offset-md-1 col-lg-4 offset-lg-2 col-sm-12  text-center">
+                        <div class="w-work-content">
+                            <div class="work-image mx-auto">
+                                <img src="/images/home/download.png" class="img-responsive">
+                            </div>
+                            <h4>Download Free/Paid Notes</h4>
+                            <p>Get Metrial For Your<br>Cource etc</p>
+                            <div class="main-heading-btn text-center">
+                                <a href="Home/Serch_note" role="button" class="main-heading-button text-center">download</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-5 col-sm-12 text-center">
+                        <div class="w-work-content">
+                            <div class="work-image mx-auto">
+                                <img src="/images/home/seller-purpel.jpeg" class="img-responsive">
+                            </div>
+                            <h4>Seller</h4>
+                            <p>Upload and Download Cource<br>and Meterial etc</p>
+                            <div class="main-heading-btn sell-btn text-center">
+                                <a href="#" role="button" class="main-heading-button text-center">sell book</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="costumer">
+        <div class="w-costumer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <div class="center-heading text-center">
+                            <h2>What our Costumer are Saying</h2>
+                        </div>
+                    </div>
+
+                    <!--first costumer-->
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="w-costumer-content">
+
+                            <div class="new-img-content">
+                                <img src="/images/costumer/team-2.jpg" alt="costumer-1" class="img-fluid rounded-circle">
+
+                                <div class="new-constumer-details">
+                                    <h4>Walter meller</h4>
+                                    <p>Founder & CEO, Matrix group</p>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="w-costumer-bottom-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque nihil commodi deleniti est animi, omnis culpa impedit non eos deserunt Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, nemo. quibusdam.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--second costumer-->
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="w-costumer-content">
+
+                            <div class="new-img-content">
+                                <img src="/images/costumer/team-3.jpg" alt="costumer-1" class="img-fluid rounded-circle">
+
+                                <div class="new-constumer-details">
+                                    <h4>Jonnie Riley</h4>
+                                    <p>Employe, Curious Snakcs</p>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="w-costumer-bottom-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque nihil commodi deleniti est animi, omnis culpa impedit non Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequat deserunt quibusdam.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--third costumer-->
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="w-costumer-content">
+                            <div class="new-img-content">
+                                <img src="/images/costumer/team-5.jpg" alt="costumer-1" class="img-fluid rounded-circle">
+
+                                <div class="new-constumer-details">
+                                    <h4>Amilia Luna</h4>
+                                    <p>Teacher, Saint Joseph High School</p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="w-costumer-bottom-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque nihil commodi deleniti est animi, omnis culpa Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, quas. impedit non eos deserunt quibusdam.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--fourth costumer-->
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="w-costumer-content">
+                            <div class="new-img-content">
+                                <img src="/images/costumer/team-4.jpg" alt="costumer-1" class="img-fluid rounded-circle">
+
+                                <div class="new-constumer-details">
+                                    <h4>Daniel Cardos</h4>
+                                    <p>Software Engineer, Infinitum Company</p>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="w-costumer-bottom-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, magnam. nihil commodi deleniti est animi, omnis culpa impedit non  quibusdam.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @Html.Partial("footer")
+    @*<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/costume/Script.js"></script>
+    <script src="~/javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

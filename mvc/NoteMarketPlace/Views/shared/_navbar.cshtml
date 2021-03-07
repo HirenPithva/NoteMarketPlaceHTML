@@ -1,0 +1,49 @@
+﻿<!--header-->
+<header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+
+        <div class="w-navbar">
+
+            <div class="navbar-header">
+
+                <span class="" id="mobile-nav-open-bar">
+                    <hr>
+                </span>
+                <!--brand logo-->
+                <a class="navbar-brand smooth-scroll" href="@Url.Action("Index","Home")">
+                    <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
+                </a>
+            </div>
+
+
+
+            <div class="collapse navbar-collapse ">
+                <ul class="navbar-nav nav">
+
+                    <li class="navbar-text"><a href="@Url.Action("Serch_note","Home")">Serch Notes</a> </li>
+                    <li class="navbar-text"><a href="@Url.Action("Login","Account")">Sell your Notes</a></li>
+                    <li class="navbar-text"><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+                    <li class="navbar-text"><a href="@Url.Action("contact_us","Home")">Contact us</a></li>
+
+                    <li class="navbar-text logout-btn"><a href="@Url.Action("Login","Account")">Login</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+<section id="mobile-menu">
+    <ul class="nav">
+
+        <li class=""><a href="@Url.Action("Serch_note","Home")">Serch Notes</a> </li>
+        <li class=""><a href="@Url.Action("Login","Account")">Sell Your Notes</a></li>
+        <li class=""><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+        <li class=""><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
+
+        <li class="logout-btn"><a href="@Url.Action("Login","Account")">LogIn</a></li>
+
+    </ul>
+</section>
+

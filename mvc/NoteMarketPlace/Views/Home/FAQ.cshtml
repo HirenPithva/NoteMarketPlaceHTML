@@ -1,0 +1,389 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/faq/style(FAQ).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/front-style/style.css" />
+
+    <!--responsive style-->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+        <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    }
+</head>
+<body>
+
+    @*<!--header-->
+        <header>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
+
+                <div class="w-navbar">
+
+                    <div class="navbar-header">
+
+                        <span id="mobile-nav-open-bar">
+                            <hr>
+                        </span>
+                        <!--brand logo-->
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
+                        </a>
+                    </div>
+
+
+
+                    <div class="collapse navbar-collapse ">
+                        <ul class="navbar-nav nav">
+
+                            <li class="navbar-text"><a href="#">Search Notes</a> </li>
+                            <li class="navbar-text"><a href="#">Sell Your Notes</a></li>
+                            <li class="navbar-text"><a href="#">Buyer Requests</a></li>
+                            <li class="navbar-text"><a href="#">FAQ</a></li>
+                            <li class="navbar-text"><a href="#">Contact Us</a></li>
+                            <li class="navbar-text img-item">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="/images/User-Profile/user-1.jpg"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">My Profile</a>
+                                        <a class="dropdown-item" href="#">My Downloads</a>
+                                        <a class="dropdown-item" href="#">My Sold Notes</a>
+                                        <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item changing-color" href="#">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </header>
+        <section id="mobile-menu">
+            <ul class="nav">
+
+                <li class=""><a href="#">Serch Notes</a> </li>
+                <li class=""><a href="#">Sell Your Notes</a></li>
+                <li class=""><a href="#">Buyer Requests</a></li>
+                <li class=""><a href="#">FAQ</a></li>
+                <li class=""><a href="#">Contact Us</a></li>
+                <li class="img-item"><a href="#"><img class="rounded-circle" src="/images/User-Profile/user-1.jpg" alt=""></a></li>
+                <li class="gayab"><a class="dro" href="#">My Profile</a></li>
+                <li class="gayab"><a class="dro" href="#">My Downloads</a></li>
+                <li class="gayab"><a class="dro" href="#">My Sold Notes</a></li>
+                <li class="gayab"><a class="dro" href="#">My Rejected Notes</a></li>
+                <li class="gayab"><a class="dro" href="#">Change Password</a></li>
+                <li class="gayab"><a class="dro" href="#">Logout</a></li>
+                <li class="logout-btn"><a href="#">Logout</a></li>
+
+            </ul>
+        </section>
+    *@
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.Partial("_navabrAuthenticat");
+    }
+    else
+    {
+        @Html.Partial("_navbar")
+    }
+
+    <!--banner-->
+    <section id="user-banner">
+        <div class="w-user-banner">
+            <div class="user-heading text-center">
+                <h1>Frequently Asked Questions</h1>
+            </div>
+        </div>
+
+    </section>
+
+    <!--accordion general-->
+    <section class="general-question">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="heading-0f-accordian">
+
+                            <h2>General Questions</h2>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <!--first accordian-->
+                        <div class="w-accor">
+
+                            <div class="new-msg-window">
+                                <h5> What Is Marketplace-Notes?</h5>
+                                <a class="new-plus-popup" data-toggle="collapse" href="#collapseExample-1" aria-expanded="false" aria-controls="collapseExample-1">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+
+                            </div>
+                            <div class="collapse" id="collapseExample-1">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        What Is Marketplace-Notes?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-1" aria-expanded="false" aria-controls="collapseExample-1">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--second accordian-->
+                        <div class="w-accor">
+                            <div class="new-msg-window">
+                                <h5> What do the unvidersity say?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-2" aria-expanded="false" aria-controls="collapseExample-2">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+
+                            </div>
+
+                            <div class="collapse" id="collapseExample-2">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        What do the unvidersity say?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-2" aria-expanded="false" aria-controls="collapseExample-2">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--third accordian-->
+                        <div class="w-accor">
+                            <div class="new-msg-window">
+                                <h5>  What do the unvidersity say?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-3" aria-expanded="false" aria-controls="collapseExample-3">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+                            </div>
+                            <div class="collapse" id="collapseExample-3">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        What do the unvidersity say?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-3" aria-expanded="false" aria-controls="collapseExample-3">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--accordion uploaders-->
+    <div id="uploader">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="heading-0f-accordian">
+
+                            <h2>Uploaderes</h2>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <!--04 accordian-->
+                        <div class="w-accor">
+                            <div class="new-msg-window">
+                                <h5>What can't I shall?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-4" aria-expanded="false" aria-controls="collapseExample-4">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+                            </div>
+
+                            <div class="collapse" id="collapseExample-4">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        What can't I shall?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-4" aria-expanded="false" aria-controls="collapseExample-4">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--04 accordian-->
+                        <div class="w-accor">
+
+
+                            <div class="new-msg-window">
+                                <h5>What notes can I shall?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-5" aria-expanded="false" aria-controls="collapseExample-5">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+                            </div>
+
+
+
+                            <div class="collapse" id="collapseExample-5">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        What notes can I shall?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-5" aria-expanded="false" aria-controls="collapseExample-5">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--accordion uploaders-->
+    <div id="donloader">
+        <div class="container-bgs-lst">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="heading-0f-accordian">
+
+                            <h2>Downloader</h2>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <!--06 accordian-->
+                        <div class="w-accor">
+                            <div class="new-msg-window">
+                                <h5> How do I buy notes?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-6" aria-expanded="false" aria-controls="collapseExample-6">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+                            </div>
+
+                            <div class="collapse" id="collapseExample-6">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        How do I buy notes?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-6" aria-expanded="false" aria-controls="collapseExample-6">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--07 accordian-->
+                        <div class="w-accor">
+                            <div class="new-msg-window">
+                                <h5>Can I edit the note I purchased?</h5>
+                                <a class="plus-popup" data-toggle="collapse" href="#collapseExample-7" aria-expanded="false" aria-controls="collapseExample-7">
+                                    <img src="/images/FAQ/add.png">
+                                </a>
+                            </div>
+
+                            <div class="collapse" id="collapseExample-7">
+                                <div class="card card-body">
+
+                                    <strong>
+                                        Can I edit the note I purchased?<a class="minus-fade-gone float-right" data-toggle="collapse" data-target="#collapseExample-7" aria-expanded="false" aria-controls="collapseExample-7">
+                                            <img src="/images/FAQ/minus.png" class="img-fluid">
+                                        </a>
+                                    </strong>
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+
+</body>
+</html>
