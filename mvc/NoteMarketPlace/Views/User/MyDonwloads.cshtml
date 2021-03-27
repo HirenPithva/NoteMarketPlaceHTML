@@ -1,0 +1,457 @@
+﻿@model IEnumerable<NoteMarketPlace.viewModel.MyDownloadViewModel> 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/deshboard/style(desshboard).css" />
+    <link rel="stylesheet" type="text/css" href="/css/my-download/style(my-downloads).css" />
+
+
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/user-profile/responsive(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/responsive/deshboard/responsive(deshboard).css" />
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("_navabrAuthenticat")
+
+
+    <!--in progress notes-->
+    <section id="progress-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+
+                    <!--heading & serch-bar-->
+                    <div class="col-md-12">
+                        <div class="w-heading-searchbar">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="small-heading">
+                                        <h5>My Downloads</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="search-bar-in-progress-section text-right">
+                                        @using (Html.BeginForm("MyDonwloads", "User", FormMethod.Get))
+                                        {
+                                            <div class="search-bar-in-progress-section text-right">
+                                                @*<input class="form-control" type="text" placeholder="search">
+                                                    <button type="button" class="btn search-btn">SEARCH</button>*@
+                                                @Html.TextBox("searchtext", null, new { @type = "text", value = @ViewBag.searchtext, @placeholder = "Search", @class = "form-control" })
+                                                <button type="submit" class="btn search-btn">SEARCH</button>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!--table-->
+                        <div class="col-md-12">
+                            <div class="w-table" id="DownloadLink" data-Title="@ViewBag.reload">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SR NO.</th>
+                                            <th scope="col">@Html.ActionLink("NOTE TITLE", "MyDonwloads", new { sortBy = "NOTETITLE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage }) </th>
+                                            <th scope="col">@Html.ActionLink("CATEGORY", "MyDonwloads", new { sortBy = "CATEGOTY", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                            <th scope="col">@Html.ActionLink("Seller", "MyDonwloads", new { sortBy = "Seller", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                            <th scope="col">@Html.ActionLink("SELLTYPE", "MyDonwloads", new { sortBy = "SELLTYPE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                            <th scope="col">@Html.ActionLink("PRICE", "MyDonwloads", new { sortBy = "PRICE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                            <th scope="col">@Html.ActionLink("DOWNLOAD DATE/TIME", "MyDonwloads", new { sortBy = "DOWNLOAD", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                            <th scope="col "><p class="my-downloads-vidiblity">eyeanddots</p></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @{ var i = ((ViewBag.currentPage - 1) * 10); }
+
+                                        @foreach (var item in Model)
+                                        {
+                                            i++;
+                                            <tr class="hover-effect">
+
+                                                <td>@i</td>
+                                                <td><a href="@Url.Action("Note_details", "Home", new { idForNoteDetails = item.noteid })">@item.NoteTitle</a></td>
+                                                <td>@item.Category</td>
+                                                <td>@item.sellerName</td>
+                                                @if (item.selltype)
+                                                {
+                                                    <td>Paid</td>
+
+                                                }
+                                                else
+                                                {
+                                                    <td>Free</td>
+                                                }
+                                                <td>$@item.price</td>
+                                                @if (item.downloadedTime != null)
+                                                {
+                                                    <td>@item.downloadedTime.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-center"> - </td>
+                                                }
+                                                <td class="action-logo">
+                                                    <a href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.noteid })"><img src="/images/dashboard/eye.png" class="img-fluid"></a>
+
+
+                                                    <div class="btn-group dropleft">
+                                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <img src="/images/dashboard/three-dots.png" class="img-fluid" />
+                                                        </a>
+
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item" href="@Url.Action("DownloadAttechment", "User", new { NoteID = item.noteid })">Download Note</a>
+                                                            @if (item.isNoteDownloaded)
+                                                            {
+                                                                <a class="dropdown-item reviewButton" href="#" data-toggle="modal" data-target="#exampleModal" value="@item.downloadIDofTB">Add Review/Feedback</a>
+                                                                if (item.isAlreadyReported)
+                                                                {
+                                                                    <a class="dropdown-item Report" data-Title="@item.NoteTitle" value="@item.downloadIDofTB" data-toggle="modal" data-target="#Inappropriate" href="#" style="pointer-events:none;">Report as inappropriate</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="dropdown-item Report" data-Title="@item.NoteTitle" value="@item.downloadIDofTB" data-toggle="modal" data-target="#Inappropriate" href="#">Report as inappropriate</a>
+                                                                }
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <a class="dropdown-item reviewButton" href="#" data-toggle="modal" data-target="#exampleModal" value="@item.downloadIDofTB" style="pointer-events:none;">Add Review/Feedback</a>
+                                                                <a class="dropdown-item Report" data-Title="@item.NoteTitle" value="@item.downloadIDofTB" data-toggle="modal" data-target="#Inappropriate" href="#" style="pointer-events:none;">Report as inappropriate</a>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                            </tr>
+
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+                                @if (i == 0)
+                                {
+                                    <h5 class="text-center" style="color:#6255a5;">No Recored Found</h5>
+
+                                }
+                            </div>
+                        </div>
+
+                        <!--navigation bar-->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = (ViewBag.currentPage == null) ? 1 : (ViewBag.currentPage == 1) ? 1 : (ViewBag.currentPage - 1) })" aria-label="Previous">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+
+                                    @{
+                                        int from = (int)(ViewBag.currentPage - 2);
+                                        int to = (int)(ViewBag.currentPage + 2);
+                                        from = (int)Math.Max(1, from);
+                                        to = (int)Math.Min(to, ViewBag.TotalPage);
+                                        if (ViewBag.TotalPage - to == 1)
+                                        {
+                                            to = (int)ViewBag.TotalPage;
+                                        }
+                                        if (from > 1)
+                                        {
+
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = 1})">1</a></li>
+
+                                            if (from > 2)
+                                            {
+                                                var middleNumber = (int)Math.Ceiling((double)(from - 2) / 2) + 1;
+                                                <li><a class="page-link" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middleNumber})">..</a></li>
+
+                                            }
+                                        }
+                                        for (int J = from; J <= to; J = J + 1)
+                                        {
+                                            if (ViewBag.currentPage == J)
+                                            {
+                                                <li class="page-item"><a class="page-link active" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J })">@J</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J })">@J</a></li>
+
+                                            }
+
+
+                                        }
+                                        if (to < ViewBag.TotalPage)
+                                        {
+                                            int middelNumber = (int)Math.Ceiling((double)(ViewBag.TotalPage - to) / 2) + to;
+                                            <li class=""><a class="page-link" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middelNumber})">..</a></li>
+
+                                            if (to < ViewBag.TotalPage - 1)
+                                            {
+                                                if (ViewBag.currentPage == ViewBag.TotalPage)
+                                                {
+                                                    <li class="page-item"><a class="page-link active" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage })">@ViewBag.TotalPage</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item"><a class="page-link" href="@Url.Action("MyDonwloads", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DOWNLOAD" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage })">@ViewBag.TotalPage</a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link first" href="@Url.Action("MyDonwloads","User",new {sortOrder=(ViewBag.sortOrder==null)?"dsc":ViewBag.sortOrder, sortBy=(ViewBag.sortBy==null)?"DOWNLOAD":ViewBag.sortBy,  searchtext= @ViewBag.searchtext , currentPage=(ViewBag.currentPage==null)?1:(ViewBag.currentPage==ViewBag.TotalPage)?ViewBag.TotalPage:(ViewBag.currentPage+1)  })" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+    <!-- Modal -->
+    @using (Html.BeginForm("AddReview", "User", FormMethod.Post))
+    {
+        <div class="w-model-add-review">
+            <div class="modal fade Review" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="rate">
+                                <input type="radio" id="star5" name="rate" value="5" />
+                                <label for="star5" title="text"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="star4" name="rate" value="4" />
+                                <label for="star4" title="text"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="star3" name="rate" value="3" />
+                                <label for="star3" title="text"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="star2" name="rate" value="2" />
+                                <label for="star2" title="text"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="star1" name="rate" value="1" />
+                                <label for="star1" title="text"><i class="fa fa-star"></i></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Comments*</label>
+                                <textarea name="Comments" placeholder="Comments..." class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="w-submit-btn">
+                                @if (ViewBag.ReviewMessage != null)
+                                {
+                                    <button id="DonwloadID" type="submit" name="DonwloadID" value="@ViewBag.ReviewMessage" class="submit-btn text-center" href="">SUBMIT</button>
+
+                                }
+                                else
+                                {
+                                    <button id="DonwloadID" type="submit" name="DonwloadID" value="" class="submit-btn text-center" href="">SUBMIT</button>
+
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @using (Html.BeginForm("Inappropriate", "User", FormMethod.Post))
+    {
+        <div class="w-model-add-review">
+            <div class="modal fade inappropriate" id="Inappropriate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title ReportTitle" id="exampleModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="exampleRemarkarea">Remarks*</label>
+                                <textarea name="Remark" placeholder="Remark..." class="form-control" id="exampleRemarkarea" rows="3" required></textarea>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="w-submit-btn">
+                                <button @*data-toggle="modal" data-target="#ReportConfirmation"*@ type="button" id="ReportSubmitBtn" value="" class="submit-btn text-center" href="">REPORT</button>
+                                <button data-dismiss="modal" aria-label="Close" type="button" class="submit-btn text-center" href="">CANCEL</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--after report confirmation box-->
+        <div class="w-model-add-review">
+            <div class="modal fade my_modal" id="ReportConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+
+                                <p>
+                                    Are you sure you want to mark this report as spam, you cannot update it later?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="w-submit-btn">
+                                <button id="ConfirmReport" name="DownloadID" type="submit" value="" class="submit-btn text-center" href="">YES</button>
+                                <button data-dismiss="modal" aria-label="Close" type="button" value="" class="submit-btn text-center" href="">NO</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $(".reviewButton").click(function () {
+                var downloadID = $(this).attr("value");
+                $("#DonwloadID").attr("value", downloadID);
+            });
+            $(".Report").click(function () {
+                var ReportedNoteTitl = $(this).attr("data-Title");
+                $(".ReportTitle").text(ReportedNoteTitl);
+                var ReportID = $(this).attr("value");
+                $("#ReportSubmitBtn").attr("value", ReportID);
+
+            });
+            $("#ReportSubmitBtn").click(function () {
+
+
+                $("#ReportConfirmation").modal("show");
+                var id = $(this).attr("value");
+                $("#ConfirmReport").attr("value", id);
+                $("#Inappropriate").modal("hide");
+
+
+            });
+            //$("#DownloadLink").click(function () {
+            //    location.reload();
+            //});
+        });
+    </script>
+
+    @if (ViewBag.ReviewMessage != null)
+    {
+        <script>
+            $(document).ready(function () {
+                //alert("hello");
+                $(".Review").modal("show");
+
+            });
+        </script>
+    }
+    @if (ViewBag.reload != null)
+    {
+        <script>
+            $(document).ready(function () {
+                var id = $("#DownloadLink").attr("data-Title");
+                var url = "/User/downloadNote?NoteID=" + id;
+                window.location.assign(url);
+            });
+        </script>
+    }
+</body>
+</html>

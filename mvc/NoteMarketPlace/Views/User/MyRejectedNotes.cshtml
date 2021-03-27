@@ -1,0 +1,243 @@
+﻿@model IEnumerable<NoteMarketPlace.SellerNote>
+@{
+    Layout = null;
+}
+
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/deshboard/style(desshboard).css" />
+    <link rel="stylesheet" type="text/css" href="/css/my-download/style(my-downloads).css" />
+
+
+
+    <!--responsive style-->
+    <link rel="stylesheet" type="text/css" href="/css/responsive/deshboard/responsive(deshboard).css" />
+    <link rel="stylesheet" type="text/css" href="/css/responsive/user-profile/responsive(user-profile).css" />
+
+    <style>
+        td:nth-child(2) {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("_navabrAuthenticat")
+
+    <!--in progress notes-->
+    <section id="progress-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+
+                    <!--heading & serch-bar-->
+                    <div class="col-md-12">
+                        <div class="w-heading-searchbar">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="small-heading">
+                                        <h5>My Rejected Notes</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    @using (Html.BeginForm("MyRejectedNotes", "User", FormMethod.Get))
+                                    {
+                                        <div class="search-bar-in-progress-section text-right">
+                                            @*<input class="form-control" type="text" placeholder="search">
+                                                <button type="button" class="btn search-btn">SEARCH</button>*@
+                                            @Html.TextBox("searchtext", null, new { @type = "text", value = @ViewBag.searchtext, @placeholder = "Search", @class = "form-control" })
+                                            <button type="submit" class="btn search-btn">SEARCH</button>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--table-->
+                    <div class="col-md-12">
+                        <div class="w-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("NOTE TITLE", "MyRejectedNotes", new { sortBy = "NOTETITLE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "MyRejectedNotes", new { sortBy = "CATEGOTY", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                        <th scope="col">@Html.ActionLink("REMARK", "MyRejectedNotes", new { sortBy = "REMARK", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, currentPage = ViewBag.currentPage })</th>
+                                        <th scope="col">CLONE</th>
+
+                                        <th scope="col"><p class="my-downloads-vidiblity">dots</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ var i = ((ViewBag.currentPage - 1) * 10); }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        i++;
+                                        <tr class="hover-effect">
+                                            <td>@i</td>
+                                            <td><a href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.id })">@item.Title</a></td>
+                                            <td>@item.NoteCategory.Name</td>
+                                            <td>@item.AdminRemarks</td>
+                                            <td><a href="@Url.Action("Correction","User",new { NoteID=item.id})">Clone</a></td>
+                                            <td class="action-logo text-center">
+
+
+                                                <div class="btn-group dropleft ">
+                                                    <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <img src="/images/dashboard/three-dots.png" class="img-fluid" />
+                                                    </a>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="@Url.Action("ReturnSoldNote","User",new { NoteID=item.id})">Download Note</a>
+
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                            @if (i == 0)
+                            {
+                                <h5 class="text-center" style="color:#6255a5;">No Recored Found</h5>
+                            }
+                        </div>
+                    </div>
+
+                    <!--navigation bar-->
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = (ViewBag.currentPage == null) ? 1 : (ViewBag.currentPage == 1) ? 1 : (ViewBag.currentPage - 1) })" aria-label="Previous">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                @{
+                                    int from = (int)(ViewBag.currentPage - 2);
+                                    int to = (int)(ViewBag.currentPage + 2);
+                                    from = (int)Math.Max(1, from);
+                                    to = (int)Math.Min(to, ViewBag.TotalPage);
+                                    if (ViewBag.TotalPage - to == 1)
+                                    {
+                                        to = (int)ViewBag.TotalPage;
+                                    }
+                                    if (from > 1)
+                                    {
+                                        if (ViewBag.currentPage == 1)
+                                        {
+                                            <li class="page-item"><a class="page-link active" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy , searchtext = @ViewBag.searchtext, currentPage = 1})">1</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = 1})">1</a></li>
+                                        }
+                                        if (from > 2)
+                                        {
+                                            var middleNumber = (int)Math.Ceiling((double)(from - 2) / 2) + 1;
+                                            <li><a class="page-link" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy , searchtext = @ViewBag.searchtext, currentPage = middleNumber})">..</a></li>
+
+                                        }
+                                    }
+                                    for (int J = from; J <= to; J = J + 1)
+                                    {
+                                        if (ViewBag.currentPage == J)
+                                        {
+                                            <li class="page-item"><a class="page-link active" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy , searchtext = @ViewBag.searchtext, currentPage = J })">@J</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J })">@J</a></li>
+
+                                        }
+
+
+                                    }
+                                    if (to < ViewBag.TotalPage)
+                                    {
+                                        int middelNumber = (int)Math.Ceiling((double)(ViewBag.TotalPage - to) / 2) + to;
+                                        <li class=""><a class="page-link" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middelNumber})">..</a></li>
+
+                                        if (to < ViewBag.TotalPage - 1)
+                                        {
+                                            if (ViewBag.currentPage == ViewBag.TotalPage)
+                                            {
+                                                <li class="page-item"><a class="page-link active" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage })">@ViewBag.TotalPage</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("MyRejectedNotes", "User", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage })">@ViewBag.TotalPage</a></li>
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("MyRejectedNotes","User",new {sortOrder=(ViewBag.sortOrder==null)?"dsc":ViewBag.sortOrder, sortBy=ViewBag.sortBy,  searchtext= @ViewBag.searchtext , currentPage=(ViewBag.currentPage==null)?1:(ViewBag.currentPage==ViewBag.TotalPage)?ViewBag.TotalPage:(ViewBag.currentPage+1)  })" aria-label="Next">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
+</body>
+</html>

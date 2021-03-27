@@ -35,53 +35,6 @@
 </head>
 <body>
 
-    @*<!--header-->
-        <header>
-            <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
-
-                <div class="w-navbar">
-
-                    <div class="navbar-header">
-
-                        <span id="mobile-nav-open-bar">
-                            <hr>
-                        </span>
-                        <!--brand logo-->
-                        <a class="navbar-brand smooth-scroll" href="#home">
-                            <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
-                        </a>
-                    </div>
-
-
-
-                    <div class="collapse navbar-collapse ">
-                        <ul class="navbar-nav nav">
-
-                            <li class="navbar-text"><a href="#">Search Notes</a> </li>
-                            <li class="navbar-text"><a href="#">Sell Your Notes</a></li>
-                            <li class="navbar-text"><a href="#">FAQ</a></li>
-                            <li class="navbar-text"><a href="#">Contact Us</a></li>
-                            <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-
-            </nav>
-
-        </header>
-        <section id="mobile-menu">
-            <ul class="nav">
-
-                <li class=""><a href="#">Serch Notes</a> </li>
-                <li class=""><a href="#">Sell Your Notes</a></li>
-                <li class=""><a href="#">FAQ</a></li>
-                <li class=""><a href="#">Contact Us</a></li>
-                <li class="logout-btn"><a href="#">Logout</a></li>
-
-            </ul>
-        </section>
-    *@
 
     @if (User.Identity.IsAuthenticated)
     {
@@ -119,14 +72,15 @@
                     <div class="col-md-12">
                         <div class="w-serch-filter">
                             <div class="row">
-
-                                <!--serch pannle-->
-                                <div class="col-md-12">
-                                    <div class="w-serch-pannle" data-location="http://place.com">
-                                        <input type="text" class="form-control" id="validationDefault01" placeholder="Serch notes here" value="" required>
+                                  <!--serch pannle-->
+                                    <div class="col-md-12">
+                                        <div class="w-serch-pannle" data-location="http://place.com">
+                                            <input   type="text" class="form-control" id="searchBook" name="searchText" placeholder="Serch notes here">
+                                            @*@Html.EditorFor(m => m.searchText, new { htmlAttributes = new { type = "text", id = "searchBook", placeholder = "Serch notes here", @class = "form-control" } })*@
+                                        </div>
                                     </div>
-                                </div>
-
+                                
+                                
                                 <!--filter pannle 1-->
                                 <div class="col-md-12">
                                     <div class="w-filter-pannle">
@@ -138,7 +92,7 @@
                                                         <option>...</option>
                                                     </select>*@
 
-                                                @Html.DropDownListFor(m => m.typ, new SelectList(Model.noteType, "Name", "Name"), "Select Note Type", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.typ, new SelectList(Model.noteType, "Name", "Name"), "Select Note Type", new {id="type", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -149,7 +103,7 @@
                                                         <option>...</option>
                                                     </select>*@
 
-                                                @Html.DropDownListFor(m => m.catgry, new SelectList(Model.noteCategory, "Name", "Name"), "Select Note Category", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.catgry, new SelectList(Model.noteCategory, "Name", "Name"), "Select Note Category", new { id = "category", @class = "custom-select form-control" })
 
 
                                             </div>
@@ -161,7 +115,7 @@
                                                         <option>...</option>
                                                     </select>*@
 
-                                                @Html.DropDownListFor(m => m.unvrsty, Model.university, "Select Note University", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.unvrsty, Model.university, "Select Note University", new { id = "university", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -171,7 +125,7 @@
                                                         <option selected disabled value="">Select course</option>
                                                         <option>...</option>
                                                     </select>*@
-                                                @Html.DropDownListFor(m => m.cors, Model.Cource, "Select Courses", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.cors, Model.Cource, "Select Courses", new { id = "course", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -181,7 +135,7 @@
                                                         <option selected disabled value="">Select country</option>
                                                         <option>...</option>
                                                     </select>*@
-                                                @Html.DropDownListFor(m => m.cntry, new SelectList(Model.country, "Name", "Name"), "Select Country", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.cntry, new SelectList(Model.country, "Name", "Name"), "Select Country", new { id = "country", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -191,7 +145,7 @@
                                                         <option selected disabled value="">Select rating</option>
                                                         <option>...</option>
                                                     </select>*@
-                                                @Html.DropDownListFor(m => m.rtng, Model.rating, "Select Rating", new { @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.rtng, Model.rating, "Select Rating", new { id = "rating", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -212,213 +166,17 @@
     <section id="notes-slider">
         <div class="container-bgs">
             <div class="container">
-                <div class="row">
+                <div class="row importContainer">
 
-                    <!--heading-->
-                    <div class="col-md-12">
-                        <div class="top-left-hading">
-                            <h5>Top 18 notes</h5>
-                        </div>
-                    </div>
+                    @Html.Action("allNotes")
 
-                    <!--notes-->
-                    <div class="col-md-12">
-                        <div class="w-notes-container">
-
-                            <!--slide 01-->
-                            <div class="w-notes-slide">
-                                <div class="row justify-content-sm-center">
-                                    @foreach (SellerNote item in Model.sellerNotes)
-                                    {
-                                        if (item.Status == 4)
-                                        {
-                                            <!--note 01-->
-                                            <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
-                                                <div data-action="@Url.Action("Note_details","Home",new { idForNoteDetails=item.id })" class="w-note-content">
-                                                    @*<img src="/images/serch-notes/1.jpg" class="img-fluid">*@
-                                                    <img src="@Url.Content(item.DisplayPicture)" class="img-fluid">
-                                                    <div class="w-note-details">
-                                                        <div class="row no-gutters">
-
-                                                            <div class="col-md-12 col-sm-12 col-12">
-                                                                <div class="w-note-heading">
-                                                                    @*<h6>computer operating system - Final Exam Book With Paper Solution</h6>*@
-                                                                    <h6>@item.Title</h6>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
-                                                            <div class="col-md-11 col-sm-11 col-11">
-                                                                @*<p>University of California,US</p>*@
-                                                                @if (@item.Country1 != null)
-                                                                {
-                                                                    <p>@item.UniversityName, @item.Country1.Name</p>
-
-                                                                }
-
-                                                            </div>
-
-                                                            <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
-                                                            <div class="col-md-11 col-sm-11 col-11">
-                                                                @*<p>204 Pages</p>*@
-                                                                @if (@item.NumberOfPages != null)
-                                                                {
-                                                                    <p>@item.NumberOfPages pages</p>
-
-                                                                }
-                                                            </div>
-
-                                                            <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/calendar-use.png" class="img-fluid"></div>
-                                                            <div class="col-md-11 col-sm-11 col-11">
-                                                                @*<p>Thu, Nov 26 2020</p>*@
-                                                                @if (@item.CreatedDate != null)
-                                                                {
-                                                                    <p>@item.CreatedDate.Value.ToString("ddd, MMMM dd yyyy")</p>
-
-                                                                }
-                                                            </div>
-
-
-                                                            <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/flag-use.png" class="img-fluid"></div>
-                                                            <div class="col-md-11 col-sm-11 col-11">
-                                                                <p class="warning-msg">5 Users marked this note as inappropriate</p>
-                                                            </div>
-
-                                                            <div class="col-md-auto col-sm-auto col-auto">
-                                                                <div class="rate">
-                                                                    <input type="radio" id="star5" name="rate" value="5" />
-                                                                    <label for="star5" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star4" name="rate" value="4" />
-                                                                    <label for="star4" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star3" name="rate" value="3" />
-                                                                    <label for="star3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star2" name="rate" value="2" />
-                                                                    <label for="star2" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star1" name="rate" value="1" />
-                                                                    <label for="star1" title="text"><i class="fa fa-star"></i></label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        }
-
-
-                                    }
-
-                                    <!--note 02-->
-                                    <!--<div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
-                                        <div class="w-note-content">
-                                            <img src="/images/serch-notes/2.jpg" class="img-fluid">
-
-                                            <div class="w-note-details">
-                                                <div class="row no-gutters">
-
-                                                    <div class="col-md-12 col-sm-12 col-12">
-                                                        <div class="w-note-heading">
-                                                            <h6>Computer Science</h6>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
-                                                    <div class="col-md-11 col-sm-11 col-11">
-                                                        <p>University of California,US</p>
-                                                    </div>
-
-                                                    <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
-                                                    <div class="col-md-11 col-sm-11 col-11">
-                                                        <p>204 Pages</p>
-                                                    </div>
-
-                                                    <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/calendar-use.png" class="img-fluid"></div>
-                                                    <div class="col-md-11 col-sm-11 col-11">
-                                                        <p>Thu, Nov 26 2020</p>
-                                                    </div>
-
-                                                    <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/flag-use.png" class="img-fluid"></div>
-                                                    <div class="col-md-11 col-sm-11 col-11">
-                                                        <p class="warning-msg">5 Users marked this note as inappropriate</p>
-                                                    </div>
-
-                                                    <div class="col-md-auto col-sm-auto col-auto">
-                                                        <div class="rate">
-                                                            <input type="radio" id="star5-book2" name="rate" value="5" />
-                                                            <label for="star5-book2" title="text"><i class="fa fa-star"></i></label>
-                                                            <input type="radio" id="star4-book2" name="rate" value="4" />
-                                                            <label for="star4-book2" title="text"><i class="fa fa-star"></i></label>
-                                                            <input type="radio" id="star3-book2" name="rate" value="3" />
-                                                            <label for="star3-book2" title="text"><i class="fa fa-star"></i></label>
-                                                            <input type="radio" id="star2-book2" name="rate" value="2" />
-                                                            <label for="star2-book2" title="text"><i class="fa fa-star"></i></label>
-                                                            <input type="radio" id="star1-book2" name="rate" value="1" />
-                                                            <label for="star1-book2" title="text"><i class="fa fa-star"></i></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-auto col-sm-auto col-auto"><p class="review">100 reviews</p></div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>-->
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 col-sm-12 col-12">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link first" href="#" aria-label="Previous">
-                                                <i class="fa fa-angle-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link first" href="#" aria-label="Next">
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
     </section>
 
     <!--footer-->
-    @*<footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="w-footer">
-                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                            <div class="footer-icon pull-right">
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>*@
-    @Html.Partial("footer")
 
+    @Html.Partial("footer")
+    
     <!--jquery-->
     <script src="/javascript/jquery/jquery.js"></script>
 
@@ -427,15 +185,110 @@
 
     <!--costume script-->
     <script src="/javascript/user-profile/user-profile.js"></script>
+
     <script>
+
+
         $(document).ready(function () {
-            $("div").click(function () {
-                var url = $(this).attr("data-action");
-                if (url !== undefined) {
-                    window.location.href = url;
+            //$("div").click(function () {
+            //    var url = $(this).attr("data-action");
+            //    if (url !== undefined) {
+            //        window.location.href = url;
+            //    }
+            //});
+
+            $(document).on("click", ".pagenum",function () {
+                var currentnum = $("#backward").data("value");
+                var totalPage = $("#foreward").data("value");
+                var page;
+                if ($(this).attr("name") == "forward" || $(this).attr("name") == "backward") {
+                    if ($(this).attr("name") == "forward") {
+                        page = Math.ceil((totalPage - (currentnum + 2)) / 2) + (currentnum + 2);
+                        console.log(page);
+                    }
+                    if ($(this).attr("name") == "backward") {
+                       
+                        page = Math.ceil((currentnum - 4) / 2) + 1;
+                        console.log(page);
+                    }
+                }
+                else if ($(this).attr("name") == "back" || $(this).attr("name") == "next") {
+                    if ($(this).attr("name") == "back") {
+                        if (currentnum > 1) {
+                            page = currentnum - 1;
+                        }
+                        if (currentnum == 1) {
+                            page = 1;
+                        }
+                    }
+                    if ($(this).attr("name") == "next") {
+                        if (currentnum < totalPage) {
+                            page = currentnum + 1;
+                        }
+                        if (currentnum == totalPage) {
+                            page = totalPage;
+                        }
+                    }
+                }
+                else {
+                    page = $(this).text();
+                }
+                var text = $("#searchBook").val();
+                var type = $("#type").val();
+                var rating = $("#rating").val();
+                var country = $("#country").val();
+                var course = $("#course").val();
+                var university = $("#university").val();
+                var category = $("#category").val();
+                var obj = {
+                    searchText: text,
+                    typ: type,
+                    catgry: category,
+                    rtng: rating,
+                    cntry: country,
+                    cors: course,
+                    unvrsty: university,
+                    pagenumber: page
+                }
+                PostMethod(obj);
+            });
+
+            $("#searchBook,#type,#country,#course,#university,#category").on('change keyup paste', function () {
+                //$("#form1").submit();
+                var text = $("#searchBook").val();
+                var type = $("#type").val();
+                var rating = $("#rating").val();
+                var country = $("#country").val();
+                var course = $("#course").val();
+                var university = $("#university").val();
+                var category = $("#category").val();
+                var obj = {
+                    searchText: text,
+                    typ: type,
+                    catgry: category,
+                    rtng: rating,
+                    cntry: country,
+                    cors: course,
+                    unvrsty: university
+                }
+                PostMethod(obj);
+            });
+
+        });
+
+
+
+        function PostMethod(obj) {
+            $.ajax({
+                url: "/Home/allNotes",
+                type: 'POST',
+                data: obj,
+                success: function (response) {
+                    $(".importContainer").html(response);
                 }
             });
-        });
+            return false;
+        }
     </script>
 </body>
 </html>

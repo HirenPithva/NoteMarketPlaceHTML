@@ -76,8 +76,11 @@
     }
 }
 @media (min-width: 576px) and (max-width: 767.97px){
-    .cover-page img{
-        
+    .cover-page{
+        display:flex;
+    }
+    .cover-page img {
+        margin: auto;
     }
     .about-book{
         margin-top: 20px;

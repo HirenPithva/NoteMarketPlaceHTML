@@ -63,12 +63,12 @@
                                     </div>
                                 </div>
 
-                                <div class="w-sub-content-no-gutter-content">
+                                <div style="cursor:pointer;" data-action="@Url.Action("MysoldNotes","User")" class="Request w-sub-content-no-gutter-content">
                                     <h5>@Model.notesold</h5>
                                     <p>Number of Note Sold</p>
                                 </div>
 
-                                <div class="w-sub-content-no-gutter-content">
+                                <div style="cursor:pointer;" data-action="@Url.Action("MysoldNotes","User")" class="Request w-sub-content-no-gutter-content">
                                     <h5>$@Model.totalEarning</h5>
                                     <p>Money Earnd</p>
                                 </div>
@@ -81,13 +81,13 @@
 
                             <div class="with-gutter-content-equal">
                                 <div class="new-w-deshboard-elemants ">
-                                    <div class="heading-center text-center">
+                                    <div style="cursor:pointer;" data-action="@Url.Action("MyDonwloads","User")" class="Request heading-center text-center">
                                         <h5>@Model.NoOfDownload</h5>
                                         <p>Downloads</p>
                                     </div>
                                 </div>
 
-                                <div class="new-w-deshboard-elemants ">
+                                <div style="cursor:pointer;" data-action="@Url.Action("MyRejectedNotes","User")" class="Request new-w-deshboard-elemants ">
                                     <div class="heading-center text-center">
                                         <h5>@Model.rejected</h5>
                                         <p>my rejected <br>notes</p>
@@ -95,7 +95,7 @@
                                 </div>
 
                                 <div class="new-w-deshboard-elemants ">
-                                    <div id="Request" style="cursor:pointer;" data-action="@Url.Action("ByuerRequest","Home")" class="heading-center text-center">
+                                    <div  style="cursor:pointer;" data-action="@Url.Action("ByuerRequest","Home")" class="Request heading-center text-center">
                                         <h5>@Model.Request</h5>
                                         <p>Buyer Request</p>
                                     </div>
@@ -211,8 +211,31 @@
                                     </li>
 
                                     @{
+                                        int from = (int)(ViewBag.pagenumber - 2);
+                                        int to = (int)(ViewBag.pagenumber + 2);
+                                        from = (int)Math.Max(1, from);
+                                        to = (int)Math.Min(to, ViewBag.TpageForReview);
+                                        if (ViewBag.TpageForReview - to == 1)
+                                        {
+                                            to = (int)ViewBag.TpageForReview;
+                                        }
+                                        if (from > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = 1 })">1</a>
+
+                                            </li>
+                                            if (from > 2)
+                                            {
+                                                var middleNumber = (int)Math.Ceiling((double)(from - 2) / 2) + 1;
+                                                <li class="page-item">
+                                                    <a class="page-link text-nowrap" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = middleNumber })">. .</a>
+
+                                                </li>
+                                            }
+                                        }
                                         double totalpages = ViewBag.TpageForReview;
-                                        for (int i = 1; i <= totalpages; i++)
+                                        for (int i = from; i <= to; i++)
                                         {
                                             if (ViewBag.pagenumber == i)
                                             {
@@ -229,6 +252,21 @@
                                                 </li>
                                             }
 
+                                        }
+                                        if (to < ViewBag.TpageForReview)
+                                        {
+                                            int middelNumber = (int)Math.Ceiling((double)(ViewBag.TpageForReview - to) / 2) + to;
+
+                                            <li class="page-item">
+                                                <a class="page-link text-nowrap" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft = middelNumber })">. .</a>
+
+                                            </li>
+                                            if (to < ViewBag.TpageForReview - 1)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrder = (ViewBag.sortordr == null) ? "dsc" : ViewBag.sortordr, SortBy = (ViewBag.sortby == null) ? "ADDED DATE" : ViewBag.sortby, pageOfDraft =@ViewBag.TpageForReview })">@ViewBag.TpageForReview</a>
+                                                </li>
+                                            }
                                         }
                                     }
 
@@ -347,7 +385,29 @@
                                         </a>
                                     </li>
                                     @{
-                                        for (int i = 1; i <= ViewBag.TpageForpublished; i++)
+                                        int frompub = (int)(ViewBag.pagenumberpub - 2);
+                                        int topub = (int)(ViewBag.pagenumberpub + 2);
+                                        frompub = (int)Math.Max(1, frompub);
+                                        topub = (int)Math.Min(topub, ViewBag.TpageForpublished);
+                                        if (ViewBag.TpageForpublished - topub == 1)
+                                        {
+                                            topub = (int)ViewBag.TpageForpublished;
+                                        }
+                                        if (frompub > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = 1 })">1</a>
+                                            </li>
+                                            if (frompub > 2)
+                                            {
+                                                var PubMiddNum = (int)Math.Ceiling((double)(frompub - 2) / 2) + 1;
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = PubMiddNum })"> . . </a>
+
+                                                </li>
+                                            }
+                                        }
+                                        for (int i = frompub; i <= topub; i++)
                                         {
                                             if (ViewBag.pagenumberpub == i)
                                             {
@@ -365,6 +425,22 @@
                                             }
 
                                         }
+                                        if (topub < ViewBag.TpageForpublished)
+                                        {
+                                            var pubMidForWardNum = (int)Math.Ceiling((double)(ViewBag.TpageForpublished - topub) / 2) + topub;
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = pubMidForWardNum })"> . . </a>
+
+                                            </li>
+                                            if (topub < ViewBag.TpageForpublished - 1)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Deshboard", "Home", new { SortOrderpub = (ViewBag.sortordrpub == null) ? "dsc" : ViewBag.sortordrpub, SortBypub = (ViewBag.sortbypub == null) ? "ADDEDDATEForPublished" : ViewBag.sortbypub, pageOfpublished = pubMidForWardNum })">@ViewBag.TpageForpublished</a>
+
+                                                </li>
+                                            }
+                                        }
+
                                     }
 
                                     <li class="page-item">
@@ -419,7 +495,7 @@
     <script src="/javascript/user-profile/user-profile.js"></script>
     <script>
         $(document).ready(function () {
-            $("div#Request").click(function () {
+            $("div.Request").click(function () {
                 var url = $(this).attr("data-action");
                 if (url !== undefined) {
                     window.location.href = url;

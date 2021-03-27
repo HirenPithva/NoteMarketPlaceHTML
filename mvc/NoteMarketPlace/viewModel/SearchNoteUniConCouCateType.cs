@@ -9,7 +9,7 @@ namespace NoteMarketPlace.viewModel
 {
     public class SearchNoteUniConCouCateType
     {
-        public IEnumerable<SellerNote> sellerNotes { get; set; }
+        public IEnumerable<noteWithReview> sellerNotes { get; set; }
         public IEnumerable<NoteCategory> noteCategory { get; set; }
         public IEnumerable<NoteType> noteType { get; set; }
         public IEnumerable<Country> country { get; set; }
@@ -22,5 +22,17 @@ namespace NoteMarketPlace.viewModel
         public string unvrsty { get; set; }
         public string cors { get; set; }
         public string rtng { get; set; }
+        public string searchText { get; set; }
+        public int pagenumber { get; set; }
+       
+
+    }
+    public class noteWithReview
+    {
+        public SellerNote sellerNote { get; set; }
+        public int TotalReview { get; set; }
+        public int rate { get; set; }
+        public int inappropriate { get; set; }
+        public string imgPath { get; set; }
     }
 }

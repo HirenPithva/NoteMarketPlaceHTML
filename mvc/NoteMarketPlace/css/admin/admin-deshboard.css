@@ -87,7 +87,7 @@ div.adminDesh-equal-box:nth-child(2){
     box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
 
-.search-bar-in-progress-section a.search-btn{
+.search-bar-in-progress-section .search-btn{
     color: #fff;
     height: 40px;
     text-decoration: none;

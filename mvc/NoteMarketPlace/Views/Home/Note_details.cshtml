@@ -1,4 +1,4 @@
-﻿@model NoteMarketPlace.SellerNote
+﻿@model NoteMarketPlace.viewModel.NoteDetailsViewModel
 @{
     Layout = null;
 }
@@ -21,7 +21,7 @@
     <!--costume style-->
     <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
     <link rel="stylesheet" type="text/css" href="/css/note-page/style(note-page).css" />
-    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css"
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css"/>
 
     <!--responsive style-->
     <link rel="stylesheet" type="text/css" href="/css/responsive/note-page/responsive(note-page).css" />
@@ -34,7 +34,7 @@
     <!--note-details-->
     @using (Html.BeginForm("Note_details", "Home", FormMethod.Post))
     {
-        @Html.HiddenFor(m => m.id)
+        @Html.HiddenFor(m => m.sellerNote.id)
         <section id="note-details-deep">
             <div class="container-bgs">
                 <div class="container">
@@ -53,34 +53,29 @@
                                 <div class="row">
 
                                     <!--cover page-->
-                                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
-                                        @if (Model.DisplayPicture != null)
+                                    <div class="col-lg-2 col-md-3 col-sm-12 col-12 ">
+                                        @if (Model.Imgpath != null)
                                         {
                                             <div class="cover-page">
-                                                <img src="@Url.Content(Model.DisplayPicture)" class="img-fluid">
+                                                <img src="@Url.Content(Model.Imgpath)" class="img-fluid Note-detail-coverPage">
                                             </div>
                                         }
-                                        else
-                                        {
-                                            <div class="cover-page">
-                                                <img src="" class="img-fluid">
-                                            </div>
-                                        }
+                                        
 
                                     </div>
 
                                     <!--about book-->
-                                    <div class="col-lg-5  col-md-9  col-sm-8  col-6">
+                                    <div class="col-lg-5  col-md-9  col-sm-12  col-12">
                                         <div class="about-book">
-                                            <h4>@Model.Title</h4>
-                                            <h6>@Model.NoteCategory.Name</h6>
-                                            <p> @Model.Description</p>
+                                            <h4>@Model.sellerNote.Title</h4>
+                                            <h6>@Model.sellerNote.NoteCategory.Name</h6>
+                                            <p> @Model.sellerNote.Description</p>
                                             @if (ViewBag.visited != null)
                                             {
-                                                if (Model.IsPaid == true)
+                                                if (Model.sellerNote.IsPaid == true)
                                                 {
                                                     <div class="w-download-btn">
-                                                        <button disabled type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.SellingPrice</button>
+                                                        <button disabled type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.sellerNote.SellingPrice</button>
                                                     </div>
                                                 }
                                                 else
@@ -92,10 +87,10 @@
                                             }
                                             else
                                             {
-                                                if (Model.IsPaid == true)
+                                                if (Model.sellerNote.IsPaid == true)
                                                 {
                                                     <div class="w-download-btn">
-                                                        <button type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.SellingPrice</button>
+                                                        <button type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.sellerNote.SellingPrice</button>
                                                     </div>
                                                 }
                                                 else
@@ -114,9 +109,9 @@
 
                                     <div class="col-lg-5 col-md-12">
                                         <div class="biodata-of-note">
-                                            @if (Model.UniversityName != null)
+                                            @if (Model.sellerNote.UniversityName != null)
                                             {
-                                                <p><span>Institution:</span><span class="float-right">@Model.UniversityName</span></p>
+                                                <p><span>Institution:</span><span class="float-right">@Model.sellerNote.UniversityName</span></p>
 
                                             }
                                             else
@@ -124,9 +119,9 @@
                                                 <p><span>Institution:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.Country != null)
+                                            @if (Model.sellerNote.Country != null)
                                             {
-                                                <p><span>country:</span><span class="float-right">@Model.Country1.Name</span></p>
+                                                <p><span>country:</span><span class="float-right">@Model.sellerNote.Country1.Name</span></p>
 
                                             }
                                             else
@@ -134,9 +129,9 @@
                                                 <p><span>country:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.Course != null)
+                                            @if (Model.sellerNote.Course != null)
                                             {
-                                                <p><span>course Name:</span><span class="float-right">@Model.Course</span></p>
+                                                <p><span>course Name:</span><span class="float-right">@Model.sellerNote.Course</span></p>
 
                                             }
                                             else
@@ -144,9 +139,9 @@
                                                 <p><span>course Name:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.CourseCode != null)
+                                            @if (Model.sellerNote.CourseCode != null)
                                             {
-                                                <p><span>Course code:</span><span class="float-right">Model.CourseCode</span></p>
+                                                <p><span>Course code:</span><span class="float-right">@Model.sellerNote.CourseCode</span></p>
 
                                             }
                                             else
@@ -154,9 +149,9 @@
                                                 <p><span>Course code:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.Professor != null)
+                                            @if (Model.sellerNote.Professor != null)
                                             {
-                                                <p><span>Professor:</span><span class="float-right">@Model.Professor</span></p>
+                                                <p><span>Professor:</span><span class="float-right">@Model.sellerNote.Professor</span></p>
 
                                             }
                                             else
@@ -164,9 +159,9 @@
                                                 <p><span>Professor:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.NumberOfPages != null)
+                                            @if (Model.sellerNote.NumberOfPages != null)
                                             {
-                                                <p><span>Number of Pages:</span><span class="float-right">@Model.NumberOfPages</span></p>
+                                                <p><span>Number of Pages:</span><span class="float-right">@Model.sellerNote.NumberOfPages</span></p>
 
                                             }
                                             else
@@ -174,9 +169,9 @@
                                                 <p><span>Number of Pages:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.Status == 4)
+                                            @if (Model.sellerNote.Status == 4 && @Model.sellerNote.PublishedDate !=null)
                                             {
-                                                <p><span>Approved Date:</span><span class="float-right">@Model.PublishedDate.Value.ToString("MMMM dd yyyy")</span></p>
+                                                <p><span>Approved Date:</span><span class="float-right">@Model.sellerNote.PublishedDate.Value.ToString("MMMM dd yyyy")</span></p>
 
                                             }
                                             else
@@ -188,22 +183,42 @@
                                                 <span><p>rating:</p></span>
                                                 <div class="float-right through-line">
                                                     <div class="rate">
-                                                        <input type="radio" id="star5-book3" name="rate" value="5" />
-                                                        <label for="star5-book3" title="text"><i class="fa fa-star"></i></label>
-                                                        <input type="radio" id="star4-book3" name="rate" value="4" />
-                                                        <label for="star4-book3" title="text"><i class="fa fa-star"></i></label>
-                                                        <input type="radio" id="star3-book3" name="rate" value="3" />
-                                                        <label for="star3-book3" title="text"><i class="fa fa-star"></i></label>
-                                                        <input type="radio" id="star2-book3" name="rate" value="2" />
-                                                        <label for="star2-book3" title="text"><i class="fa fa-star"></i></label>
-                                                        <input type="radio" id="star1-book3" name="rate" value="1" />
-                                                        <label for="star1-book3" title="text"><i class="fa fa-star"></i></label>
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            if (i <= Model.overallRating)
+                                                            {
+                                                                <Span><i style="color:#ffc700;" class="fa fa-star"></i></Span>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <span><i style="color:#ccc;" class="fa fa-star"></i></span>
+
+                                                            }
+
+                                                        }
                                                     </div>
-                                                    <p>10 reviews</p>
+                                                    @if (Model.TotalReview != 0)
+                                                    {
+                                                        <p>@Model.TotalReview reviews</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>0 reviews</p>
+
+                                                    }
                                                 </div>
 
                                             </div>
-                                            <p class="review">5 user mark this note as inappropriate</p>
+                                            @if (Model.Inappropriate != 0)
+                                            {
+                                                <p class="review">@Model.Inappropriate user mark this note as inappropriate</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="review">0 user mark this note as inappropriate</p>
+
+                                            }
                                         </div>
                                     </div>
 
@@ -230,9 +245,9 @@
 
                                         <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
                                             <div class="responsive-wrapper responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: hidden ">
-                                                @if (Model.NotesPreview != null)
+                                                @if (Model.sellerNote.NotesPreview != null)
                                                 {
-                                                    <iframe src="@Url.Content(Model.NotesPreview)">
+                                                    <iframe src="@Url.Content(Model.sellerNote.NotesPreview)">
                                                     </iframe>
                                                 }
                                                 else
@@ -266,101 +281,52 @@
                                     <div class="col-md-12">
                                         <div class="w-costumer-content">
                                             <div class="row no-gutters">
+                                                @{ int Count = 0;}
+                                                @foreach (var item in Model.reviewLists)
+                                                {
+                                                    Count++;
+                                                    <div class="col-md-12">
+                                                        <div class="througn-into-flex">
+                                                            <div class="w-costumer-img">
+                                                                
+                                                                    <img src="@Url.Content(item.profileImagePathP)" class="rounded-circle">
 
-                                                <!--constumer-1-->
-                                                <div class="col-md-12">
-                                                    <div class="througn-into-flex">
-                                                        <div class="w-costumer-img">
-                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
-                                                        </div>
-
-
-
-                                                        <div class="w-coment">
-                                                            <h6>Richard brown</h6>
-                                                            <div class="star">
-                                                                <div class="rate">
-                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
-                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
-                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
-                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
-                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
-                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                </div>
+                                                                
                                                             </div>
-                                                            <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. consectetur adipisicing elit. Lorem ipsum dolor. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
+
+
+
+                                                            <div class="w-coment">
+                                                                <h6>@item.fullName</h6>
+                                                                <div class="star">
+                                                                    <div class="rate">
+                                                                        @for (int i = 1; i <= 5; i++)
+                                                                        {
+                                                                            if (i <= item.rating)
+                                                                            {
+                                                                                <span><i style="color:#ffc700;" class="fa fa-star"></i></span>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span><i style="color:#ccc;" class="fa fa-star"></i></span>
+
+                                                                            }
+
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <p>@item.comments </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    if (Count != Model.TotalReview)
+                                                    {
+                                                        <hr>
+                                                    }
+                                                    
 
-                                                <hr>
-
-                                                <!--constumer-2-->
-                                                <div class="col-md-12">
-                                                    <div class="througn-into-flex">
-                                                        <div class="w-costumer-img">
-                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
-                                                        </div>
-
-
-
-                                                        <div class="w-coment">
-                                                            <h6>Richard brown</h6>
-                                                            <div class="star">
-                                                                <div class="rate">
-                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
-                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
-                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
-                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
-                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
-                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                </div>
-                                                            </div>
-                                                            <p> Lorem ipsum dolor sit amet, Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing. consectetur adipisicing elit. Ea praesentiu, </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <!--constumer-3-->
-                                                <div class="col-md-12">
-
-                                                    <div class="througn-into-flex">
-                                                        <div class="w-costumer-img">
-                                                            <img src="/images/costumer/team-5.jpg" class="rounded-circle">
-                                                        </div>
-
-
-
-                                                        <div class="w-coment">
-                                                            <h6>Richard brown</h6>
-                                                            <div class="star">
-                                                                <div class="rate">
-                                                                    <input type="radio" id="star5-book3-3" name="rate" value="5" />
-                                                                    <label for="star5-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star4-book3-3" name="rate" value="4" />
-                                                                    <label for="star4-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star3-book3-3" name="rate" value="3" />
-                                                                    <label for="star3-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star2-book3-3" name="rate" value="2" />
-                                                                    <label for="star2-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                    <input type="radio" id="star1-book3-3" name="rate" value="1" />
-                                                                    <label for="star1-book3-3" title="text"><i class="fa fa-star"></i></label>
-                                                                </div>
-                                                            </div>
-                                                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea praesentiu, </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                }
 
                                             </div>
 
@@ -400,7 +366,7 @@
                             <div class="modal-footer">
                                 <div class="w-submit-btn">
 
-                                    <button type="submit" @*data-toggle="modal" data-target="#exampleModal"*@ onclick="$('.my_modal').modal('hide'); " @*data-dismiss="modal" aria-label="Close"*@ name="btn" value="btnPublish" class="submit-btn text-center float-left">YES</button>
+                                    <button type="submit" @*data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" aria-label="Close"*@ onclick="$('.my_modal').modal('hide');" name="btn" value="btnPublish" class="submit-btn text-center float-left">YES</button>
                                     <button name="btn" value="btnCancel" data-dismiss="modal" aria-label="Close" class="submit-btn text-center" href="">NO</button>
                                 </div>
 
@@ -444,22 +410,7 @@
     }
     <!--footer-->
     @Html.Partial("footer")
-    @*<footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="w-footer">
-                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                            <div class="footer-icon pull-right">
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>*@
+    
 
 
 

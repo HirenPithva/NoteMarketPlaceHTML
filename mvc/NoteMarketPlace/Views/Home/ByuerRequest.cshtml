@@ -85,50 +85,52 @@
                                             <th scope="col">@Html.ActionLink("PHONE NO", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "PHONENO", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
                                             <th scope="col">@Html.ActionLink("SELL TYPE", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "SELLTYPE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
                                             <th scope="col">@Html.ActionLink("PRICE", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "asc" : ((@ViewBag.sortorder == "dsc") ? "asc" : "dsc"), SortBy = "PRICE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
-                                            <th scope="col">@Html.ActionLink("DOWNLOAD DATE/TIME", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "dsc" : ((@ViewBag.sortorder == "asc") ? "dsc" : "asc"), SortBy = "DATE" , pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
+                                            <th scope="col">@Html.ActionLink("DOWNLOAD DATE/TIME", "ByuerRequest", new { SortOrder = (@ViewBag.sortorder == null) ? "dsc" : ((@ViewBag.sortorder == "asc") ? "dsc" : "asc"), SortBy = "DATE", pagenumber = (ViewBag.pageNumber == null) ? 1 : ViewBag.pageNumber })</th>
                                             <th scope="col"><p class="my-downloads-vidiblity">eyeanddots</p></th>
                                         </tr>
                                     </thead>
-                                    <tbody >
+                                    <tbody>
                                         @{var x = ((ViewBag.pageNumber - 1) * 10);}
-                                           @foreach (var item in Model)
-                                           {
-                                               x =  x + 1; <tr class="hover-effect">
-                                        <td>@x</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.category</td>
-                                        <td>@item.emailID</td>
-                                        <td>@item.phoneNumber</td>
-                                        @if (item.sellType == true)
+                                        @foreach (var item in Model)
                                         {
-                                            <td>paid</td>
+                                            x = x + 1;
+                                            <tr class="hover-effect">
+                                                <td>@x</td>
+                                                <td>@item.Title</td>
+                                                <td>@item.category</td>
+                                                <td>@item.emailID</td>
+                                                <td>@item.phoneNumber</td>
+                                                @if (item.sellType == true)
+                                                {
+                                                    <td>paid</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Free</td>
+
+                                                }
+                                                <td>$@item.price</td>
+                                                <td>@item.DownloadedTime.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                                <td class="action-logo">
+                                                    <a href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.noteID })"><img src="/images/dashboard/eye.png" class="img-fluid"></a>
+
+
+                                                    <div class="btn-group dropleft">
+                                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <img src="/images/dashboard/three-dots.png" class="img-fluid" />
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                            <a class="dropdown-item" href="@Url.Action("RequestApproved","Home",new { noteID=@item.noteID, buyerID=item.buyer})">Allow Download</a>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                            </tr>
                                         }
-                                        else
-                                        {
-                                            <td>Free</td>
-
-                                        }
-                                        <td>$@item.price</td>
-                                        <td>@item.DownloadedTime.ToString("dd MMM yyyy, hh:mm:ss")</td>
-                                        <td class="action-logo">
-                                            <img src="/images/dashboard/eye.png" class="img-fluid">
-
-                                            <div class="btn-group dropleft">
-                                                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <img src="/images/dashboard/three-dots.png" class="img-fluid" />
-                                                </a>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                                                    <a class="dropdown-item" href="@Url.Action("RequestApproved","Home",new { noteID=@item.noteID, buyerID=item.buyer})">Allow Download</a>
-                                                </div>
-                                            </div>
-
-                                        </td>
-                                    </tr>
-                                           }
 
 
-                                     </tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -176,33 +178,34 @@
             </div>
         </section>
 
-                                            }
-<!--footer-->
-<footer class="fixed-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="w-footer">
-                    <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                    <div class="footer-icon pull-right">
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+    }
+    <!--footer-->
+    @Html.Partial("footer")
+    @*<footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                        <div class="footer-icon pull-right">
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>*@
 
-<!--jquery-->
-<script src="/javascript/jquery/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-<!--bootstrap-->
-<script src="/javascript/bootstrap.js"></script>
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
 
-<!--costume script-->
-<script src="/javascript/user-profile/user-profile.js"></script>
+    <!--costume script-->
+    <script src="/javascript/user-profile/user-profile.js"></script>
 </body>
 </html>

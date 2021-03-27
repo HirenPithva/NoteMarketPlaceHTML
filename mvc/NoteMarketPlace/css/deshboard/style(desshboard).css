@@ -6,6 +6,13 @@ h1,h2,h3,h4,h5,h6,p,a{
 th a {
     color: #333333;
 }
+td a{
+    color: #6255a5;
+}
+    th a:hover, td a:hover {
+        text-decoration: none;
+        color: #6255a5;
+    }
 .main-heading-and-btn{
     display: flex;
     flex-direction: row;
@@ -202,7 +209,9 @@ ul.pagination .page-link{
     width: 35px;
     transition: all 300ms linear;
     border-radius: 30px;
-   
+   display:flex;
+   justify-content:center;
+   align-items:center;
     
 }
 .page-link.first i{

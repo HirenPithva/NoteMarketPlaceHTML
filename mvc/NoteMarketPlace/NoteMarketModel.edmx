@@ -183,17 +183,17 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="DOB" Type="datetime" />
-          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="int" />
           <Property Name="SecondryEmailAddress" Type="varchar" MaxLength="100" />
-          <Property Name="PhoneNumber-code" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PhoneNumber-code" Type="int" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
           <Property Name="AddressLine1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AddressLine2" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="AddressLine2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="int" Nullable="false" />
           <Property Name="University" Type="varchar" MaxLength="100" />
           <Property Name="College" Type="varchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -375,30 +375,6 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserProfile_gender_gender_id">
-          <End Role="gender" Type="Self.gender" Multiplicity="1" />
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="gender">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="Gender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfile_UserID_Users_id">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_RoleID_UserRoles_id">
           <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -479,14 +455,6 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           <AssociationSet Name="FK_SellerNotesReportedIssues_ReportedByID_Users_id" Association="Self.FK_SellerNotesReportedIssues_ReportedByID_Users_id">
             <End Role="Users" EntitySet="Users" />
             <End Role="SellerNotesReportedIssues" EntitySet="SellerNotesReportedIssues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_gender_gender_id" Association="Self.FK_UserProfile_gender_gender_id">
-            <End Role="gender" EntitySet="gender" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_UserID_Users_id" Association="Self.FK_UserProfile_UserID_Users_id">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_RoleID_UserRoles_id" Association="Self.FK_Users_RoleID_UserRoles_id">
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -685,17 +653,17 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="DOB" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Int32" />
           <Property Name="SecondryEmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber_code" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="Int32" Nullable="false" />
           <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -776,7 +744,7 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserProfile_gender_gender_id">
-          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="gender" Type="Self.gender" Multiplicity="0..1" />
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="gender">

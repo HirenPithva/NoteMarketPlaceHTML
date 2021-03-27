@@ -9,6 +9,7 @@ namespace NoteMarketPlace.viewModel
     public class AddNotesCategoriesTypeCountry
     {
         [Required]
+        [StringLength(100, ErrorMessage="Title contain only 100 character")]
         [Display(Name = "Title*")]
         public string Title { get; set; }    
         public IEnumerable<Country> countries { get; set; }
@@ -21,7 +22,7 @@ namespace NoteMarketPlace.viewModel
         [Display(Name = "Upload Notes*")]
         public string ImagePathForNote { get; set; }
         [Required]
-        public HttpPostedFileBase ImageFileForNote { get; set; }
+        public HttpPostedFileBase[] ImageFileForNote { get; set; }
         [Display(Name = "Note Preview")]
         public string ImagePathForPreview { get; set; }
 
@@ -37,14 +38,14 @@ namespace NoteMarketPlace.viewModel
         [Display(Name = "Type")]
         public Nullable<int> NoteType { get; set; }
         [Display(Name = "Number of Pages")]
-
+        
         public Nullable<int> NumberOfPages { get; set; }
         [Required]
         [Display(Name = "Description*")]
 
         public string Description { get; set; }
         [Display(Name = "Institution Name")]
-
+        [StringLength(200, ErrorMessage = "Institution contain only 100 character")]
         public string UniversityName { get; set; }
         [Display(Name = "Country")]
 

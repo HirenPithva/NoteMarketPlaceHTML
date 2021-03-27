@@ -18,6 +18,11 @@ namespace NoteMarketPlace
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "userdownload",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Note_details", notedetail = UrlParameter.Optional }
+            );
         }
     }
 }

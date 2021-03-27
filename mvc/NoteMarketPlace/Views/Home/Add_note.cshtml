@@ -33,75 +33,7 @@
 
 <body>
 
-    <!--header-->
-    <!--<header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md white-top">
-
-            <div class="w-navbar">
-
-                <div class="navbar-header">
-
-                    <span id="mobile-nav-open-bar">
-                        <hr>
-                    </span>-->
-    <!--brand logo-->
-    <!--<a class="navbar-brand smooth-scroll" href="#home">
-                        <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
-                    </a>
-                </div>
-
-
-
-                <div class="collapse navbar-collapse ">
-                    <ul class="navbar-nav nav">
-
-                        <li class="navbar-text"><a href="#">Search Notes</a> </li>
-                        <li class="navbar-text"><a href="#">Sell Your Notes</a></li>
-                        <li class="navbar-text"><a href="#">Buyer Requests</a></li>
-                        <li class="navbar-text"><a href="#">FAQ</a></li>
-                        <li class="navbar-text"><a href="#">Contact Us</a></li>
-                        <li class="img-item">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="/images/User-Profile/user-1.jpg"></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">My Profile</a>
-                                    <a class="dropdown-item" href="#">My Downloads</a>
-                                    <a class="dropdown-item" href="#">My Sold Notes</a>
-                                    <a class="dropdown-item" href="#">My Rejected Notes</a>
-                                    <a class="dropdown-item" href="#">Change Password</a>
-                                    <a class="dropdown-item changing-color" href="#">LOGOUT</a>
-                                </div>
-                            </div>
-
-                        </li>
-                        <li class="navbar-text logout-btn"><a href="#">Logout</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-        </nav>
-
-    </header>
-    <section id="mobile-menu">
-        <ul class="nav">
-
-            <li class=""><a href="#">Serch Notes</a> </li>
-            <li class=""><a href="#">Sell Your Notes</a></li>
-            <li class=""><a href="#">Buyer Requests</a></li>
-            <li class=""><a href="#">FAQ</a></li>
-            <li class=""><a href="#">Contact Us</a></li>
-            <li class="img-item"><a href="#"><img class="rounded-circle" src="/images/User-Profile/user-1.jpg" alt=""></a></li>
-            <li class="gayab"><a class="dro" href="#">My Profile</a></li>
-            <li class="gayab"><a class="dro" href="#">My Downloads</a></li>
-            <li class="gayab"><a class="dro" href="#">My Sold Notes</a></li>
-            <li class="gayab"><a class="dro" href="#">My Rejected Notes</a></li>
-            <li class="gayab"><a class="dro" href="#">Change Password</a></li>
-            <li class="gayab"><a class="dro" href="#">Logout</a></li>
-            <li class="logout-btn"><a href="#">Logout</a></li>
-
-        </ul>
-    </section>-->
+    
     @Html.Partial("_navabrAuthenticat")
     <!--banner-->
     <section id="user-banner">
@@ -166,11 +98,11 @@
                             <div class="form-group">
 
                                 <div class="container-for-relative-add-notes">
-                                    <input name="ImageFile" id="for-file1" class="costume-file-upload-class" type="file">
+                                    <input name="ImageFile" id="for-file1" class="costume-file-upload-class" onchange="ShowImagePreview(this, document.getElementById('Preview'), document.getElementById('ImgName'));" type="file"  accept="image/*">
                                     <label name="ImagePath" class="label-upload-picture-add-notes apply-position-inboth" for="for-file1">
                                         <div class="label-upload-note-preview-add-notes text-center">
-                                            <img class="text-center img-fluid" src="/images/User-Profile/upload.png">
-                                            <p>upload picture</p>
+                                            <img class="text-center img-fluid" id="Preview" src="/images/User-Profile/upload.png">
+                                            <p id="ImgName">upload picture</p>
                                         </div>
                                     </label>
                                 </div>
@@ -185,9 +117,10 @@
                             <div class="form-group">
 
                                 <div class="container-for-relative-add-notes">
+                                    @Html.TextBoxFor(model => model.ImageFileForNote, "", new { @id = "for-file2", @class="multipleFile", @type = "file", @multiple = "multiple", @required = "required", @accept="application/pdf"})
 
-                                    <input name="ImageFileForNote" id="for-file2" class="costume-file-upload-class" type="file" required >
-                                    <label  class="label-upload-note-add-notes apply-position-inboth" for="for-file2"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" src="/images/User-Profile/upload%20(3)perfact.png"><p>upload your file</p></div></label>
+                                    @*<input name="ImageFileForNote" onchange = "onchangeevent(this);"  multiple class="costume-file-upload-class" type="file" required>*@
+                                    <label class="label-upload-note-add-notes apply-position-inboth outerfileDiv" for="for-file2"><div class="label-upload-note-preview-add-notes text-center MultiFileDiv"><img class="text-center img-fluid NoteFilePreview"  src="/images/User-Profile/upload%20(3)perfact.png"><p class="FirstPreviewName">upload your file</p></div></label>
 
                                 </div>
                             </div>
@@ -389,8 +322,8 @@
                             <div class="form-group note-preview-max-height">
 
 
-                                <input type="file" name="ImageFileForPreview" id="for-file3" class="costume-file-upload-class" required>
-                                <label class=" apply-position-inboth" for="for-file3"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" src="/images/User-Profile/upload.png"><p>upload a file</p></div></label>
+                                <input type="file" name="ImageFileForPreview" id="for-file3" class="costume-file-upload-class" onchange="ShowFilePreView(this, document.getElementById('priviewOFNote'), document.getElementById('NamepriviewOFNote'));" required>
+                                <label class=" apply-position-inboth" for="for-file3"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" id="priviewOFNote" src="/images/User-Profile/upload.png"><p id="NamepriviewOFNote">upload a file</p></div></label>
 
                             </div>
                            
@@ -506,6 +439,7 @@
 
     <!--costume script-->
     <script src="/javascript/user-profile/user-profile.js"></script>
+    <script src="~/javascript/DisplayNameAndPeview.js"></script>
     <script>
         $(function () {
             $("input[name='gridRadios']").click(function () {
@@ -518,6 +452,8 @@
                     $("#priceID").removeAttr("disabled", "disabled");
                 }
             });
+            
+            
         });
         
     </script>

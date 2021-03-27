@@ -17,9 +17,9 @@ namespace NoteMarketPlace
         public int ID { get; set; }
         public int UserID { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
-        public int Gender { get; set; }
+        public Nullable<int> Gender { get; set; }
         public string SecondryEmailAddress { get; set; }
-        public string PhoneNumber_code { get; set; }
+        public Nullable<int> PhoneNumber_code { get; set; }
         public string PhoneNumber { get; set; }
         public string ProfilePicture { get; set; }
         public string AddressLine1 { get; set; }
@@ -27,7 +27,7 @@ namespace NoteMarketPlace
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public string Country { get; set; }
+        public int Country { get; set; }
         public string University { get; set; }
         public string College { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

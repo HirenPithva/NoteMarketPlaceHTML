@@ -15,9 +15,12 @@ h1,h2,h3,h4,h5,h6,p,label,a{
 /*///////////////////////////////////////////////////////
                         serch bar
 ///////////////////////////////////////////////////////*/
+a.outer-link:hover{
+    text-decoration:none;
 
+}
 
-.top-left-hading h5{
+.top-left-hading h5 {
     font-size: 24px;
     font-weight: 600;
     line-height: 28px;
@@ -89,9 +92,14 @@ select{
     font-weight: 600;
     
 }
-.w-note-heading{
+.w-note-heading {
     height: 50px;
     margin-bottom: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .w-note-details p{
     font-size: 14px;
@@ -105,6 +113,10 @@ select{
     padding-top: 30px;
     max-width: 450px;
 }
+    .w-note-content .note-img {
+        height: 250px;
+        width: 100%;
+    }
 .rate {
     float: left;
     height: 46px;
@@ -175,11 +187,12 @@ ul.pagination .page-link.first{
     padding: 8px 15px;
     transition: all 300ms linear;
 }
-ul.pagination .page-link:hover,
-ul.pagination .page-link:focus{
-    background-color: #6255a5;
-    color: #fff;
-}
+    ul.pagination .page-link:hover,
+    ul.pagination .page-link:focus,
+    ul.pagination .page-link.active {
+        background-color: #6255a5;
+        color: #fff;
+    }
 
 
 

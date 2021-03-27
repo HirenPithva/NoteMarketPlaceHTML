@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -30,6 +32,7 @@ namespace NoteMarketPlace.Controllers
 
             return View();
         }
+       
         [AllowAnonymous]
         public ActionResult Serch_note()
         {
@@ -38,8 +41,7 @@ namespace NoteMarketPlace.Controllers
             var universitys = unr.Select(x => new SelectListItem() { Text = x, Value = x }).ToList();
             
 
-            var cors = (from m in db.SellerNotes
-                        select m.Course).Distinct().ToList();
+            var cors = (from m in db.SellerNotes select m.Course).Distinct().ToList();
             var courses = cors.Select(x => new SelectListItem() { Value = x, Text = x }).ToList();
 
 
@@ -54,7 +56,7 @@ namespace NoteMarketPlace.Controllers
             }, "ID", "Name");
             SearchNoteUniConCouCateType searchComponent = new SearchNoteUniConCouCateType()
             {
-                sellerNotes = db.SellerNotes.ToList(),
+                //sellerNotes.sellerNote = db.SellerNotes.Where(m=>m.Status==4).ToList(),
                 noteCategory = db.NoteCategories,
                 noteType = db.NoteTypes,
                 country = db.Countries,
@@ -64,6 +66,126 @@ namespace NoteMarketPlace.Controllers
             };
             return View(searchComponent);
         }
+        public ActionResult allNotes(SearchNoteUniConCouCateType obj)
+        {
+            SearchNoteUniConCouCateType notes = new SearchNoteUniConCouCateType();
+            if (obj.pagenumber == 0)
+            {
+                obj.pagenumber = 1;
+            }
+
+            ViewBag.pagenum = obj.pagenumber;
+            var allNOTES = db.SellerNotes.Where(m => m.Status == 4).ToList();
+            var notesAndReview = new List<noteWithReview>();
+            foreach (SellerNote item in allNOTES)
+            {
+                var obj1 = new noteWithReview();
+                obj1.sellerNote = item;
+                obj1.TotalReview = db.SellerNotesReviews.Where(m => m.NoteID == item.id).Count();
+                if (obj1.TotalReview > 0)
+                {
+                    var sumOfRating = (double)db.SellerNotesReviews.Where(m => m.NoteID == item.id).ToList().Select(m => m.Ratings).Sum();
+                    var totalReview = (double)obj1.TotalReview;
+                    obj1.rate = (int)Math.Ceiling(sumOfRating / totalReview);
+                }
+                else
+                {
+                    obj1.rate = 0;
+                }
+                obj1.inappropriate = db.SellerNotesReportedIssues.Where(m => m.NoteID == item.id).Count();
+                if (item.DisplayPicture != null)
+                {
+                    obj1.imgPath = item.DisplayPicture;
+                }
+                else
+                {
+                    obj1.imgPath = db.SystemConfigurations.Where(m => m.Key == "DefaultNoteDisplayPicture").Select(m => m.Value).SingleOrDefault();
+                }
+                notesAndReview.Add(obj1);
+            }
+            var noteList = notesAndReview;
+            
+            if (obj.searchText != null)
+            {
+                noteList = noteList.Where(m => m.sellerNote.Title.ToLower().Contains(obj.searchText.ToLower())).ToList();
+            }
+            if (obj.catgry != null)
+            {
+                noteList = noteList.Where(m => m.sellerNote.NoteCategory.Name.Contains(obj.catgry)).ToList();
+            }
+            if (obj.typ != null)
+            {
+                var temp = new List<noteWithReview>();
+                foreach(var noteType in noteList)
+                {
+                    if (noteType.sellerNote.NoteType != null)
+                    {
+                        temp.Add(noteType);
+                    }
+                }
+                if(temp.Count() > 0)
+                {
+                    noteList = temp.Where(m => m.sellerNote.NoteType1.Name.Contains(obj.typ)).ToList();
+                }
+            }
+            if (obj.cntry != null)
+            {
+                var temp = new List<noteWithReview>();
+                foreach (var noteCountry in noteList)
+                {
+                    if (noteCountry.sellerNote.Country != null)
+                    {
+                        temp.Add(noteCountry);
+                    }
+                }
+                if (temp.Count() > 0)
+                {
+                    noteList = temp.Where(m => m.sellerNote.Country1.Name.Contains(obj.cntry)).ToList();
+                }
+            }
+            if (obj.unvrsty != null)
+            {
+                var temp = new List<noteWithReview>();
+                foreach (var noteUniversity in noteList)
+                {
+                    if (noteUniversity.sellerNote.UniversityName != null)
+                    {
+                        temp.Add(noteUniversity);
+                    }
+                }
+                if (temp.Count() > 0)
+                {
+                    noteList = temp.Where(m => m.sellerNote.UniversityName.Contains(obj.unvrsty)).ToList();
+                }
+            }
+            if (obj.cors != null)
+            {
+                var temp = new List<noteWithReview>();
+                foreach (var noteCourse in noteList)
+                {
+                    if (noteCourse.sellerNote.Course != null)
+                    {
+                        temp.Add(noteCourse);
+                    }
+                }
+                if (temp.Count() > 0)
+                {
+                    noteList = temp.Where(m => m.sellerNote.Course.Contains(obj.cors)).ToList();
+                }
+            }
+            ViewBag.totalnotes = noteList.Count();
+            ViewBag.TotalPages = Math.Ceiling(noteList.Where(m => m.sellerNote.Status == 4).Count() / 6.0);
+            if(ViewBag.TotalPages< ViewBag.pagenum)
+            {
+                ViewBag.pagenum = ViewBag.TotalPages;
+                obj.pagenumber =(int)ViewBag.pagenum;
+            }
+            noteList = noteList.Skip((obj.pagenumber - 1) * 6).Take(6).ToList();
+            notes.sellerNotes = noteList;
+            return View(notes);
+        }
+
+
         [AllowAnonymous]
         public ActionResult FAQ()
         {
@@ -86,6 +208,10 @@ namespace NoteMarketPlace.Controllers
             }
             return View();
         }
+
+
+
+
 
         public void buildEmailTamplateContactUs(ContactUs contactUs)
         {
@@ -140,7 +266,7 @@ namespace NoteMarketPlace.Controllers
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("emailID", "Password");
+            client.Credentials = new System.Net.NetworkCredential("hirenpithva105@gmail.com", "Hiren@#12376");
             try
             {
                 client.Send(mail);
@@ -150,6 +276,13 @@ namespace NoteMarketPlace.Controllers
                 throw ex;
             }
         }
+
+
+
+
+
+
+
         [HttpGet]
         [Authorize]
         public ActionResult Add_note()
@@ -173,19 +306,23 @@ namespace NoteMarketPlace.Controllers
                 
                 User user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
                 string FileName = string.Empty; string FileExtension = string.Empty; string UploadPath = string.Empty; string fileUploadpath=string.Empty;
-                FileExtension = Path.GetExtension(addNotesCategoriesTypeCountry.ImageFileForNote.FileName);
-                if (FileExtension != ".pdf")
+                foreach(HttpPostedFileBase file in addNotesCategoriesTypeCountry.ImageFileForNote)
                 {
-                    ViewBag.initial = "initial";
+                    FileExtension = Path.GetExtension(file.FileName);
+                    if (FileExtension != ".pdf")
+                    {
+                        ViewBag.initial = "initial";
 
 
-                    addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
-                    addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
-                    addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
+                        addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
+                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
+                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
 
-                    
-                    return View(addNotesCategoriesTypeCountry);
+
+                        return View(addNotesCategoriesTypeCountry);
+                    }
                 }
+                
                 SellerNote noteDetail = new SellerNote();
                 noteDetail.SellerID = user.id;
                 noteDetail.Status = 1;
@@ -240,7 +377,7 @@ namespace NoteMarketPlace.Controllers
                     noteDetail.DisplayPicture = UploadPath + FileName;
                     addNotesCategoriesTypeCountry.ImageFile.SaveAs(fileUploadpath);
                 }
-                
+               
                 if (addNotesCategoriesTypeCountry.ImageFileForPreview != null)
                 {
 
@@ -261,21 +398,25 @@ namespace NoteMarketPlace.Controllers
                 noteDetail = db.SellerNotes.Where(m => m.id == noteDetail.id).SingleOrDefault();
                 SellerNotesAttechment notesAttechment = new SellerNotesAttechment();
 
-                
+
                 //newway
-                FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
-                FileName = System.IO.Path.GetFileName(addNotesCategoriesTypeCountry.ImageFileForNote.FileName);
-                FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
-                UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/";
-                createPath(UploadPath);
-                fileUploadpath = Path.Combine(Server.MapPath(UploadPath), (FileName));
-                notesAttechment.FilePath = UploadPath + FileName;
-                addNotesCategoriesTypeCountry.ImageFileForNote.SaveAs(fileUploadpath);
+                foreach (HttpPostedFileBase file in addNotesCategoriesTypeCountry.ImageFileForNote)
+                {
 
-
+                    FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
+                    FileName = System.IO.Path.GetFileName(file.FileName);
+                    FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
+                    
+                    UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/Attachment/";
+                    createPath(UploadPath);
+                    fileUploadpath = Path.Combine(Server.MapPath(UploadPath), (FileName));
+                    file.SaveAs(fileUploadpath);
+                }
+                UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/Attachment/";
+                notesAttechment.FilePath = UploadPath;
                 notesAttechment.NoteID = noteDetail.id;
                 notesAttechment.IsActive = true;
-                notesAttechment.FileName = FileName;
+                notesAttechment.FileName =FileName ;
                 notesAttechment.CreatedBy = user.id;
                 notesAttechment.CreatedDate = DateTime.Now;
                 db.SellerNotesAttechments.Add(notesAttechment);
@@ -293,10 +434,16 @@ namespace NoteMarketPlace.Controllers
 
             return View(addNotesCategoriesTypeCountry);
         }
+
+
+
+
+
         [HttpGet]
         [Authorize]
         public ActionResult Edit_notes(int noteID)
         {
+            
             var notedetails = db.SellerNotes.Where(m => m.id == noteID).SingleOrDefault();
             var noteAttechment = db.SellerNotesAttechments.Where(m => m.NoteID == noteID).SingleOrDefault();
 
@@ -320,6 +467,40 @@ namespace NoteMarketPlace.Controllers
             editNoteDetails.noteTypes = db.NoteTypes.ToList();
             editNoteDetails.noteCategories = db.NoteCategories.ToList();
             editNoteDetails.IDofNote = noteID;
+
+
+            //DisplayPicture 
+            if (notedetails.DisplayPicture != null)
+            {
+                FileInfo noteDisplayname = new FileInfo(Server.MapPath(notedetails.DisplayPicture));
+                editNoteDetails.noteDisplayName = noteDisplayname.Name;
+            }
+
+
+            //PreView
+            if (notedetails.NotesPreview != null)
+            {
+                FileInfo notePreviewname = new FileInfo(Server.MapPath(notedetails.NotesPreview));
+                string extn = notePreviewname.Extension;
+                if (extn == ".pdf")
+                {
+                    ViewBag.PDFFormat = "file is in pdf format";
+                }
+                editNoteDetails.notePreviewName = notePreviewname.Name;
+            }
+            
+
+
+            //File
+            List<string> allFileName = new List<string>();
+            string[] AllFilePathFromDir = Directory.GetFiles(Server.MapPath(noteAttechment.FilePath));
+            foreach(string item in AllFilePathFromDir)
+            {
+                FileInfo FileFromDir = new FileInfo(item);
+                allFileName.Add(FileFromDir.Name);
+            }
+            editNoteDetails.NoteFileName = allFileName;
+            ViewBag.TotalFile =(int)allFileName.Count();
             return View("Edit_notes", editNoteDetails);
         }
         [HttpPost]
@@ -329,26 +510,30 @@ namespace NoteMarketPlace.Controllers
             {
                 User user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
                 string FileName = string.Empty; string FileExtension = string.Empty; string UploadPath = string.Empty; string fileUploadpath = string.Empty;
-                if (addNotesCategoriesTypeCountry.ImageFileForNote != null)
+                var noteDetail = db.SellerNotes.Where(m => m.id == addNotesCategoriesTypeCountry.IDofNote).SingleOrDefault();
+
+
+                foreach (HttpPostedFileBase file in addNotesCategoriesTypeCountry.ImageFileForNote)
                 {
-                    FileExtension = Path.GetExtension(addNotesCategoriesTypeCountry.ImageFileForNote.FileName);
-
-                    if (FileExtension != ".pdf")
+                    if (file != null)
                     {
-                        ViewBag.initial = "initial";
+                        FileExtension = Path.GetExtension(file.FileName);
+
+                        if (FileExtension != ".pdf")
+                        {
+                            ViewBag.initial = "initial";
+                            addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
+                            addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
+                            addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
 
 
-                        addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
-                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
-                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
-
-                        
-                        return View(addNotesCategoriesTypeCountry);
+                            return View(addNotesCategoriesTypeCountry);
+                        }
                     }
+
                 }
-                var oldNote = db.SellerNotes.Where(m => m.id == addNotesCategoriesTypeCountry.IDofNote).SingleOrDefault();
-                SellerNote noteDetail = new SellerNote();
-                noteDetail.SellerID = oldNote.SellerID;
+                
+                
                 if(addNotesCategoriesTypeCountry.btn== "btnPublish")
                 {
                     noteDetail.Status = 2;
@@ -362,13 +547,12 @@ namespace NoteMarketPlace.Controllers
                 noteDetail.Country = addNotesCategoriesTypeCountry.Country;
                 noteDetail.Course = addNotesCategoriesTypeCountry.Course;
                 noteDetail.CourseCode = addNotesCategoriesTypeCountry.CourseCode;
-                noteDetail.CreatedBy = oldNote.CreatedBy;
-                noteDetail.CreatedDate = oldNote.CreatedDate;
+                
                 noteDetail.ModifiedBy = user.id;
                 noteDetail.ModifiedDate = DateTime.Now;
                 noteDetail.Description = addNotesCategoriesTypeCountry.Description;
 
-                if(oldNote.IsPaid == false && addNotesCategoriesTypeCountry.gridRadios== "paid")
+                if(noteDetail.IsPaid == false && addNotesCategoriesTypeCountry.gridRadios== "paid")
                 {
                     if(addNotesCategoriesTypeCountry.SellingPrice == 0 || addNotesCategoriesTypeCountry.ImageFileForPreview == null)
                     {
@@ -412,7 +596,6 @@ namespace NoteMarketPlace.Controllers
                 noteDetail.NumberOfPages = addNotesCategoriesTypeCountry.NumberOfPages;
                 noteDetail.UniversityName = addNotesCategoriesTypeCountry.UniversityName;
                 noteDetail.Professor = addNotesCategoriesTypeCountry.Professor;
-                noteDetail.id = addNotesCategoriesTypeCountry.IDofNote;
 
                 void createPath(string Filepath)
                 {
@@ -424,6 +607,15 @@ namespace NoteMarketPlace.Controllers
                 }
                 if (addNotesCategoriesTypeCountry.ImageFile != null)
                 {
+                    if (addNotesCategoriesTypeCountry.ImagePath != null)
+                    {
+                        string path = Server.MapPath(addNotesCategoriesTypeCountry.ImagePath);
+                        FileInfo file = new FileInfo(path);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                    }
                     FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
                     FileName = System.IO.Path.GetFileName(addNotesCategoriesTypeCountry.ImageFile.FileName);
                     FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
@@ -441,7 +633,15 @@ namespace NoteMarketPlace.Controllers
 
                 if (addNotesCategoriesTypeCountry.ImageFileForPreview != null)
                 {
-
+                    if (addNotesCategoriesTypeCountry.ImagePathForPreview != null)
+                    {
+                        string path = Server.MapPath(addNotesCategoriesTypeCountry.ImagePathForPreview);
+                        FileInfo file = new FileInfo(path);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                    }
                     FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
                     FileName = System.IO.Path.GetFileName(addNotesCategoriesTypeCountry.ImageFileForPreview.FileName);
                     FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
@@ -456,54 +656,87 @@ namespace NoteMarketPlace.Controllers
                     noteDetail.NotesPreview = addNotesCategoriesTypeCountry.ImagePathForPreview;
                 }
                
-                SellerNotesAttechment notesAttechment = new SellerNotesAttechment();
-                var oldAttechments = db.SellerNotesAttechments.Where(m => m.NoteID == noteDetail.id).SingleOrDefault();
-                if (addNotesCategoriesTypeCountry.ImageFileForNote != null)
-                {
-                    FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
-                    FileName = System.IO.Path.GetFileName(addNotesCategoriesTypeCountry.ImageFileForNote.FileName);
-                    FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
-                    UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/";
-                    createPath(UploadPath);
-                    fileUploadpath = Path.Combine(Server.MapPath(UploadPath), (FileName));
-                    notesAttechment.FilePath = UploadPath + FileName;
-                    addNotesCategoriesTypeCountry.ImageFileForNote.SaveAs(fileUploadpath);
+                
+                var notesAttechment = db.SellerNotesAttechments.Where(m => m.NoteID == noteDetail.id).SingleOrDefault();
+                bool isFilenull=false;
+                    foreach (HttpPostedFileBase file in addNotesCategoriesTypeCountry.ImageFileForNote)
+                    {
+                        if (file != null)
+                        {
+                            isFilenull = true;
+                            string[] fileLoc = Directory.GetFiles(Server.MapPath(addNotesCategoriesTypeCountry.ImagePathForNote));
+                            foreach (string Dirfilepath in fileLoc)
+                            {
+                                FileInfo internalfile = new FileInfo(Dirfilepath);
+                                if (internalfile.Exists)
+                                {
+                                    internalfile.Delete();
+                                }
+                            }
+                            break;
+                        }
+                    }
 
-                }
-                else
+                if (isFilenull)
                 {
-                    notesAttechment.FileName = oldAttechments.FileName;
-                    notesAttechment.FilePath = oldAttechments.FilePath;
+                    foreach (HttpPostedFileBase file in addNotesCategoriesTypeCountry.ImageFileForNote)
+                    {
 
-                }
+                        FileName = string.Empty; FileExtension = string.Empty; UploadPath = string.Empty;
+                        FileName = System.IO.Path.GetFileName(file.FileName);
+                        FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "-" + FileName;
+                        notesAttechment.FileName = notesAttechment.FileName + FileName + ",";
+                        UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/Attachment/";
+                        createPath(UploadPath);
+                        fileUploadpath = Path.Combine(Server.MapPath(UploadPath), (FileName));
+                        file.SaveAs(fileUploadpath);
+
+
+                    }
+                    notesAttechment.FileName = FileName;
+                }       
+                    
+                    
+
+
+                
+                UploadPath = "~/Membere/" + user.id + "/" + noteDetail.id + "/Attachment/";
+                notesAttechment.FilePath = UploadPath;
                 notesAttechment.IsActive = true;
-                notesAttechment.CreatedBy = oldAttechments.CreatedBy;
-                notesAttechment.CreatedDate = oldAttechments.CreatedDate;
+                
                 notesAttechment.ModifiedBy = user.id;
                 notesAttechment.ModifiedDate = DateTime.Now;
-                db.SellerNotesAttechments.Remove(oldAttechments);
-                db.SellerNotes.Remove(oldNote);
+                
+                db.SellerNotesAttechments.Attach(notesAttechment);
+                db.SellerNotes.Attach(noteDetail);
+                db.Entry(notesAttechment).State = EntityState.Modified;
+                db.Entry(noteDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                notesAttechment.NoteID = noteDetail.id;
-                db.SellerNotes.Add(noteDetail);
-                //db.SaveChanges();
-
-
-                //attechments
-                db.SellerNotesAttechments.Add(notesAttechment);
-                db.SaveChanges();
+                
                 return RedirectToAction("Deshboard");
             }
 
             return View();
         }
+       
+
+
+
+
+
         [Authorize]
         [HttpGet]
         public ActionResult Delete_notes(int noteID, string SortOrderpub, string SortBypub, int pageOfpublished , string SortOrder, string SortBy, int pageOfDraft , string SerchText, string publishedSerchText)
         {
+            var user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).SingleOrDefault();
             var oldNote = db.SellerNotes.Where(m => m.id == noteID).SingleOrDefault();
 
             var oldAttechments = db.SellerNotesAttechments.Where(m => m.NoteID == oldNote.id).SingleOrDefault();
+            string path = "~/Membere/" + user.id + "/" + oldNote.id;
+            path = Server.MapPath(path);
+            Directory.Delete(path,true);
+           
+
             db.SellerNotesAttechments.Remove(oldAttechments);
             db.SellerNotes.Remove(oldNote);
             db.SaveChanges();
@@ -511,30 +744,100 @@ namespace NoteMarketPlace.Controllers
             publishedSerchText = string.Empty;
             return RedirectToAction("Deshboard","Home", new { SerchText, publishedSerchText, SortOrder, SortBy, SortOrderpub, SortBypub, pageOfDraft, pageOfpublished });
         }
+        
+        
+        
+        
+        
         [HttpGet]
         public ActionResult Note_details(int idForNoteDetails)
         {
             SellerNote noteDetails = db.SellerNotes.Where(m => m.id == idForNoteDetails).SingleOrDefault();
-            var user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).SingleOrDefault();
-             var notAllowedpaidUserForDownload = db.Downloads.Where(m => m.NoteID == noteDetails.id && m.Downloader == user.id && m.IsPaid == true && m.IsSellerHasAllowedDownload == false).SingleOrDefault();
-            if (notAllowedpaidUserForDownload != null)
+            var noteAndReviewList = new NoteDetailsViewModel();
+            noteAndReviewList.sellerNote = noteDetails;
+            var reviewlist = new List<ReviewList>();
+            var AllTheReviewRelatedToNote = db.SellerNotesReviews.Where(m => m.NoteID == idForNoteDetails).ToList();
+            foreach(var item in AllTheReviewRelatedToNote)
             {
-                ViewBag.visited = "already visited paid note doesn't download user";
-
+                var Review = new ReviewList();
+                var userBelongsToReview = db.Users.Where(m => m.id == item.ReviewedByID).SingleOrDefault();
+                var isImageAvailable = db.UserProfiles.Where(m => m.UserID == item.ReviewedByID).Select(m => m.ProfilePicture).SingleOrDefault();
+                if (isImageAvailable != null)
+                {
+                    Review.profileImagePathP = isImageAvailable;
+                }
+                else
+                {
+                    Review.profileImagePathP = db.SystemConfigurations.Where(m => m.Key == "DefaultProfilePicture").Select(m => m.Value).SingleOrDefault();
+                }
+                Review.fullName = userBelongsToReview.FirstName + " " + userBelongsToReview.LastName;
+                Review.rating = (int)item.Ratings;
+                Review.comments = item.Comments;
+                noteAndReviewList.overallRating = noteAndReviewList.overallRating + (int)item.Ratings;
+                reviewlist.Add(Review);
             }
-            return View(noteDetails);
+            if (noteDetails.DisplayPicture != null)
+            {
+                noteAndReviewList.Imgpath = noteDetails.DisplayPicture;
+            }
+            else
+            {
+                noteAndReviewList.Imgpath= db.SystemConfigurations.Where(m => m.Key == "DefaultNoteDisplayPicture").Select(m => m.Value).SingleOrDefault();
+            }
+            noteAndReviewList.reviewLists = reviewlist;
+            noteAndReviewList.Inappropriate = db.SellerNotesReportedIssues.Where(m => m.NoteID == idForNoteDetails).ToList().Count();
+            noteAndReviewList.TotalReview =noteAndReviewList.reviewLists.Count();
+            noteAndReviewList.overallRating = (int)Math.Ceiling((double)noteAndReviewList.overallRating /(double)noteAndReviewList.TotalReview);
+               var user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).SingleOrDefault();
+            if (user != null)
+            {
+                var notAllowedpaidUserForDownload = db.Downloads.Where(m => m.NoteID == noteDetails.id && m.Downloader == user.id && m.IsPaid == true && m.IsSellerHasAllowedDownload == false).SingleOrDefault();
+                if (notAllowedpaidUserForDownload != null)
+                {
+                    ViewBag.visited = "already visited paid note doesn't download user";
+                    
+                }
+            }
+            if (TempData.ContainsKey("MailSent"))
+            {
+                ViewBag.forpopupModel = "mail has been sent";
+                ViewBag.buyerName = user.FirstName;
+                var sellerName = db.Users.Where(m => m.id == noteDetails.SellerID).FirstOrDefault();
+
+
+                ViewBag.sellerFullName = (sellerName.FirstName + " " + sellerName.LastName).ToString();
+
+                TempData.Remove("MailSent");
+            }
+            return View(noteAndReviewList);
         }
        
         [HttpPost]
-        public ActionResult Note_details(SellerNote notedetail)
+        public ActionResult Note_details(NoteDetailsViewModel notedetail)
         {
             if (!(User.Identity.IsAuthenticated))
             {
                 return RedirectToAction("Login","Account");
             }
-            var detailRelatedToNote = db.SellerNotes.Where(m => m.id == notedetail.id).SingleOrDefault();
+            var detailRelatedToNote = db.SellerNotes.Where(m => m.id == notedetail.sellerNote.id).SingleOrDefault();
             var user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).SingleOrDefault();
-            var attechment = db.SellerNotesAttechments.Where(m => m.NoteID == notedetail.id).SingleOrDefault();
+            var attechment = db.SellerNotesAttechments.Where(m => m.NoteID == notedetail.sellerNote.id).SingleOrDefault();
+            if (user.id == detailRelatedToNote.SellerID)
+            {
+                FileDownload obj = new FileDownload();
+                var ListOfFile = obj.GetFile(attechment.FilePath).ToList();
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var zipArchiv = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                    {
+                        for (int i = 0; i < ListOfFile.Count(); i++)
+                        {
+                            zipArchiv.CreateEntryFromFile(ListOfFile[i].FilePath, ListOfFile[i].FileName);
+                        }
+                    }
+                    return File(memoryStream.ToArray(), "application/zip", "Attachments.zip");
+                }
+            }
             var alreadyDownloadedUser = db.Downloads.Where(m => m.NoteID == detailRelatedToNote.id && m.Downloader == user.id && (m.IsPaid==false || (m.IsPaid == true && m.IsAttechmentDownloaded == true))).SingleOrDefault();
             if (alreadyDownloadedUser != null)
             {
@@ -542,16 +845,25 @@ namespace NoteMarketPlace.Controllers
                 alreadyDownloadedUser.ModifiedDate = DateTime.Now;
                 alreadyDownloadedUser.AttechmentDownloadedDate = DateTime.Now;
                 db.Downloads.Attach(alreadyDownloadedUser);
-                db.Entry(alreadyDownloadedUser).Property(m => m.ModifiedDate).IsModified = true;
-                db.Entry(alreadyDownloadedUser).Property(m => m.ModifiedBy).IsModified = true;
-                db.Entry(alreadyDownloadedUser).Property(m => m.AttechmentDownloadedDate).IsModified = true;
-
+                //db.Entry(alreadyDownloadedUser).Property(m => m.ModifiedDate).IsModified = true;
+                //db.Entry(alreadyDownloadedUser).Property(m => m.ModifiedBy).IsModified = true;
+                //db.Entry(alreadyDownloadedUser).Property(m => m.AttechmentDownloadedDate).IsModified = true;
+                db.Entry(alreadyDownloadedUser).State = EntityState.Modified;
                 db.SaveChanges();
 
-                //byte[] fileBytes = System.IO.File.ReadAllBytes(alreadyDownloadedUser.AttechmentPath);
-                //string fileName = attechment.FileName;
-                return File(alreadyDownloadedUser.AttechmentPath, "application/pdf", attechment.FileName);
-
+               FileDownload obj = new FileDownload();
+                var ListOfFile = obj.GetFile(alreadyDownloadedUser.AttechmentPath).ToList();
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var zipArchiv=new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                    {
+                        for(int i = 0; i < ListOfFile.Count(); i++)
+                        {
+                            zipArchiv.CreateEntryFromFile(ListOfFile[i].FilePath, ListOfFile[i].FileName);
+                        }
+                    }
+                    return File(memoryStream.ToArray(), "application/zip", "Attachments.zip");
+                }
             }                                                                                                                                                       //but alloowed to dowenload
             var AllowedpaidUserForDownload = db.Downloads.Where(m => m.NoteID == detailRelatedToNote.id && m.Downloader == user.id && m.IsPaid == true && m.IsAttechmentDownloaded == false && m.IsSellerHasAllowedDownload==true).SingleOrDefault();
             if (AllowedpaidUserForDownload != null)
@@ -563,25 +875,36 @@ namespace NoteMarketPlace.Controllers
                 AllowedpaidUserForDownload.ModifiedBy = user.id;
                 AllowedpaidUserForDownload.ModifiedDate = DateTime.Now;
                 db.Downloads.Attach(AllowedpaidUserForDownload);
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.PurchasedPrice).IsModified = true;
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.AttechmentPath).IsModified = true;
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.IsAttechmentDownloaded).IsModified = true;
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.AttechmentDownloadedDate).IsModified = true;
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.ModifiedDate).IsModified = true;
-                db.Entry(AllowedpaidUserForDownload).Property(m => m.ModifiedBy).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.PurchasedPrice).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.AttechmentPath).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.IsAttechmentDownloaded).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.AttechmentDownloadedDate).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.ModifiedDate).IsModified = true;
+                //db.Entry(AllowedpaidUserForDownload).Property(m => m.ModifiedBy).IsModified = true;
+                db.Entry(AllowedpaidUserForDownload).State = EntityState.Modified;
                 db.SaveChanges();
-                //byte[] fileBytes = System.IO.File.ReadAllBytes(AllowedpaidUserForDownload.AttechmentPath);
-                //string fileName = attechment.FileName;
-                return File(AllowedpaidUserForDownload.AttechmentPath, "application/pdf", attechment.FileName);
-
+                
+                FileDownload obj = new FileDownload();
+                var ListOfFile = obj.GetFile(AllowedpaidUserForDownload.AttechmentPath).ToList();
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var zipArchiv = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                    {
+                        for (int i = 0; i < ListOfFile.Count(); i++)
+                        {
+                            zipArchiv.CreateEntryFromFile(ListOfFile[i].FilePath,ListOfFile[i].FileName);
+                        }
+                    }
+                    return File(memoryStream.ToArray(), "application/zip", "Attachments.zip");
+                }
             }
             var notAllowedpaidUserForDownload = db.Downloads.Where(m => m.NoteID == detailRelatedToNote.id && m.Downloader == user.id && m.IsPaid == true &&  m.IsSellerHasAllowedDownload == false).SingleOrDefault();
             if (notAllowedpaidUserForDownload != null)
             {
                 var id = notAllowedpaidUserForDownload.NoteID;
-                return View("Serch_note");
+                return RedirectToAction("Serch_note","Home");
             }
-                Download downloadEntry = new Download();
+            Download downloadEntry = new Download();
             downloadEntry.NoteID = detailRelatedToNote.id;
             downloadEntry.Seller = detailRelatedToNote.SellerID;
             downloadEntry.Downloader = user.id;
@@ -589,36 +912,28 @@ namespace NoteMarketPlace.Controllers
             downloadEntry.NoteCategory = detailRelatedToNote.NoteCategory.Name;
             downloadEntry.CreatedDate = DateTime.Now;
             downloadEntry.CreatedBy = user.id;
-            if (detailRelatedToNote.IsPaid == true)
-            {
-                if (downloadEntry.IsSellerHasAllowedDownload == true)
-                {
-                    downloadEntry.PurchasedPrice = detailRelatedToNote.SellingPrice;
-                    downloadEntry.AttechmentPath = attechment.FilePath;
-                    downloadEntry.IsAttechmentDownloaded = true;
-                    downloadEntry.AttechmentDownloadedDate = DateTime.Now;
-                    db.Downloads.Add(downloadEntry);
-                    db.SaveChanges();
-                    //byte[] fileBytes = System.IO.File.ReadAllBytes(downloadEntry.AttechmentPath);
-                    //string fileName = attechment.FileName;
-                    return File(downloadEntry.AttechmentPath, "application/pdf", attechment.FileName);
-
-                }
-            }
-            else
+            if (detailRelatedToNote.IsPaid == false)
             {
                 downloadEntry.PurchasedPrice = 0;
                 downloadEntry.IsSellerHasAllowedDownload = true;
                 downloadEntry.AttechmentPath = attechment.FilePath;
-                //string path = AppDomain.CurrentDomain.BaseDirectory + "FolderName/";
                 downloadEntry.IsAttechmentDownloaded = true;
                 downloadEntry.AttechmentDownloadedDate = DateTime.Now;
                 db.Downloads.Add(downloadEntry);
                 db.SaveChanges();
-                //byte[] fileBytes = System.IO.File.ReadAllBytes(downloadEntry.AttechmentPath);
-                //string fileName = attechment.FileName;
-                return File(downloadEntry.AttechmentPath, "application/pdf", attechment.FileName);
-
+                FileDownload obj = new FileDownload();
+                var ListOfFile = obj.GetFile(downloadEntry.AttechmentPath).ToList();
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var zipArchiv = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                    {
+                        for (int i = 0; i < ListOfFile.Count(); i++)
+                        {
+                            zipArchiv.CreateEntryFromFile(ListOfFile[i].FilePath, ListOfFile[i].FileName);
+                        }
+                    }
+                    return File(memoryStream.ToArray(), "application/zip", "Attachments.zip");
+                }
             }
             downloadEntry.IsSellerHasAllowedDownload = false;
             downloadEntry.IsPaid = true;
@@ -627,16 +942,15 @@ namespace NoteMarketPlace.Controllers
             db.Downloads.Add(downloadEntry);
             db.SaveChanges();
             ViewBag.visited = "already visited paid note doesn't download user";
-            ViewBag.buyerName = user.FirstName;
-            var sellerName = db.Users.Where(m => m.id == detailRelatedToNote.SellerID).FirstOrDefault();
             
-            
-            ViewBag.sellerFullName = (sellerName.FirstName + " " + sellerName.LastName).ToString();
+
 
             buildEmailTamplateDownloadRequest(downloadEntry);
-            ViewBag.forpopupModel = "mail has been sent";
-            return View(detailRelatedToNote);
+
+            TempData["MailSent"]= "mail has been sent";
+            return RedirectToAction("Note_details", "Home",new { idForNoteDetails= notedetail.sellerNote.id });
         }
+        
         public void buildEmailTamplateDownloadRequest(Download downloadEntry)
         {
             string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "TextDownloadRequest" + ".cshtml");
@@ -654,6 +968,13 @@ namespace NoteMarketPlace.Controllers
 
         }
 
+        
+        
+        
+        
+        
+        
+        
         [HttpGet]
         [Authorize]
         public ActionResult ByuerRequest(string SortOrder,string SortBy,string searchtext,int pagenumber=1)
@@ -668,8 +989,9 @@ namespace NoteMarketPlace.Controllers
             {
                 BuyerRequestViewModel obj = new BuyerRequestViewModel();
                 obj.emailID = db.Users.Where(m => m.id == item.Downloader).Select(m=>m.EmailID).SingleOrDefault();
-                obj.phoneNumber = db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber).SingleOrDefault();
-                obj.phoneNumber = "+"+(db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber_code).SingleOrDefault())+" " + obj.phoneNumber;
+                 
+                obj.phoneNumber = "+"+ db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber_code).SingleOrDefault().ToString()+" " +
+                                    db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber).SingleOrDefault().ToString();
                 var dprice= item.PurchasedPrice;
                 obj.price = (int)dprice;
                 obj.Title = item.NoteTitle;
@@ -877,6 +1199,15 @@ namespace NoteMarketPlace.Controllers
 
 
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         [HttpGet]
         [Authorize]
         public ActionResult Deshboard(string SerchText, string publishedSerchText, string SortOrder, string SortBy, string SortOrderpub, string SortBypub, int pageOfDraft = 1, int pageOfpublished = 1)
@@ -899,7 +1230,7 @@ namespace NoteMarketPlace.Controllers
             userNoteRelateddetails.categories = db.NoteCategories.ToList();
             userNoteRelateddetails.Request = db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == false).Count();
             userNoteRelateddetails.rejected = db.SellerNotes.Where(m => m.SellerID == user.id && m.Status == 5).Count();
-            userNoteRelateddetails.NoOfDownload = db.Downloads.Where(m => m.Seller == user.id && m.IsAttechmentDownloaded == true).Count();
+            userNoteRelateddetails.NoOfDownload = db.Downloads.Where(m => m.Downloader == user.id && m.IsAttechmentDownloaded == true).Count();
             var earning= db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == true && m.IsAttechmentDownloaded == true).Sum(m => m.PurchasedPrice);
             if(earning != null)
             {
@@ -911,17 +1242,9 @@ namespace NoteMarketPlace.Controllers
                 userNoteRelateddetails.totalEarning = 0;
             }
             var TotalNote = db.Downloads.Where(m => m.Seller == user.id).Select(m => m.NoteID).Distinct().ToList();
-            var NoOfnotesold = 0;
-            foreach(var id in TotalNote)
-            {
-                var isNoteSold = db.Downloads.Where(m => m.NoteID == id && m.IsAttechmentDownloaded == true).SingleOrDefault();
-                if (isNoteSold != null)
-                {
-                    NoOfnotesold++;
-                }
-            }
+
             //userNoteRelateddetails.notesold = db.Downloads.Where(m => m.Seller == user.id).Select(m => m.NoteID).Count();
-            userNoteRelateddetails.notesold = NoOfnotesold;
+            userNoteRelateddetails.notesold = db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == true).ToList().Count();
             var finallist = userNoteRelateddetails.sellernotes;
             var finallist2 = userNoteRelateddetails.sellernotes2;
             if (SerchText != null)

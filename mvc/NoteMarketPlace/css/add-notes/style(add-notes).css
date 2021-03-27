@@ -18,16 +18,22 @@
     height: 110px;
    
 }
-.apply-position-inboth,.costume-file-upload-class{
+.apply-position-inboth, .costume-file-upload-class {
     position: absolute;
     height: 100%;
     width: 100%;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
 
-.costume-file-upload-class{
-    display: none;
-    
 }
+    .apply-position-inboth::-webkit-scrollbar{
+        display:none;
+    }
+    .costume-file-upload-class {
+        display: none;
+    }
 .note-preview-max-height .apply-position-inboth{
     border: 1px solid #d1d1d1;
     border-radius: 3px;
@@ -83,8 +89,10 @@
 .label-upload-note-preview-add-notes{
     display: block;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    /*top: 50%;
+    transform: translateY(-50%);*/
+    margin:auto;
+    
 }
 .label-upload-note-preview-add-notes p{
     color: #8a8a8a;

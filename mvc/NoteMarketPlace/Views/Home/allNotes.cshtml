@@ -1,0 +1,196 @@
+﻿@model NoteMarketPlace.viewModel.SearchNoteUniConCouCateType
+
+@{
+    ViewBag.Title = "allNotes";
+    Layout = null;
+}
+
+<!--heading-->
+<div class="col-md-12">
+    <div class="top-left-hading">
+        @if (ViewBag.totalnotes != null)
+        {
+            <h5>Top @ViewBag.totalnotes notes</h5>
+        }
+        else
+        {
+            <h5>0 matching results</h5>
+
+        }
+    </div>
+</div>
+
+<!--notes-->
+<div class="col-md-12">
+    <div class="w-notes-container">
+
+        <!--slide 01-->
+        <div class="w-notes-slide">
+
+            <div class="row justify-content-sm-center">
+                @foreach (var item in Model.sellerNotes)
+                {
+
+                    <!--note 01-->
+                    <div class="col-md-6 offset-md-0 offset-sm-1 col-sm-10 col-lg-4">
+                        <a class="outer-link" href="@Url.Action("Note_details","Home",new { idForNoteDetails=item.sellerNote.id })">
+                            <div data-action="@Url.Action("Note_details","Home",new { idForNoteDetails=item.sellerNote.id })" class="w-note-content">
+                                @*<img src="/images/serch-notes/1.jpg" class="img-fluid">*@
+                                @if (item.imgPath != null)
+                                {
+                                    <img src="@Url.Content(item.imgPath)" class="img-fluid note-img">
+
+                                }
+                                
+                                <div class="w-note-details">
+                                    <div class="row no-gutters">
+
+                                        <div class="col-md-12 col-sm-12 col-12">
+                                            <div class="w-note-heading">
+                                                @*<h6>computer operating system - Final Exam Book With Paper Solution</h6>*@
+                                                <h6>@item.sellerNote.Title</h6>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/school%20(1)-use.png" class="img-fluid"></div>
+                                        <div class="col-md-11 col-sm-11 col-11">
+                                            @*<p>University of California,US</p>*@
+                                            @if (@item.sellerNote.Country1 != null)
+                                            {
+                                                <p>@item.sellerNote.UniversityName, @item.sellerNote.Country1.Name</p>
+
+                                            }
+
+                                        </div>
+
+                                        <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/book%20(2)-use.png" class="img-fluid"></div>
+                                        <div class="col-md-11 col-sm-11 col-11">
+                                            @*<p>204 Pages</p>*@
+                                            @if (@item.sellerNote.NumberOfPages != null)
+                                            {
+                                                <p>@item.sellerNote.NumberOfPages pages</p>
+
+                                            }
+                                        </div>
+
+                                        <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/calendar-use.png" class="img-fluid"></div>
+                                        <div class="col-md-11 col-sm-11 col-11">
+                                            @*<p>Thu, Nov 26 2020</p>*@
+                                            @if (@item.sellerNote.CreatedDate != null)
+                                            {
+                                                <p>@item.sellerNote.CreatedDate.Value.ToString("ddd, MMMM dd yyyy")</p>
+
+                                            }
+                                        </div>
+
+
+                                        <div class="col-md-1 col-sm-1 col-1"><img src="/images/serch-notes/flag-use.png" class="img-fluid"></div>
+                                        <div class="col-md-11 col-sm-11 col-11">
+                                           
+                                            <p class="warning-msg">@item.inappropriate Users marked this note as inappropriate</p>
+                                        </div>
+                                        <div class="col-md-auto col-sm-auto col-auto">
+                                            <div class="rate">
+                                               @for(int rateIndex=1; rateIndex <= 5; rateIndex++)
+                                               {
+                                                   if (rateIndex <= item.rate)
+                                                   {
+                                                       <span><i style="color:#ffc700;" class="fa fa-star"></i></span>
+                                                   }
+                                                   else
+                                                   {
+                                                       <span><i style="color:#ccc;" class="fa fa-star"></i></span>
+                                                   }
+                                               }
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-auto col-sm-auto col-auto">
+                                           
+                                                <p class="review">@item.TotalReview reviews</p>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+                        </div>
+
+
+
+
+                }
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link first pagenum" name="back" data-value="@ViewBag.pagenum" id="backward" aria-label="Previous">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+                    @{
+                        int from = (int)(ViewBag.pagenum - 2);
+                        int to = (int)(ViewBag.pagenum + 2);
+                        from = (int)Math.Max(1, from);
+                        to = (int)Math.Min(to, ViewBag.TotalPages);
+                        if (ViewBag.TotalPages - to == 1)
+                        {
+                            to = (int)ViewBag.TotalPages;
+                        }
+                        if (from > 1)
+                        {
+                            
+                            <li style="cursor:pointer;" class="page-item"><a class="page-link pagenum">1</a></li>
+                            if (from > 2)
+                            {
+                                <li style="cursor:pointer;" class="page-item"><a name="backward" class="page-link pagenum"> . . </a></li>
+
+                            }
+                        }
+                        for (int i = from; i <= to; i++)
+                        {
+                            if (@ViewBag.pagenum == i)
+                            {
+                                <li style="cursor:pointer;" class="page-item"><a class="page-link active pagenum">@i</a></li>
+
+                            }
+                            else
+                            {
+                                <li style="cursor:pointer;" class="page-item"><a class="page-link pagenum">@i</a></li>
+
+                            }
+
+                        }
+                        if (to < ViewBag.TotalPages)
+                        {
+                            <li style="cursor:pointer;" class="page-item"><a name="forward" class="page-link pagenum"> . . </a></li>
+                            if (to < ViewBag.TotalPages - 1)
+                            {
+                                <li style="cursor:pointer;" class="page-item"><a class="page-link pagenum">@ViewBag.TotalPages</a></li>
+
+                            }
+                        }
+                    }
+
+
+                    <li class="page-item">
+                        <a class="page-link first pagenum" name="next" data-value="@ViewBag.TotalPages" id="foreward" aria-label="Next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+</div>

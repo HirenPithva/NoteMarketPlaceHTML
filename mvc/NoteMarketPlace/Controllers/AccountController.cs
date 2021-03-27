@@ -66,25 +66,54 @@ namespace NoteMarketPlace.Controllers
                 bool Isvld = db.Users.Any(m => m.Password == userloginremembers.userlogins.password && m.EmailID == userloginremembers.userlogins.emailAddress);
                 if (Isvld)
                 {
-                    
+                    var user = db.Users.Where(m => m.EmailID == userloginremembers.userlogins.emailAddress).SingleOrDefault();
+                    bool profile = db.UserProfiles.Any(m => m.UserID == user.id);
                     Session["username"] = userloginremembers.userlogins.emailAddress;
                     if (userloginremembers.rememberMe)
                     {
-                        FormsAuthentication.SetAuthCookie(userloginremembers.userlogins.emailAddress, true);
+                        if ((user.IsEmailVerified != null && user.IsEmailVerified == true) || user.RoleID == 1 || user.RoleID == 2)
+                        {
+                            FormsAuthentication.SetAuthCookie(userloginremembers.userlogins.emailAddress, true);
+                        }
+                        
+                            
 
                         userInfo["username"] = userloginremembers.userlogins.emailAddress;
                         userInfo["password"] = userloginremembers.userlogins.password;
-                        userInfo.Expires.AddSeconds(100);
                         Response.Cookies.Add(userInfo);
+                        userInfo.Expires = DateTime.Now.AddSeconds(300);
                     }
                     else
                     {
-                        FormsAuthentication.SetAuthCookie(userloginremembers.userlogins.emailAddress, false);
+                        if ((user.IsEmailVerified != null && user.IsEmailVerified == true) || user.RoleID==1 || user.RoleID==2)
+                        {
+                            FormsAuthentication.SetAuthCookie(userloginremembers.userlogins.emailAddress, false);
 
-                        userInfo.Expires = DateTime.Now.AddDays(-1);
-                        Response.Cookies.Add(userInfo);
+                            userInfo.Expires = DateTime.Now.AddDays(-1);
+                            Response.Cookies.Add(userInfo);
+                        }
+                        
+                        
                     }
-                    return RedirectToAction("Index", "home");
+                    if (user.RoleID == 1 || user.RoleID == 2)
+                    {
+                        return RedirectToAction("Index","admin");
+                    }
+                    else if (user.IsEmailVerified !=null && user.IsEmailVerified==true)
+                    {
+                        if (profile)
+                        {
+                            return RedirectToAction("Serch_note", "Home");
+                        }
+                        else
+                        {
+                            return RedirectToAction("UserProfile", "User");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
 
                 }
                 ModelState.AddModelError("", "invalid Username or Password");
@@ -114,7 +143,7 @@ namespace NoteMarketPlace.Controllers
                 }
                 if (exist)
                 {
-                    TempData["exist"] = "already registerd";
+                    return RedirectToAction("Login", "Account");
 
                 }
 
@@ -128,8 +157,9 @@ namespace NoteMarketPlace.Controllers
                     user.LastName = usersignup.lastname;
                     user.EmailID = usersignup.emailAddress;
                     user.Password = usersignup.password;
-                    user.RoleID = 1;
+                    user.RoleID = 3;
                     user.CreatedDate = DateTime.Now;
+                    user.IsActive = true;
                     db.Users.Add(user);
                     db.SaveChanges();
                     TempData["register"] = "succesfully created";
@@ -208,7 +238,7 @@ namespace NoteMarketPlace.Controllers
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("EmailID", "Password");
+            client.Credentials = new System.Net.NetworkCredential("EmailID", "PWD");
             try
             {
                 client.Send(mail);
@@ -228,8 +258,9 @@ namespace NoteMarketPlace.Controllers
                 HttpCookie userInfo = new HttpCookie("userInfo");
                 userInfo["username"] = isExist["username"].ToString();
                 userInfo["password"] = isExist["password"].ToString();
-                userInfo.Expires.AddSeconds(300000);
                 Response.Cookies.Add(userInfo);
+
+                userInfo.Expires = DateTime.Now.AddSeconds(300);
             }
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");

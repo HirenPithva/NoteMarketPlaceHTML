@@ -72,12 +72,12 @@
                             <li class="navbar-text"><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
                             <li class="navbar-text img-item">
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" src="/images/User-Profile/user-1.jpg"></a>
+                                    <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" height="30px" width="30px" src="@Url.Action("UserPhoto","User")"></a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">My Profile</a>
-                                        <a class="dropdown-item" href="#">My Downloads</a>
-                                        <a class="dropdown-item" href="#">My Sold Notes</a>
-                                        <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("UserProfile","User")">My Profile</a>
+                                        <a class="dropdown-item" href="@Url.Action("MyDonwloads","User")">My Downloads</a>
+                                        <a class="dropdown-item" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a>
                                         <a class="dropdown-item" href="@Url.Action("changePassword","Account")">Change Password</a>
                                         <a class="dropdown-item changing-color" href="@Url.Action("Logout","Account")">LOGOUT</a>
                                     </div>
@@ -100,11 +100,11 @@
                 <li class=""><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
                 <li class=""><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
                 <li class=""><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
-                <li class="img-item"><a href="#"><img class="rounded-circle" src="/images/User-Profile/user-1.jpg" alt=""></a></li>
-                <li class="gayab"><a class="dro" href="#">My Profile</a></li>
-                <li class="gayab"><a class="dro" href="#">My Downloads</a></li>
-                <li class="gayab"><a class="dro" href="#">My Sold Notes</a></li>
-                <li class="gayab"><a class="dro" href="#">My Rejected Notes</a></li>
+                <li class="img-item"><a href="#"><img class="rounded-circle" height="27px" width="27px" src="@Url.Action("UserPhoto","User")" alt=""></a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("UserProfile","User")">My Profile</a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("MyDonwloads","User")">My Downloads</a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a></li>
+                <li class="gayab"><a class="dro" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a></li>
                 <li class="gayab"><a class="dro" href="@Url.Action("changePassword","Account")">Change Password</a></li>
                 <li class="gayab"><a class="dro" href="@Url.Action("Logout","Account")">Logout</a></li>
                 <li class="logout-btn"><a href="@Url.Action("Logout","Account")">Logout</a></li>
