@@ -35,9 +35,10 @@
                         <h2>Creat an account</h2>
                         <p>Enter your details to sign up</p>
                     </div>
-                    @Html.AntiForgeryToken()
                     <div class="form-page">
                         <form action="@Url.Action("Signup","Account")" method="post">
+                            @Html.AntiForgeryToken()
+
                             @if (TempData["register"] != null)
                             {
                                 <p class="text-center verified"><span><i class="fa fa-check-circle"></i></span> Your account has been succesfully created.</p>
@@ -84,7 +85,7 @@
                                 </div>
 
                             </div>
-                            @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger"})
+                            @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
 
                             <div class="form-group pass-form1">
                                 <div>

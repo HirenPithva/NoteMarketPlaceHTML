@@ -1,0 +1,129 @@
+﻿@model NoteMarketPlace.viewModel.addType
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/add-category.css" />
+
+    <!--responsive style-->
+
+
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("AdminNavbar")
+    @using (Html.BeginForm("AddType", "SuperAdmin", FormMethod.Post, new { @id = "add-catogory" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ID)
+
+        <section id="profile-details">
+            <div class="big-container">
+
+                <div class="container">
+                    <div class="row">
+
+                        <!--heading-->
+                        <div class="col-md-12">
+                            <div class="heading-of-basics">
+
+                                <h2>Add Type</h2>
+
+                            </div>
+                        </div>
+
+                        <!--type-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="type">Type*</label>
+                                    <input id="type" type="text" class="form-control" placeholder="Enter Type">*@
+                                @Html.LabelFor(m => m.Name)
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "First-Name", @placeholder = "Enter Type", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--description-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="type-comment/question">Description*</label>*@
+                                @Html.LabelFor(m => m.Description)
+
+                                <div class="w-comment">
+                                    @Html.TextAreaFor(m => m.Description, new { @id = "comment/question", @form = "add-catogory", @placeholder = "Enter Your Description", @row = "15", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+
+                                    @*<textarea id="typecomment/question" form="add-catogory" placeholder="Enter Your Description" row="15"></textarea>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-4 offset-4 col-md-3 offset-md-0 offset-sm-4 col-sm-4">
+                            <div class="w-submit-btn">
+
+                                <button class="submit-btn text-center" role="button">SUBMIT</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/admin-navbar/admin-script.js"></script>
+</body>
+</html>

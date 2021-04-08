@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NoteMarketPlaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecondryEmailID" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="PhoneNumberCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Countries">
           <Key>
             <PropertyRef Name="ID" />
@@ -231,6 +245,18 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AdminProfile_UserID_Users_id">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="AdminProfile" Type="Self.AdminProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdminProfile">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Downloads_donwloader_Users_id">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Downloads" Type="Self.Downloads" Multiplicity="*" />
@@ -388,6 +414,7 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NoteMarketPlaceModelStoreContainer">
+          <EntitySet Name="AdminProfile" EntityType="Self.AdminProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Downloads" EntityType="Self.Downloads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
@@ -408,6 +435,10 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
     [SellingType].[value] AS [value]
     FROM [dbo].[SellingType] AS [SellingType]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_AdminProfile_UserID_Users_id" Association="Self.FK_AdminProfile_UserID_Users_id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AdminProfile" EntitySet="AdminProfile" />
+          </AssociationSet>
           <AssociationSet Name="FK_Downloads_donwloader_Users_id" Association="Self.FK_Downloads_donwloader_Users_id">
             <End Role="Users" EntitySet="Users" />
             <End Role="Downloads" EntitySet="Downloads" />
@@ -710,6 +741,7 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
           <NavigationProperty Name="SellerNotesReportedIssues" Relationship="Self.FK_SellerNotesReportedIssues_ReportedByID_Users_id" FromRole="Users" ToRole="SellerNotesReportedIssues" />
           <NavigationProperty Name="UserProfiles" Relationship="Self.FK_UserProfile_UserID_Users_id" FromRole="Users" ToRole="UserProfile" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_Users_RoleID_UserRoles_id" FromRole="Users" ToRole="UserRoles" />
+          <NavigationProperty Name="AdminProfiles" Relationship="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id" FromRole="User" ToRole="AdminProfile" />
         </EntityType>
         <EntityType Name="SellingType">
           <Key>
@@ -951,6 +983,11 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
             <End Role="Country" EntitySet="Countries" />
             <End Role="SellerNote" EntitySet="SellerNotes" />
           </AssociationSet>
+          <EntitySet Name="AdminProfiles" EntityType="NoteMarketPlaceModel.AdminProfile" />
+          <AssociationSet Name="FK_AdminProfile_UserID_Users_id" Association="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AdminProfile" EntitySet="AdminProfiles" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_SellerNotes_NoteType_NoteTypes_id">
           <End Type="NoteMarketPlaceModel.NoteType" Role="NoteType" Multiplicity="0..1" />
@@ -973,6 +1010,33 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
             </Principal>
             <Dependent Role="SellerNote">
               <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AdminProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondryEmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id" FromRole="AdminProfile" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_AdminProfile_UserID_Users_id">
+          <End Type="NoteMarketPlaceModel.User" Role="User" Multiplicity="1" />
+          <End Type="NoteMarketPlaceModel.AdminProfile" Role="AdminProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdminProfile">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1217,6 +1281,21 @@ warning 6002: The table/view 'NoteMarketPlace.dbo.SellingType' does not have a p
               <MappingFragment StoreEntitySet="SellingType">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminProfiles">
+            <EntityTypeMapping TypeName="NoteMarketPlaceModel.AdminProfile">
+              <MappingFragment StoreEntitySet="AdminProfile">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="PhoneNumberCode" ColumnName="PhoneNumberCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecondryEmailID" ColumnName="SecondryEmailID" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

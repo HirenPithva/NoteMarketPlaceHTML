@@ -46,7 +46,7 @@
 
     <!--basic profile details-->
     <form action="Add_note" EncType="multipart/form-data" method="post">
-       
+        @Html.AntiForgeryToken()
         <section id="profile-details">
             <div class="big-container">
 
@@ -67,13 +67,13 @@
 
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Title*</label>
-            <input type="text" class="form-control" placeholder="Enter your Notes Title">*@
+                                <input type="text" class="form-control" placeholder="Enter your Notes Title">*@
                                 @Html.LabelFor(m => m.Title)
                                 @Html.TextBoxFor(m => m.Title, new { @placeholder = "Enter your Notes Title", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
 
                             </div>
-                            
+
                         </div>
 
                         <!--Category-->
@@ -84,9 +84,9 @@
                                 @Html.DropDownListFor(m => m.category, new SelectList(Model.noteCategories, "Id", "Name"), "Select Category", new { @class = "custom-select form-control" })
                                 @Html.ValidationMessageFor(m => m.category, "", new { @class = "text-danger" })
 
-                               
+
                                 @*<label for="exampleInputEmail1">Category*</label>
-        <input type="text" class="form-control" placeholder="Select Your Category">*@
+                                <input type="text" class="form-control" placeholder="Select Your Category">*@
                             </div>
 
 
@@ -98,7 +98,7 @@
                             <div class="form-group">
 
                                 <div class="container-for-relative-add-notes">
-                                    <input name="ImageFile" id="for-file1" class="costume-file-upload-class" onchange="ShowImagePreview(this, document.getElementById('Preview'), document.getElementById('ImgName'));" type="file"  accept="image/*">
+                                    <input name="ImageFile" id="for-file1" class="costume-file-upload-class" onchange="ShowImagePreview(this, document.getElementById('Preview'), document.getElementById('ImgName'));" type="file" accept="image/*">
                                     <label name="ImagePath" class="label-upload-picture-add-notes apply-position-inboth" for="for-file1">
                                         <div class="label-upload-note-preview-add-notes text-center">
                                             <img class="text-center img-fluid" id="Preview" src="/images/User-Profile/upload.png">
@@ -117,24 +117,24 @@
                             <div class="form-group">
 
                                 <div class="container-for-relative-add-notes">
-                                    @Html.TextBoxFor(model => model.ImageFileForNote, "", new { @id = "for-file2", @class="multipleFile", @type = "file", @multiple = "multiple", @required = "required", @accept="application/pdf"})
+                                    @Html.TextBoxFor(model => model.ImageFileForNote, "", new { @id = "for-file2", @class = "multipleFile", @type = "file", @multiple = "multiple", @required = "required", @accept = "application/pdf" })
 
                                     @*<input name="ImageFileForNote" onchange = "onchangeevent(this);"  multiple class="costume-file-upload-class" type="file" required>*@
-                                    <label class="label-upload-note-add-notes apply-position-inboth outerfileDiv" for="for-file2"><div class="label-upload-note-preview-add-notes text-center MultiFileDiv"><img class="text-center img-fluid NoteFilePreview"  src="/images/User-Profile/upload%20(3)perfact.png"><p class="FirstPreviewName">upload your file</p></div></label>
+                                    <label class="label-upload-note-add-notes apply-position-inboth outerfileDiv" for="for-file2"><div class="label-upload-note-preview-add-notes text-center MultiFileDiv"><img class="text-center img-fluid NoteFilePreview" src="/images/User-Profile/upload%20(3)perfact.png"><p class="FirstPreviewName">upload your file</p></div></label>
 
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <!--Type-->
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Type</label>
-                <select class="custom-select " id="validationDefault02" required>
-                    <option selected disabled value="">select type</option>
-                    <option>...</option>
-                </select>*@
+                                <select class="custom-select " id="validationDefault02" required>
+                                    <option selected disabled value="">select type</option>
+                                    <option>...</option>
+                                </select>*@
                                 @Html.LabelFor(m => m.NoteType)
                                 @Html.DropDownListFor(m => m.NoteType, new SelectList(Model.noteTypes, "Id", "Name"), "Select Note Type", new { @class = "form-control custom-select" })
 
@@ -147,11 +147,11 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.NumberOfPages)
-                                @Html.TextBoxFor(m => m.NumberOfPages, new { @placeholder = "Enter Number Of Pages", @class = "form-control"})
+                                @Html.TextBoxFor(m => m.NumberOfPages, new { @placeholder = "Enter Number Of Pages", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.NumberOfPages, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Number Of Pages</label>
-                <input type="text" class="form-control" placeholder="Enter Number of NotePages">*@
+                                <input type="text" class="form-control" placeholder="Enter Number of NotePages">*@
                             </div>
 
                         </div>
@@ -163,9 +163,9 @@
                                 @Html.LabelFor(m => m.Description)
                                 @Html.TextAreaFor(m => m.Description, new { @placeholder = "Enter your description", @class = "form-control set-height-of-description" })
                                 @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                                
+
                                 @*<label>Description*</label>
-        <textarea class="form-control set-height-of-description" placeholder="Enter your description"></textarea>*@
+                                <textarea class="form-control set-height-of-description" placeholder="Enter your description"></textarea>*@
                             </div>
 
                         </div>
@@ -184,10 +184,10 @@
 
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Country*</label>
-                <select class="custom-select form-control" id="validationDefault02" required>
-                    <option selected disabled value="">select Your country</option>
-                    <option>...</option>
-                </select>*@
+                                <select class="custom-select form-control" id="validationDefault02" required>
+                                    <option selected disabled value="">select Your country</option>
+                                    <option>...</option>
+                                </select>*@
                                 @Html.LabelFor(m => m.Country)
                                 @Html.DropDownListFor(m => m.Country, new SelectList(Model.countries, "ID", "Name"), "Select Note Type", new { @class = "custom-select form-control" })
                                 @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
@@ -205,7 +205,7 @@
                                 @Html.ValidationMessageFor(m => m.UniversityName, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Institution Name</label>
-                <input type="text" class="form-control" placeholder="Enter your institution name">*@
+                                <input type="text" class="form-control" placeholder="Enter your institution name">*@
                             </div>
 
                         </div>
@@ -229,7 +229,7 @@
                                 @Html.ValidationMessageFor(m => m.Course, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Course Name</label>
-                <input type="text" class="form-control" placeholder="Enter your Course Name">*@
+                                <input type="text" class="form-control" placeholder="Enter your Course Name">*@
                             </div>
 
                         </div>
@@ -243,7 +243,7 @@
                                 @Html.ValidationMessageFor(m => m.CourseCode, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">course code</label>
-                <input type="text" class="form-control" placeholder="Enter course code">*@
+                                <input type="text" class="form-control" placeholder="Enter course code">*@
                             </div>
 
                         </div>
@@ -257,7 +257,7 @@
                                 @Html.ValidationMessageFor(m => m.Professor, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">professor/Lecturer</label>
-                <input type="text" class="form-control" placeholder="Enter your professor name">*@
+                                <input type="text" class="form-control" placeholder="Enter your professor name">*@
                             </div>
 
                         </div>
@@ -284,15 +284,15 @@
                                     <label class="label-for-radio-display" for="exampleInputEmail1">Sell for*</label>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"  value="free" >
-                                        
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="free">
+
                                         <label class="form-check-label" for="gridRadios1">
                                             Free
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"  value="paid" checked="checked">
-                                        
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="paid" checked="checked">
+
                                         <label class="form-check-label" for="gridRadios2">
                                             Paid
                                         </label>
@@ -302,15 +302,15 @@
                                 {
                                     <p class="text-danger">@ViewBag.gridRadios</p>
                                 }
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.SellingPrice)
-                                        @Html.TextBoxFor(m => m.SellingPrice, new {  @id = "priceID", @placeholder = "Sell Price", @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.SellingPrice, new { @id = "priceID", @placeholder = "Sell Price", @class = "form-control" })
                                         @Html.ValidationMessageFor(m => m.SellingPrice, "", new { @class = "text-danger" })
-                                        
+
                                         @*<label for="exampleInputEmail1">Sell Price</label>
-                <input type="text" class="form-control" value="0" placeholder="Enter your price">*@
+                                        <input type="text" class="form-control" value="0" placeholder="Enter your price">*@
                                     </div>
                                 </div>
                             </div>
@@ -326,40 +326,40 @@
                                 <label class=" apply-position-inboth" for="for-file3"><div class="label-upload-note-preview-add-notes text-center"><img class="text-center img-fluid" id="priviewOFNote" src="/images/User-Profile/upload.png"><p id="NamepriviewOFNote">upload a file</p></div></label>
 
                             </div>
-                           
+
                         </div>
-                        
-                            @*if (ViewBag.initial == "edit")
-                            {
-                                <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
 
-                                    <div class="w-submit-btn">
+                        @*if (ViewBag.initial == "edit")
+                        {
+                            <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
 
-                                        <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAve</button>
+                                <div class="w-submit-btn">
+
+                                    <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAve</button>
 
 
-                                    </div>
                                 </div>
-
-                                
-                            }*@
-                            @if (ViewBag.initial == "initial")
-                            {
-                                <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
-
-                                    <div class="w-submit-btn">
-
-                                        <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAVE</button>
+                            </div>
 
 
-                                    </div>
+                        }*@
+                        @if (ViewBag.initial == "initial")
+                        {
+                            <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
+
+                                <div class="w-submit-btn">
+
+                                    <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAVE</button>
+
+
                                 </div>
-                                
-                            }
+                            </div>
+
+                        }
 
 
 
-                        
+
 
 
 

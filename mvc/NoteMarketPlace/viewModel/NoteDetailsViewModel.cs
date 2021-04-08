@@ -16,6 +16,7 @@ namespace NoteMarketPlace.viewModel
     }
     public class ReviewList
     {
+        public int ReviewID { get; set; }
         public string profileImagePathP { get; set; }
         public string fullName { get; set; }
         public int rating { get; set; }

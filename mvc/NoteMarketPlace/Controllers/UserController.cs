@@ -25,7 +25,7 @@ namespace NoteMarketPlace.Controllers
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult UserProfile()
         {
             var loginUser = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
@@ -38,7 +38,7 @@ namespace NoteMarketPlace.Controllers
                 user.LastName = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m => m.LastName).FirstOrDefault();
                 user.Email = System.Web.HttpContext.Current.User.Identity.Name;
                 user.genderList = db.genders.ToList();
-                user.countryList = db.Countries.ToList();
+                user.countryList = db.Countries.Where(m => m.IsActive == true).ToList();
                 user.Address1 = userprofile.AddressLine1;
                 user.Address2 = userprofile.AddressLine2;
                 if (userprofile.ProfilePicture!=null)
@@ -66,15 +66,16 @@ namespace NoteMarketPlace.Controllers
                 user.LastName = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m => m.LastName).FirstOrDefault();
                 user.Email = System.Web.HttpContext.Current.User.Identity.Name;
                 user.genderList = db.genders.ToList();
-                user.countryList = db.Countries.ToList();
+                user.countryList = db.Countries.Where(m => m.IsActive == true).ToList();
             }
             return View(user);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UserProfile(UserProfileViewModel user)
         {
             user.genderList = db.genders.ToList();
-            user.countryList = db.Countries.ToList();
+            user.countryList = db.Countries.Where(m => m.IsActive == true).ToList();
             if (ModelState.IsValid)
             {
                 User usrname = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
@@ -182,7 +183,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult MyDonwloads(string sortOrder,string sortBy,string searchtext,int currentPage=1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -544,7 +545,7 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult MysoldNotes(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -769,6 +770,7 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult MyRejectedNotes(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -952,7 +954,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public FileContentResult UserPhoto()
         {
             int userid = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m=>m.id).SingleOrDefault();

@@ -271,6 +271,8 @@
       <LastGenOutput>NoteMarketModel.cs</LastGenOutput>
     </Content>
     <Content Include="EmailTemplate\TextReportIssues.cshtml" />
+    <Content Include="EmailTemplate\TextUnpublishedNote.cshtml" />
+    <Content Include="EmailTemplate\TextSellerPublished.cshtml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -279,12 +281,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminProfile.cs">
+      <DependentUpon>NoteMarketModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="context\usersignupContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>NoteMarketModel.tt</DependentUpon>
@@ -362,16 +368,32 @@
     <Compile Include="UserRole.cs">
       <DependentUpon>NoteMarketModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="viewModel\addAdministratorViewModel.cs" />
+    <Compile Include="viewModel\addCategory.cs" />
+    <Compile Include="viewModel\AddCountriesModel.cs" />
     <Compile Include="viewModel\AddNotesCategoriesTypeCountry.cs" />
+    <Compile Include="viewModel\addType.cs" />
     <Compile Include="viewModel\AdminDashboard.cs" />
+    <Compile Include="viewModel\administratorViewmodel.cs" />
+    <Compile Include="viewModel\adminProfileViewmodal.cs" />
+    <Compile Include="viewModel\allDownloadNotes.cs" />
     <Compile Include="viewModel\BuyerRequestViewModel.cs" />
+    <Compile Include="viewModel\categoriesViewModel.cs" />
+    <Compile Include="viewModel\CountriesViewModel.cs" />
     <Compile Include="viewModel\Edit_notesViewModel.cs" />
+    <Compile Include="viewModel\manageTypeViewModel.cs" />
+    <Compile Include="viewModel\memberDetailsViewModel.cs" />
+    <Compile Include="viewModel\memberViewmodel.cs" />
     <Compile Include="viewModel\MyDownloadViewModel.cs" />
     <Compile Include="viewModel\MySoldNotesViewModel.cs" />
     <Compile Include="viewModel\NoteDetailsViewModel.cs" />
     <Compile Include="viewModel\notesUnderReviewViewModel.cs" />
+    <Compile Include="viewModel\publishedNotes.cs" />
+    <Compile Include="viewModel\rejectednotesViewModel.cs" />
     <Compile Include="viewModel\SearchNoteUniConCouCateType.cs" />
     <Compile Include="viewModel\SellerNoteDownload.cs" />
+    <Compile Include="viewModel\spanReportViewModel.cs" />
+    <Compile Include="viewModel\systemConfigurationViewmodel.cs" />
     <Compile Include="viewModel\UserLoginRemember.cs" />
     <Compile Include="viewModel\UserProfileViewModel.cs" />
   </ItemGroup>
@@ -427,8 +449,24 @@
     <Content Include="Views\User\MysoldNotes.cshtml" />
     <Content Include="Views\User\MyRejectedNotes.cshtml" />
     <Content Include="Views\admin\Index.cshtml" />
-    <Content Include="Views\shared\AdminNavbar.cshtml" />
     <Content Include="Views\admin\NotesUnderReview.cshtml" />
+    <Content Include="Views\admin\allPublishedNotes.cshtml" />
+    <Content Include="Views\admin\allDownloadNotes.cshtml" />
+    <Content Include="Views\admin\rejectednotes.cshtml" />
+    <Content Include="Views\admin\allmember.cshtml" />
+    <Content Include="Views\admin\memberDetails.cshtml" />
+    <Content Include="Views\SuperAdmin\systemConfiguration.cshtml" />
+    <Content Include="Views\SuperAdmin\administrator.cshtml" />
+    <Content Include="Views\SuperAdmin\Addadministrator.cshtml" />
+    <Content Include="Views\SuperAdmin\manageCategory.cshtml" />
+    <Content Include="Views\SuperAdmin\AddCategory.cshtml" />
+    <Content Include="Views\SuperAdmin\managetype.cshtml" />
+    <Content Include="Views\SuperAdmin\AddType.cshtml" />
+    <Content Include="Views\SuperAdmin\ManageCountry.cshtml" />
+    <Content Include="Views\SuperAdmin\addcountry.cshtml" />
+    <Content Include="Views\SuperAdmin\spamReport.cshtml" />
+    <Content Include="Views\SuperAdmin\AdminProfile.cshtml" />
+    <Content Include="Views\shared\AdminNavbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

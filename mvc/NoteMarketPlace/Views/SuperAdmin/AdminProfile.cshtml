@@ -1,0 +1,236 @@
+﻿@model NoteMarketPlace.viewModel.adminProfileViewmodal
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/add-category.css" />
+
+    <!--responsive style-->
+
+
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("AdminNavbar")
+    @using (Html.BeginForm("AdminProfile", "SuperAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m=>m.ImgPath)
+        @Html.HiddenFor(m=>m.ImgName)
+        @Html.HiddenFor(m=>m.memverID);
+        <section id="profile-details">
+            <div class="big-container">
+
+                <div class="container">
+                    <div class="row">
+
+                        <!--heading-->
+                        <div class="col-md-12">
+                            <div class="heading-of-basics">
+
+                                <h2>My Profile</h2>
+
+                            </div>
+                        </div>
+
+                        <!--first name-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="First-Name">First Name*</label>
+                                <input id="First-Name" type="text" class="form-control" placeholder="Enter your first name">*@
+                                @Html.LabelFor(m => m.firstname)
+                                @Html.TextBoxFor(m => m.firstname, new { @class = "form-control", @id = "First-Name", @placeholder = "Enter your first name" })
+                                @Html.ValidationMessageFor(m => m.firstname, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--last name-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="Last-Name">Last Name*</label>
+                                <input id="Last-Name" type="text" class="form-control" placeholder="Enter your last name">*@
+                                @Html.LabelFor(m => m.Lastname)
+                                @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control", @id = "last-Name", @placeholder = "Enter your last name" })
+                                @Html.ValidationMessageFor(m => m.Lastname, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!--email-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="Email-address">Email*</label>
+                                <input id="Email-address" type="email" class="form-control" placeholder="Enter your email address">*@
+                                @Html.LabelFor(m => m.EmailID)
+                                @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @placeholder = "Enter your email address", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.EmailID, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <idv class="row">
+                        <!--secondry email-->
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group">
+                                @*<label for="Email-Secondry">Secondry Email</label>
+                                <input id="Email-Secondry" type="email" class="form-control" placeholder="Enter your email address">*@
+                                @Html.LabelFor(m => m.SecondoryEmailID)
+                                @Html.TextBoxFor(m => m.SecondoryEmailID, new { @class = "form-control", @placeholder = "Enter your email address"})
+                                @Html.ValidationMessageFor(m => m.SecondoryEmailID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </idv>
+
+                    <div class="row">
+                        <!--phone number-->
+                        <div class="col-md-6 col-sm-12">
+                            <div class="with-label-container">
+                                @*<label for="phoneNumber">phone number</label>*@
+                                @Html.LabelFor(m => m.phoneNUmber)
+
+                                <div class="without-label-container">
+                                    <div class="drop-down-number">
+                                        @*<select class="custom-select" id="phoneNumber" required>
+                                            <option selected disabled value="">+91</option>
+                                            <option>...</option>
+                                        </select>*@
+                                        @Html.DropDownListFor(m => m.PhonCode, new SelectList(Model.allCode, "CountryCode", "CountryCode"), "", new { @class = "custom-select", @id = "inputgender" })
+
+                                    </div>
+                                    <div class="input-for-number">
+                                        @*<input type="text" class="form-control" id="phoneNumber" placeholder="Enter your phone number">*@
+                                        @Html.TextBoxFor(m => m.phoneNUmber, new { @class = "form-control", @id = "inputgender", @placeholder = "Enter your phone number" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!--photo-->
+                        <div class="col-md-6  col-sm-12">
+                            @*<label for="for-file1">Profile picture</label>*@
+                            @Html.LabelFor(m=>m.Img)
+                            <div class="form-group">
+                                <label class="label-upload-picture-add-notes apply-position-inboth label-stratch" for="for-file1">
+                                    <div class="container-for-relative-add-notes">
+                                        <input name="Img" accept="image/*" id="for-file1" class="costume-file-upload-class" type="file" onchange="ShowPreview(this, document.getElementById('ImgPreview'), document.getElementById('ImgName'));">
+                                        <label class="label-upload-picture-add-notes apply-position-inboth" for="for-file1">
+                                            <div class="label-upload-note-preview-add-notes text-center">
+                                                @if (Model.ImgPath != null)
+                                                {
+                                                    <img id="ImgPreview" class="text-center img-fluid" data-src="/images/User-Profile/upload.png" style="height:50px;width:50px;" src="@Url.Content(@Model.ImgPath)">
+                                                    <p id="ImgName" data-name="@Model.ImgName">@Model.ImgName</p>
+                                                }
+                                                else
+                                                {
+                                                    <img id="ImgPreview" class="text-center img-fluid" data-src="/images/User-Profile/upload.png" src="/images/User-Profile/upload.png">
+                                                    <p id="ImgName" data-name="upload picture">upload picture</p>
+                                                }
+
+                                            </div>
+                                        </label>
+                                    </div>
+                                </label>
+                                   
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-4 offset-4 col-md-3 offset-md-0 offset-sm-4 col-sm-4">
+                            <div class="w-submit-btn">
+
+                                <button class="submit-btn text-center" role="button">SUBMIT</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/admin-navbar/admin-script.js"></script>
+    <script>
+        function ShowPreview(img,imgPreview,imgName) {
+            if (img.files && img.files[0]) {
+                var filename = $(img)[0].files[0].name;
+                $(imgName).text(filename);
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(imgPreview).attr("src", e.target.result);
+                }
+                reader.readAsDataURL(img.files[0]);
+                $("#ImgPreview").css("height","50px");
+                $("#ImgPreview").css("width","50px");
+            }
+            else {
+                var IMgSource = $("#ImgPreview").attr("data-src");
+                $("#ImgPreview").attr("src", IMgSource);
+                var name = $("#ImgName").attr("data-name");
+                $("#ImgName").text(name);
+                $("#ImgPreview").css("height", "");
+                $("#ImgPreview").css("width", "");
+            }
+                
+        }
+    </script>
+</body>
+</html>

@@ -30,6 +30,7 @@
             header {
                 padding-top: 0px;
             }
+
             ul.navbar-nav li a {
                 color: white;
             }
@@ -37,80 +38,102 @@
         <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
 
     }
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin")))
+    {
+        <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+        <style>
+            header {
+                padding-top: 0px;
+            }
 
+            ul.navbar-nav li a {
+                color: white;
+            }
+        </style>
+    }
 </head>
 <body>
-
     
-    @if (User.Identity.IsAuthenticated)
+
+
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
     {
-        <header>
-            <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md">
+        if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin")))
+        {
+            @Html.Partial("AdminNavbar")
 
-                <div class="w-navbar">
+        }
+        else
+        {
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-expand-md">
 
-                    <div class="navbar-header">
+                    <div class="w-navbar">
 
-                        <span id="mobile-nav-open-bar">
-                            <hr>
-                        </span>
-                        <!--brand logo-->
-                        <a class="navbar-brand smooth-scroll" href="/Index">
-                            <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
-                        </a>
-                    </div>
+                        <div class="navbar-header">
+
+                            <span id="mobile-nav-open-bar">
+                                <hr>
+                            </span>
+                            <!--brand logo-->
+                            <a class="navbar-brand smooth-scroll" href="/Index">
+                                <img src="/images/FAQ/logo.png" class="img-fluid" alt="logo">
+                            </a>
+                        </div>
 
 
 
-                    <div class="collapse navbar-collapse ">
-                        <ul class="navbar-nav nav">
+                        <div class="collapse navbar-collapse ">
+                            <ul class="navbar-nav nav">
 
-                            <li class="navbar-text"><a href="@Url.Action("Serch_note","Home")">Search Notes</a> </li>
-                            <li class="navbar-text"><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
-                            <li class="navbar-text"><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
-                            <li class="navbar-text"><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
-                            <li class="navbar-text"><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
-                            <li class="navbar-text img-item">
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" height="30px" width="30px" src="@Url.Action("UserPhoto","User")"></a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="@Url.Action("UserProfile","User")">My Profile</a>
-                                        <a class="dropdown-item" href="@Url.Action("MyDonwloads","User")">My Downloads</a>
-                                        <a class="dropdown-item" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a>
-                                        <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a>
-                                        <a class="dropdown-item" href="@Url.Action("changePassword","Account")">Change Password</a>
-                                        <a class="dropdown-item changing-color" href="@Url.Action("Logout","Account")">LOGOUT</a>
+                                <li class="navbar-text"><a href="@Url.Action("Serch_note","Home")">Search Notes</a> </li>
+                                <li class="navbar-text"><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
+                                <li class="navbar-text"><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
+                                <li class="navbar-text"><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+                                <li class="navbar-text"><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
+                                <li class="navbar-text img-item">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid rounded-circle" height="30px" width="30px" src="@Url.Action("UserPhoto","User")"></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="@Url.Action("UserProfile","User")">My Profile</a>
+                                            <a class="dropdown-item" href="@Url.Action("MyDonwloads","User")">My Downloads</a>
+                                            <a class="dropdown-item" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a>
+                                            <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a>
+                                            <a class="dropdown-item" href="@Url.Action("changePassword","Account")">Change Password</a>
+                                            <a class="dropdown-item changing-color" href="@Url.Action("Logout","Account")">LOGOUT</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="navbar-text logout-btn"><a href=@Url.Action("Logout","Account")>Logout</a></li>
-                        </ul>
+                                </li>
+                                <li class="navbar-text logout-btn"><a href=@Url.Action("Logout","Account")>Logout</a></li>
+                            </ul>
+                        </div>
+
                     </div>
 
-                </div>
+                </nav>
 
-            </nav>
+            </header>
+            <section id="mobile-menu">
+                <ul class="nav">
 
-        </header>
-        <section id="mobile-menu">
-            <ul class="nav">
+                    <li class=""><a href="@Url.Action("Serch_note","Home")">Serch Notes</a> </li>
+                    <li class=""><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
+                    <li class=""><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
+                    <li class=""><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
+                    <li class=""><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
+                    <li class="img-item"><a href="#"><img class="rounded-circle" height="27px" width="27px" src="@Url.Action("UserPhoto","User")" alt=""></a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("UserProfile","User")">My Profile</a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("MyDonwloads","User")">My Downloads</a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("changePassword","Account")">Change Password</a></li>
+                    <li class="gayab"><a class="dro" href="@Url.Action("Logout","Account")">Logout</a></li>
+                    <li class="logout-btn"><a href="@Url.Action("Logout","Account")">Logout</a></li>
 
-                <li class=""><a href="@Url.Action("Serch_note","Home")">Serch Notes</a> </li>
-                <li class=""><a href="@Url.Action("Deshboard","Home")">Sell Your Notes</a></li>
-                <li class=""><a href="@Url.Action("ByuerRequest","Home")">Buyer Requests</a></li>
-                <li class=""><a href="@Url.Action("FAQ","Home")">FAQ</a></li>
-                <li class=""><a href="@Url.Action("contact_us","Home")">Contact Us</a></li>
-                <li class="img-item"><a href="#"><img class="rounded-circle" height="27px" width="27px" src="@Url.Action("UserPhoto","User")" alt=""></a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("UserProfile","User")">My Profile</a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("MyDonwloads","User")">My Downloads</a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("MysoldNotes","User")">My Sold Notes</a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("changePassword","Account")">Change Password</a></li>
-                <li class="gayab"><a class="dro" href="@Url.Action("Logout","Account")">Logout</a></li>
-                <li class="logout-btn"><a href="@Url.Action("Logout","Account")">Logout</a></li>
+                </ul>
+            </section>
+        }
 
-            </ul>
-        </section>
     }
     else
     {
@@ -313,21 +336,21 @@
     </section>
     @Html.Partial("footer")
     @*<footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="w-footer">
-                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                        <div class="footer-icon pull-right">
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-footer">
+                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                            <div class="footer-icon pull-right">
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>*@
+        </footer>*@
 
 
 

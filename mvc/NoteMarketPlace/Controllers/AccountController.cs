@@ -62,7 +62,11 @@ namespace NoteMarketPlace.Controllers
             if (ModelState.IsValid)
             {
                 HttpCookie userInfo = new HttpCookie("userInfo");
-
+                var isActiveornote = db.Users.Where(m => m.Password == userloginremembers.userlogins.password && m.EmailID == userloginremembers.userlogins.emailAddress && m.IsActive==false).SingleOrDefault();
+                if (isActiveornote != null)
+                {
+                    return new HttpStatusCodeResult(404, "user not found");
+                }
                 bool Isvld = db.Users.Any(m => m.Password == userloginremembers.userlogins.password && m.EmailID == userloginremembers.userlogins.emailAddress);
                 if (Isvld)
                 {
@@ -130,6 +134,7 @@ namespace NoteMarketPlace.Controllers
             return View(user);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Signup(usersignup usersignup)
         {
             bool exist = db.Users.Any(m => m.EmailID == usersignup.emailAddress);
@@ -163,7 +168,7 @@ namespace NoteMarketPlace.Controllers
                     db.Users.Add(user);
                     db.SaveChanges();
                     TempData["register"] = "succesfully created";
-                    buildEmailTamplate(user.id);
+                    //buildEmailTamplate(user.id);
                 }
             }
             return View(usersignup);
@@ -178,6 +183,8 @@ namespace NoteMarketPlace.Controllers
         {
             User Data = db.Users.Where(m => m.id == regid).FirstOrDefault();
             Data.IsEmailVerified = true;
+            Data.ModifiedDate = DateTime.Now;
+            Data.ModifiedBy = Data.id;
             db.SaveChanges();
             var msg = "your Email is varified";
             return Json(msg,JsonRequestBehavior.AllowGet);
@@ -270,6 +277,7 @@ namespace NoteMarketPlace.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult forget(UserForget userForget)
         {
             if (ModelState.IsValid)
@@ -308,12 +316,12 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpGet]
         [Authorize]
-
         public ActionResult changePassword()
         {
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult changePassword(userPassword userPasswords)
         {
             User authuser = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();

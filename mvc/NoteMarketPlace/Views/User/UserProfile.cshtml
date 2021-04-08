@@ -45,6 +45,7 @@
     <!--basic profile details-->
     @using (Html.BeginForm("UserProfile", "user", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.profilepicPath)
         @*@Html.HiddenFor(model=>model.BirthDate)*@
         <section id="profile-details">

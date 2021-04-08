@@ -245,6 +245,7 @@
     <NavigationProperty Name="SellerNotesReportedIssues" Relationship="Self.FK_SellerNotesReportedIssues_ReportedByID_Users_id" FromRole="Users" ToRole="SellerNotesReportedIssues" />
     <NavigationProperty Name="UserProfiles" Relationship="Self.FK_UserProfile_UserID_Users_id" FromRole="Users" ToRole="UserProfile" />
     <NavigationProperty Name="UserRole" Relationship="Self.FK_Users_RoleID_UserRoles_id" FromRole="Users" ToRole="UserRoles" />
+    <NavigationProperty Name="AdminProfiles" Relationship="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id" FromRole="User" ToRole="AdminProfile" />
   </EntityType>
   <EntityType Name="SellingType">
     <Key>
@@ -486,6 +487,11 @@
       <End Role="Country" EntitySet="Countries" />
       <End Role="SellerNote" EntitySet="SellerNotes" />
     </AssociationSet>
+    <EntitySet Name="AdminProfiles" EntityType="NoteMarketPlaceModel.AdminProfile" />
+    <AssociationSet Name="FK_AdminProfile_UserID_Users_id" Association="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id">
+      <End Role="User" EntitySet="Users" />
+      <End Role="AdminProfile" EntitySet="AdminProfiles" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_SellerNotes_NoteType_NoteTypes_id">
     <End Type="NoteMarketPlaceModel.NoteType" Role="NoteType" Multiplicity="0..1" />
@@ -508,6 +514,33 @@
       </Principal>
       <Dependent Role="SellerNote">
         <PropertyRef Name="Country" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AdminProfile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SecondryEmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id" FromRole="AdminProfile" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_AdminProfile_UserID_Users_id">
+    <End Type="NoteMarketPlaceModel.User" Role="User" Multiplicity="1" />
+    <End Type="NoteMarketPlaceModel.AdminProfile" Role="AdminProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="AdminProfile">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

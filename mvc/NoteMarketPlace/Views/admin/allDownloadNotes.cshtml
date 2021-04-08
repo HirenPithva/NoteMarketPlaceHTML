@@ -1,0 +1,273 @@
+﻿@model NoteMarketPlace.viewModel.allDownloadNotes
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/admin-deshboard.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/manage-administrator.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/note-under-review.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/Published-notes.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/download-notes.css" />
+    <!--responsive style-->
+
+
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("AdminNavbar")
+
+    <!--published notes-->
+    <section id="published-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("allDownloadNotes", "admin", FormMethod.Get, new { @id = "searchForm" }))
+                        {
+                            <div class="w-heading-searchbar">
+
+                                <div class="w-admin-deshboard-heading">
+                                    <h4>Download Notes</h4>
+                                </div>
+                                <div class="w-adminManagebtn-serchbar">
+                                    <div class="seller-dropdown">
+                                        <div class="form-group first-dropdown">
+                                            <label for="type">Note</label>
+                                            @Html.DropDownList("searchnote", new SelectList(Model.allnotes as System.Collections.IEnumerable, "value", "text"), "select notes", new { @placeholder = "select notes", @class = "custom-select", @id = "notes", @onchange = "SubmitTheForm();" })
+                                            @*<select class="custom-select" id="validationDefault02" required>
+                                <option selected disabled value="">Select Note</option>
+                                <option>...</option>
+                            </select>*@
+                                        </div>
+                                        <div class="form-group first-dropdown">
+                                            <label for="type">Seller</label>
+                                            @Html.DropDownList("searchseller", new SelectList(Model.allseller as System.Collections.IEnumerable, "value", "text"), "select seller", new { @placeholder = "select seller", @class = "custom-select", @id = "seller", @onchange = "SubmitTheForm();" })
+
+                                            @*<select class="custom-select" id="validationDefault02" required>
+                                                <option selected disabled value="">Select Seller</option>
+                                                <option>...</option>
+                                            </select>*@
+                                        </div>
+                                        <div class="form-group first-dropdown">
+                                            <label for="type">Buyer</label>
+                                            @Html.DropDownList("searchbyuer", new SelectList(Model.allBuyer as System.Collections.IEnumerable, "value", "text"), "select buyer", new { @placeholder = "select buyer", @class = "custom-select", @id = "buyer", @onchange = "SubmitTheForm();" })
+
+                                            @*<select class="custom-select" id="validationDefault02" required>
+                                <option selected disabled value="">Rahul</option>
+                                <option>...</option>
+                            </select>*@
+                                        </div>
+
+                                    </div>
+                                    <div class="search-bar-in-progress-section">
+                                        @Html.TextBox("searchtext", null, new { @class = "form-control", @type = "text", @placeholder = "search" })
+                                        <button role="button" class="search-btn">SEARCH</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                    </div>
+
+                    <!--table-->
+                    <div class="col-md-12">
+                        <div class="w-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("NOTE TITLE", "allDownloadNotes", new { sortBy = "NOTETITLE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "allDownloadNotes", new { sortBy = "CATEGORY", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col">@Html.ActionLink("BUYER", "allDownloadNotes", new { sortBy = "BUYER", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col" class="footag"><p>do</p></th>
+                                        <th scope="col">@Html.ActionLink("SELLER", "allDownloadNotes", new { sortBy = "SELLER", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col" class="footag"><p>do</p></th>
+                                        <th scope="col">@Html.ActionLink("SELL TYPE", "allDownloadNotes", new { sortBy = "SELLTYPE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col">@Html.ActionLink("PRICE", "allDownloadNotes", new { sortBy = "PRICE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext, searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })</th>
+                                        <th scope="col"><a href="@Url.Action("allDownloadNotes", "admin", new { sortBy = "DOWNLOADS", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext ,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">DOWNLOAD<br>DATE/TIME</a></th>
+                                        <th scope="col" class="footag"><p>do</p></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int srno = ((ViewBag.currentPage - 1) * 5);
+                                        foreach (var item in Model.downloadLists)
+                                        {
+                                            srno++;
+                                            <tr class="hover-effect">
+                                                <td>@srno</td>
+                                                <td><a href="@Url.Action("AdminNoteDetails","Home",new { noteID=item.noteid})">@item.Title</a></td>
+                                                <td>@item.category</td>
+                                                <td>@item.buyer</td>
+                                                <td><a href="@Url.Action("memberDetails","admin",new { memberID=item.buyerID})"><img src="/images/dashboard/eye.png"></a></td>
+                                                <td>@item.seller</td>
+                                                <td><a href="@Url.Action("memberDetails","admin",new { memberID=item.sellerID})"><img src="/images/dashboard/eye.png"></a></td>
+
+                                                <td>@item.ispaid</td>
+                                                <td>$@item.price</td>
+                                                <td>@item.DownloadedDate.ToString("dd-MM-yyyy, hh:mm")</td>
+                                                <td class="action-logo">
+                                                    <div class="btn-group dropleft">
+                                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <img src="/images/dashboard/three-dots.png" />
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                            <a class="dropdown-item" href="@Url.Action("downloadNOte","admin",new { noteID=item.noteid})">Download Note</a>
+                                                            <a class="dropdown-item" href="@Url.Action("AdminNoteDetails","Home",new { noteID=item.noteid})">View More Details</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            @if (srno == 0)
+                            {
+                                <h4 style="color:#6255a5; text-align:center;">No record found</h4>
+                            }
+                        </div>
+                    </div>
+
+                    <!--navigation bar-->
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = (ViewBag.currentPage == null) ? 1 : (ViewBag.currentPage == 1) ? 1 : (ViewBag.currentPage - 1),searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote  })" aria-label="Previous">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                @{
+                                    int from = (int)(ViewBag.currentPage - 2);
+                                    int to = (int)(ViewBag.currentPage + 2);
+                                    from = (int)Math.Max(1, from);
+                                    to = (int)Math.Min(to, ViewBag.TotalPage);
+                                    if (ViewBag.TotalPage - to == 1)
+                                    {
+                                        to = (int)ViewBag.TotalPage;
+                                    }
+                                    if (from > 1)
+                                    {
+
+                                        <li class="page-item"><a class="page-link" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = 1,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">1</a></li>
+
+                                        if (from > 2)
+                                        {
+                                            var middleNumber = (int)Math.Ceiling((double)(from - 2) / 2) + 1;
+                                            <li><a class="page-link" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middleNumber,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">..</a></li>
+
+                                        }
+                                    }
+                                    for (int J = from; J <= to; J = J + 1)
+                                    {
+                                        if (ViewBag.currentPage == J)
+                                        {
+                                            <li class="page-item"><a class="page-link active" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">@J</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">@J</a></li>
+                                        }
+                                    }
+                                    if (to < ViewBag.TotalPage)
+                                    {
+                                        int middelNumber = (int)Math.Ceiling((double)(ViewBag.TotalPage - to) / 2) + to;
+                                        <li class=""><a class="page-link" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middelNumber,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">..</a></li>
+
+                                        if (to < ViewBag.TotalPage - 1)
+                                        {
+
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("allDownloadNotes", "admin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage ,searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })">@ViewBag.TotalPage</a></li>
+
+                                        }
+                                    }
+
+                                }
+
+
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("allDownloadNotes", "admin",new {sortOrder=(ViewBag.sortOrder==null)?"dsc":ViewBag.sortOrder, sortBy=(ViewBag.sortBy==null)?"DATE":ViewBag.sortBy,  searchtext= @ViewBag.searchtext , currentPage=(ViewBag.currentPage==null)?1:(ViewBag.currentPage==ViewBag.TotalPage)?ViewBag.TotalPage:(ViewBag.currentPage+1),searchseller = ViewBag.searchseller, searchbyuer = ViewBag.searchbyuer, searchnote = ViewBag.searchnote })" aria-label="Next">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/admin-navbar/admin-script.js"></script>
+    <script>
+        $(function () {
+            $("#seller,#buyer,#notes").on('change', function () {
+                $("#searchForm").submit();
+
+            });
+        });
+    </script>
+</body>
+</html>

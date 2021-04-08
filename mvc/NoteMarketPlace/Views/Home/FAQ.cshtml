@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="/css/front-style/style.css" />
 
     <!--responsive style-->
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
     {
         <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
         <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
@@ -102,7 +102,7 @@
             </ul>
         </section>
     *@
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
     {
         @Html.Partial("_navabrAuthenticat");
     }
@@ -359,21 +359,21 @@
     <!--footer-->
     @Html.Partial("footer")
     @*<footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="w-footer">
-                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                        <div class="footer-icon pull-right">
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-footer">
+                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                            <div class="footer-icon pull-right">
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>*@
+        </footer>*@
 
 
     <!--jquery-->

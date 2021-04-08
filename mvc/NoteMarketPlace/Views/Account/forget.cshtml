@@ -36,6 +36,7 @@
                     </div>
                     <div class="form-page">
                         <form action="/Account/forget" method="post">
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 @Html.LabelFor(m => m.emailAddress)
                                 @Html.EditorFor(m => m.emailAddress, new { htmlAttributes = new { @placeholder = "Email address", @class = "form-control" } })

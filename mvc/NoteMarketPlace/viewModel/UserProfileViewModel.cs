@@ -35,6 +35,7 @@ namespace NoteMarketPlace.viewModel
 
         public Nullable<int> countryCode { get; set; }
         [Display(Name ="Phone Number")]
+        [RegularExpression("^[0-9]{0,10}$", ErrorMessage = "number is not valid")]
         public string PhonNumber { get; set; }
         
         [Display(Name ="Profile Picture")]

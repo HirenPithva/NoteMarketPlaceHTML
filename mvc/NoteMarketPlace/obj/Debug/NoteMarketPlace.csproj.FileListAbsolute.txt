@@ -147,7 +147,6 @@ C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\System.Web.Webpage
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\System.Web.Helpers.xml
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\System.Web.Mvc.xml
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\obj\Debug\NoteMarketPlace.csprojAssemblyReference.cache
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CoreCompileInputs.cache
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CopyComplete
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\obj\Debug\NoteMarketPlace.dll
@@ -160,3 +159,4 @@ C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\Antlr3.Runtime.pdb
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\Newtonsoft.Json.xml
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\System.Web.Optimization.xml
 C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\bin\System.Shim.dll
+C:\Users\USER\git\NoteMarketPlaceHTML\mvc\NoteMarketPlace\obj\Debug\NoteMarketPlace.csprojAssemblyReference.cache

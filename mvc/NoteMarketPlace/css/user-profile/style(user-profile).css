@@ -211,6 +211,9 @@ div.number{
     align-items: center;
     justify-content: center;
 }
+.label-stratch {
+    width: 100%;
+}
 .label-upload-note-preview-add-notes{
     display: flex;
     width: 100%;

@@ -30,7 +30,21 @@
 <body>
 
     <!--header-->
-    @Html.Partial("_navabrAuthenticat")
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
+    {
+        if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin")))
+        {
+            @Html.Partial("AdminNavbar")
+
+        }
+        else
+        {
+            @Html.Partial("_navabrAuthenticat")
+
+        }
+
+    }
+
     <!--note-details-->
     @using (Html.BeginForm("Note_details", "Home", FormMethod.Post))
     {
@@ -60,7 +74,7 @@
                                                 <img src="@Url.Content(Model.Imgpath)" class="img-fluid Note-detail-coverPage">
                                             </div>
                                         }
-                                        
+
 
                                     </div>
 
@@ -70,6 +84,7 @@
                                             <h4>@Model.sellerNote.Title</h4>
                                             <h6>@Model.sellerNote.NoteCategory.Name</h6>
                                             <p> @Model.sellerNote.Description</p>
+
                                             @if (ViewBag.visited != null)
                                             {
                                                 if (Model.sellerNote.IsPaid == true)
@@ -87,7 +102,14 @@
                                             }
                                             else
                                             {
-                                                if (Model.sellerNote.IsPaid == true)
+                                                if (ViewBag.AdminView != null)
+                                                {
+                                                    @Html.HiddenFor(m => m.sellerNote.CreatedDate)
+                                                    <div class="w-download-btn">
+                                                        <button type="submit" class="btn download-btn">DOWNLOAD</button>
+                                                    </div>
+                                                }
+                                                else if (Model.sellerNote.IsPaid == true)
                                                 {
                                                     <div class="w-download-btn">
                                                         <button type="button" class="btn download-btn" data-toggle="modal" data-target="#exampleModal">DOWNLOAD/$@Model.sellerNote.SellingPrice</button>
@@ -169,7 +191,7 @@
                                                 <p><span>Number of Pages:</span><span class="float-right"></span></p>
 
                                             }
-                                            @if (Model.sellerNote.Status == 4 && @Model.sellerNote.PublishedDate !=null)
+                                            @if (Model.sellerNote.Status == 4 && @Model.sellerNote.PublishedDate != null)
                                             {
                                                 <p><span>Approved Date:</span><span class="float-right">@Model.sellerNote.PublishedDate.Value.ToString("MMMM dd yyyy")</span></p>
 
@@ -288,16 +310,23 @@
                                                     <div class="col-md-12">
                                                         <div class="througn-into-flex">
                                                             <div class="w-costumer-img">
-                                                                
-                                                                    <img src="@Url.Content(item.profileImagePathP)" class="rounded-circle">
 
-                                                                
+                                                                <img src="@Url.Content(item.profileImagePathP)" class="rounded-circle">
+
+
                                                             </div>
 
 
 
                                                             <div class="w-coment">
-                                                                <h6>@item.fullName</h6>
+                                                                <h6>
+                                                                    @item.fullName
+                                                                    @if (ViewBag.AdminView != null)
+                                                                    {
+                                                                        <span class="pull-right"><a href="@Url.Action("AdminDeleteReview","Home",new { ReviewID=item.ReviewID, noteID=@Model.sellerNote.id})"><img class="img-fluid" src="/images/dashboard/delete-use.png" /></a></span>
+                                                                    }
+
+                                                                </h6>
                                                                 <div class="star">
                                                                     <div class="rate">
                                                                         @for (int i = 1; i <= 5; i++)
@@ -324,7 +353,7 @@
                                                     {
                                                         <hr>
                                                     }
-                                                    
+
 
                                                 }
 
@@ -410,7 +439,7 @@
     }
     <!--footer-->
     @Html.Partial("footer")
-    
+
 
 
 
@@ -445,8 +474,8 @@
             $(document).ready(function () {
                 $('.my_model2').modal('show');
             });
-                
+
         </script>
     }
-    </body>
+</body>
 </html>

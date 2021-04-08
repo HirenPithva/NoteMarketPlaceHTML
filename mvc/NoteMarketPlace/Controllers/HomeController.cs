@@ -266,7 +266,7 @@ namespace NoteMarketPlace.Controllers
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("hirenpithva105@gmail.com", "Hiren@#12376");
+            client.Credentials = new System.Net.NetworkCredential("EmailID", "pwd");
             try
             {
                 client.Send(mail);
@@ -284,21 +284,22 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult Add_note()
         {
             ViewBag.initial = "initial";
             var noteDetails = new AddNotesCategoriesTypeCountry()
             {
 
-                countries = db.Countries.ToList(),
-                noteTypes = db.NoteTypes.ToList(),
-                noteCategories = db.NoteCategories.ToList()
+                countries = db.Countries.Where(m => m.IsActive == true).ToList(),
+                noteTypes = db.NoteTypes.Where(m=>m.IsActive==true).ToList(),
+                noteCategories = db.NoteCategories.Where(m => m.IsActive == true).ToList()
 
-            };
+        };
             return View(noteDetails);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add_note(AddNotesCategoriesTypeCountry addNotesCategoriesTypeCountry)
         {
             if (ModelState.IsValid)
@@ -314,9 +315,9 @@ namespace NoteMarketPlace.Controllers
                         ViewBag.initial = "initial";
 
 
-                        addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
-                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
-                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
+                        addNotesCategoriesTypeCountry.countries = db.Countries.Where(m => m.IsActive == true).ToList();
+                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.Where(m => m.IsActive == true).ToList();
+                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.Where(m=>m.IsActive==true).ToList();
 
 
                         return View(addNotesCategoriesTypeCountry);
@@ -440,7 +441,7 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult Edit_notes(int noteID)
         {
             
@@ -463,9 +464,9 @@ namespace NoteMarketPlace.Controllers
             editNoteDetails.SellingPrice = notedetails.SellingPrice;
             editNoteDetails.Title = notedetails.Title;
             editNoteDetails.UniversityName = notedetails.UniversityName;
-            editNoteDetails.countries = db.Countries.ToList();
-            editNoteDetails.noteTypes = db.NoteTypes.ToList();
-            editNoteDetails.noteCategories = db.NoteCategories.ToList();
+            editNoteDetails.countries = db.Countries.Where(m => m.IsActive == true).ToList();
+            editNoteDetails.noteTypes = db.NoteTypes.Where(m => m.IsActive == true).ToList();
+            editNoteDetails.noteCategories = db.NoteCategories.Where(m => m.IsActive == true).ToList();
             editNoteDetails.IDofNote = noteID;
 
 
@@ -504,6 +505,8 @@ namespace NoteMarketPlace.Controllers
             return View("Edit_notes", editNoteDetails);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public ActionResult Edit_notes(Edit_notesViewModel addNotesCategoriesTypeCountry) 
         {
             if (ModelState.IsValid)
@@ -522,9 +525,9 @@ namespace NoteMarketPlace.Controllers
                         if (FileExtension != ".pdf")
                         {
                             ViewBag.initial = "initial";
-                            addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
-                            addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
-                            addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
+                            addNotesCategoriesTypeCountry.countries = db.Countries.Where(m => m.IsActive == true).ToList();
+                            addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.Where(m => m.IsActive == true).ToList();
+                            addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.Where(m => m.IsActive == true).ToList();
 
 
                             return View(addNotesCategoriesTypeCountry);
@@ -566,9 +569,9 @@ namespace NoteMarketPlace.Controllers
                         }
 
 
-                        addNotesCategoriesTypeCountry.countries = db.Countries.ToList();
-                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.ToList();
-                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.ToList();
+                        addNotesCategoriesTypeCountry.countries = db.Countries.Where(m => m.IsActive == true).ToList();
+                        addNotesCategoriesTypeCountry.noteTypes = db.NoteTypes.Where(m => m.IsActive == true).ToList();
+                        addNotesCategoriesTypeCountry.noteCategories = db.NoteCategories.Where(m => m.IsActive == true).ToList();
 
                         
                         return View(addNotesCategoriesTypeCountry);
@@ -706,7 +709,10 @@ namespace NoteMarketPlace.Controllers
                 
                 notesAttechment.ModifiedBy = user.id;
                 notesAttechment.ModifiedDate = DateTime.Now;
-                
+                if (addNotesCategoriesTypeCountry.btn == "btnPublish")
+                {
+                    buildEmailTamplateSellerPublishedNote(noteDetail);
+                }
                 db.SellerNotesAttechments.Attach(notesAttechment);
                 db.SellerNotes.Attach(noteDetail);
                 db.Entry(notesAttechment).State = EntityState.Modified;
@@ -718,13 +724,27 @@ namespace NoteMarketPlace.Controllers
 
             return View();
         }
-       
+
+        public void buildEmailTamplateSellerPublishedNote(SellerNote noteDetail)
+        {
+            string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/")+"TextSellerPublished" + ".cshtml");
+            var seller = db.Users.Where(m => m.id == noteDetail.SellerID).SingleOrDefault();
+            string sellerName = seller.FirstName + " " + seller.LastName;
+            body = body.Replace("ViewBag.s", sellerName);
+            body = body.Replace("ViewBag.t", noteDetail.Title);
+            body = body.ToString();
+            string Subject=sellerName +" sent his note for review";
+             SystemConfiguration  mailfrom = db.SystemConfigurations.Where(m => m.Key == "Semail").FirstOrDefault();
+            SystemConfiguration mailto= db.SystemConfigurations.Where(m => m.Key == "Aemail").FirstOrDefault();
+            string to = mailto.Value;
+            string from = mailfrom.Value;
+            buildEmailTamplate(Subject, body,  from, to);
+        }
 
 
 
 
-
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         [HttpGet]
         public ActionResult Delete_notes(int noteID, string SortOrderpub, string SortBypub, int pageOfpublished , string SortOrder, string SortBy, int pageOfDraft , string SerchText, string publishedSerchText)
         {
@@ -750,8 +770,10 @@ namespace NoteMarketPlace.Controllers
         
         
         [HttpGet]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult Note_details(int idForNoteDetails)
         {
+
             SellerNote noteDetails = db.SellerNotes.Where(m => m.id == idForNoteDetails).SingleOrDefault();
             var noteAndReviewList = new NoteDetailsViewModel();
             noteAndReviewList.sellerNote = noteDetails;
@@ -770,6 +792,7 @@ namespace NoteMarketPlace.Controllers
                 {
                     Review.profileImagePathP = db.SystemConfigurations.Where(m => m.Key == "DefaultProfilePicture").Select(m => m.Value).SingleOrDefault();
                 }
+                Review.ReviewID = item.id;
                 Review.fullName = userBelongsToReview.FirstName + " " + userBelongsToReview.LastName;
                 Review.rating = (int)item.Ratings;
                 Review.comments = item.Comments;
@@ -809,6 +832,11 @@ namespace NoteMarketPlace.Controllers
 
                 TempData.Remove("MailSent");
             }
+            if (TempData.ContainsKey("AdminView"))
+            {
+                TempData.Remove("AdminView");
+                ViewBag.AdminView = "Admin View";
+            }
             return View(noteAndReviewList);
         }
        
@@ -822,7 +850,7 @@ namespace NoteMarketPlace.Controllers
             var detailRelatedToNote = db.SellerNotes.Where(m => m.id == notedetail.sellerNote.id).SingleOrDefault();
             var user = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).SingleOrDefault();
             var attechment = db.SellerNotesAttechments.Where(m => m.NoteID == notedetail.sellerNote.id).SingleOrDefault();
-            if (user.id == detailRelatedToNote.SellerID)
+            if (user.id == detailRelatedToNote.SellerID || notedetail.sellerNote.CreatedDate!=null)
             {
                 FileDownload obj = new FileDownload();
                 var ListOfFile = obj.GetFile(attechment.FilePath).ToList();
@@ -970,13 +998,24 @@ namespace NoteMarketPlace.Controllers
 
         
         
-        
-        
-        
-        
-        
+        public ActionResult AdminNoteDetails(int noteID)
+        {
+            TempData["AdminView"] = "adminView";
+            return RedirectToAction("Note_details", new { idForNoteDetails=noteID });
+        }
+        public ActionResult AdminDeleteReview(int ReviewID, int noteID)
+        {
+            var Review = db.SellerNotesReviews.Where(m => m.id == ReviewID).SingleOrDefault();
+            db.SellerNotesReviews.Remove(Review);
+            db.SaveChanges();
+            TempData["AdminView"] = "adminView";
+            return RedirectToAction("Note_details", new { idForNoteDetails = noteID });
+        }
+
+
+
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult ByuerRequest(string SortOrder,string SortBy,string searchtext,int pagenumber=1)
         {
             ViewBag.sortorder = SortOrder;
@@ -989,9 +1028,11 @@ namespace NoteMarketPlace.Controllers
             {
                 BuyerRequestViewModel obj = new BuyerRequestViewModel();
                 obj.emailID = db.Users.Where(m => m.id == item.Downloader).Select(m=>m.EmailID).SingleOrDefault();
-                 
-                obj.phoneNumber = "+"+ db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber_code).SingleOrDefault().ToString()+" " +
-                                    db.UserProfiles.Where(m => m.UserID == item.Downloader).Select(m => m.PhoneNumber).SingleOrDefault().ToString();
+                var profile = db.UserProfiles.Where(m => m.UserID == item.id).SingleOrDefault();
+                if (profile != null)
+                {
+                    obj.phoneNumber = "+" + profile.PhoneNumber_code +" "+ profile.PhoneNumber;
+                }
                 var dprice= item.PurchasedPrice;
                 obj.price = (int)dprice;
                 obj.Title = item.NoteTitle;
@@ -1163,7 +1204,6 @@ namespace NoteMarketPlace.Controllers
             }
             return requestList;
         }
-        [Authorize]
         public ActionResult RequestApproved(int noteID, int buyerID)
         {
             var sellerID = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m => m.id).SingleOrDefault();
@@ -1209,7 +1249,7 @@ namespace NoteMarketPlace.Controllers
         
         
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Super Admin,admin,user")]
         public ActionResult Deshboard(string SerchText, string publishedSerchText, string SortOrder, string SortBy, string SortOrderpub, string SortBypub, int pageOfDraft = 1, int pageOfpublished = 1)
 
         {

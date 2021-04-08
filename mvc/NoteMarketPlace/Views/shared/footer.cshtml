@@ -1,16 +1,25 @@
-﻿<footer>
-    <div class="container">
+﻿@using (var db = new NoteMarketPlaceEntities())
+{
+    var facbook = db.SystemConfigurations.Where(m => m.Key == "Facebook").Select(m => m.Value).SingleOrDefault();
+    var twitter = db.SystemConfigurations.Where(m => m.Key == "twitter").Select(m => m.Value).SingleOrDefault();
+    var linkdin = db.SystemConfigurations.Where(m => m.Key == "Linkdin").Select(m => m.Value).SingleOrDefault();
+        <footer>
+
+
+            <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="w-footer">
                     <p>Copyright &copy; TatvaSoft All rights reserved</p>
                     <div class="footer-icon pull-right">
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                        <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                        <div class="w-icon text-center"><a href="@facbook"><i class="fa fa-facebook"></i></a></div>
+                        <div class="w-icon text-center"><a href="@twitter"><i class="fa fa-twitter"></i></a></div>
+                        <div class="w-icon text-center"><a href="@linkdin"><i class="fa fa-linkedin"></i></a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+}
+

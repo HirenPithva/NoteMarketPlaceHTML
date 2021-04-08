@@ -220,6 +220,7 @@ i.yellow {
     display: flex;
     flex-direction: column;
     padding-left: 10px;
+    width:100%;
 }
 
     .w-coment h6 {

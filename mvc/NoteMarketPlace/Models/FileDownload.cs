@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-using System.IO;
 namespace NoteMarketPlace.Models
 {
     public class FileDownload

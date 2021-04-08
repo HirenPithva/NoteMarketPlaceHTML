@@ -17,6 +17,7 @@ namespace NoteMarketPlace.viewModel
         public string Title { get; set; }
         public string category { get; set; }
         public string seller { get; set; }
+        public int sellerID { get; set; }
         public DateTime dateAdded { get; set; } 
         public string status { get; set; }
     }

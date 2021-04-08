@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="207828b301c947c0987ca1c6b747cb42" Name="Diagram1">
+      <Diagram DiagramId="207828b301c947c0987ca1c6b747cb42" Name="Diagram1" ZoomLevel="68">
         <EntityTypeShape EntityType="NoteMarketPlaceModel.Country" Width="1.5" PointX="2.125" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NoteMarketPlaceModel.Download" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NoteMarketPlaceModel.gender" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
@@ -35,6 +35,8 @@
         <AssociationConnector Association="NoteMarketPlaceModel.FK_Users_RoleID_UserRoles_id" ManuallyRouted="false" />
         <AssociationConnector Association="NoteMarketPlaceModel.FK_SellerNotes_NoteType_NoteTypes_id" />
         <AssociationConnector Association="NoteMarketPlaceModel.FK_SellerNotes_Country_Countries_id" />
+        <EntityTypeShape EntityType="NoteMarketPlaceModel.AdminProfile" Width="1.5" PointX="12.375" PointY="0.75" />
+        <AssociationConnector Association="NoteMarketPlaceModel.FK_AdminProfile_UserID_Users_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

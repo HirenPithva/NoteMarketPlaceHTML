@@ -40,5 +40,6 @@ namespace NoteMarketPlace
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<SellingType> SellingTypes { get; set; }
+        public virtual DbSet<AdminProfile> AdminProfiles { get; set; }
     }
 }

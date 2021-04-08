@@ -24,5 +24,6 @@ namespace NoteMarketPlace.viewModel
         public string fullname { get; set; }
         public DateTime publishDate { get; set; } 
         public int NoDownloads { get; set; }
+        public int noreID { get; set; }
     }
 }

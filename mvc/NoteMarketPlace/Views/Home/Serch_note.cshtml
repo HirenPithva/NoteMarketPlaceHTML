@@ -26,9 +26,9 @@
     <link rel="stylesheet" type="text/css" href="/css/serch-note/style(serch-notes2.0).css" />
 
     <link rel="stylesheet" type="text/css" href="/css/responsive/serch-note/responsive(serch-notes).css" />
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
     {
-        
+
         <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
 
     }
@@ -36,7 +36,7 @@
 <body>
 
 
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
     {
         @Html.Partial("_navabrAuthenticat")
     }
@@ -72,15 +72,15 @@
                     <div class="col-md-12">
                         <div class="w-serch-filter">
                             <div class="row">
-                                  <!--serch pannle-->
-                                    <div class="col-md-12">
-                                        <div class="w-serch-pannle" data-location="http://place.com">
-                                            <input   type="text" class="form-control" id="searchBook" name="searchText" placeholder="Serch notes here">
-                                            @*@Html.EditorFor(m => m.searchText, new { htmlAttributes = new { type = "text", id = "searchBook", placeholder = "Serch notes here", @class = "form-control" } })*@
-                                        </div>
+                                <!--serch pannle-->
+                                <div class="col-md-12">
+                                    <div class="w-serch-pannle" data-location="http://place.com">
+                                        <input type="text" class="form-control" id="searchBook" name="searchText" placeholder="Serch notes here">
+                                        @*@Html.EditorFor(m => m.searchText, new { htmlAttributes = new { type = "text", id = "searchBook", placeholder = "Serch notes here", @class = "form-control" } })*@
                                     </div>
-                                
-                                
+                                </div>
+
+
                                 <!--filter pannle 1-->
                                 <div class="col-md-12">
                                     <div class="w-filter-pannle">
@@ -92,7 +92,7 @@
                                                         <option>...</option>
                                                     </select>*@
 
-                                                @Html.DropDownListFor(m => m.typ, new SelectList(Model.noteType, "Name", "Name"), "Select Note Type", new {id="type", @class = "custom-select form-control" })
+                                                @Html.DropDownListFor(m => m.typ, new SelectList(Model.noteType, "Name", "Name"), "Select Note Type", new { id = "type", @class = "custom-select form-control" })
 
                                             </div>
 
@@ -176,7 +176,7 @@
     <!--footer-->
 
     @Html.Partial("footer")
-    
+
     <!--jquery-->
     <script src="/javascript/jquery/jquery.js"></script>
 
@@ -197,7 +197,7 @@
             //    }
             //});
 
-            $(document).on("click", ".pagenum",function () {
+            $(document).on("click", ".pagenum", function () {
                 var currentnum = $("#backward").data("value");
                 var totalPage = $("#foreward").data("value");
                 var page;
@@ -207,7 +207,7 @@
                         console.log(page);
                     }
                     if ($(this).attr("name") == "backward") {
-                       
+
                         page = Math.ceil((currentnum - 4) / 2) + 1;
                         console.log(page);
                     }

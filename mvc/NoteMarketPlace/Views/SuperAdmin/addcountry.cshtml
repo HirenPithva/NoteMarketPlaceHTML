@@ -1,0 +1,126 @@
+﻿@model NoteMarketPlace.viewModel.AddCountriesModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="/css/user-profile/style(user-profile).css" />
+    <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/add-category.css" />
+
+    <!--responsive style-->
+
+
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("AdminNavbar")
+
+    @using (Html.BeginForm("addcountry", "SuperAdmin", FormMethod.Post, new { @id = "add-catogory" })) 
+    { 
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m=>m.ID)
+    <section id="profile-details">
+        <div class="big-container">
+
+            <div class="container">
+                <div class="row">
+
+                    <!--heading-->
+                    <div class="col-md-12">
+                        <div class="heading-of-basics">
+
+                            <h2>Add Country</h2>
+
+                        </div>
+                    </div>
+
+                    <!--country name-->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="form-group">
+                            @*<label for="country-name">Country Name*</label>
+        <input id="country-name" type="text" class="form-control" placeholder="Enter country name">*@
+                            @Html.LabelFor(m => m.Name)
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "First-Name", @placeholder = "Enter Country", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <!--country code-->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="form-group">
+                            @*<label for="country-code">Country code*</label>
+                            <input id="country-code" type="text" class="form-control" placeholder="Enter country code">*@
+                            @Html.LabelFor(m => m.Code)
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @id = "First-Name", @placeholder = "Enter Country Code", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-4 offset-4 col-md-3 offset-md-0 offset-sm-4 col-sm-4">
+                        <div class="w-submit-btn">
+
+                            <button class="submit-btn text-center" role="button">SUBMIT</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+
+
+
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/admin-navbar/admin-script.js"></script>
+</body>
+</html>

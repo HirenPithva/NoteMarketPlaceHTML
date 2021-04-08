@@ -46,6 +46,7 @@
     <!--basic profile details-->
     @using (Html.BeginForm("Edit_notes", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.IDofNote)
         @Html.HiddenFor(m => m.ImagePath)
         @Html.HiddenFor(m => m.ImagePathForNote)
@@ -83,7 +84,6 @@
 
                         <!--Category-->
                         <div class="col-md-6 col-sm-12">
-
                             <div class="form-group">
                                 @Html.LabelFor(m => m.category)
                                 @Html.DropDownListFor(m => m.category, new SelectList(Model.noteCategories, "Id", "Name"), "Select Category", new { @class = "custom-select form-control" })
@@ -114,7 +114,7 @@
                                             }
                                             else
                                             {
-                                                <img class="text-center img-fluid" id="Preview" data-src="/images/User-Profile/upload.png"  src="/images/User-Profile/upload.png">
+                                                <img class="text-center img-fluid" id="Preview" data-src="/images/User-Profile/upload.png" src="/images/User-Profile/upload.png">
                                                 <p id="ImgName" data-name="upload picture">upload picture</p>
 
                                             }
@@ -346,7 +346,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="paid" >
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="paid">
 
                                             <label class="form-check-label" for="gridRadios2">
                                                 Paid
@@ -442,7 +442,7 @@
 
                                 <div class="w-submit-btn">
 
-                                    <button type="button" data-toggle="modal" data-target="#exampleModal" name="btn" value="btnSave" class="submit-btn text-center">PUBLISH</button>
+                                    <button type="button" data-toggle="modal" data-target="#exampleModal" name="btn" value="btnPublish" class="submit-btn text-center">PUBLISH</button>
 
 
                                 </div>
@@ -544,7 +544,7 @@
 
                 }
                 if (i > 0) {
-                    
+
                     filechangeCss();
                 }
                 else {
@@ -571,7 +571,7 @@
             $(display).css("width", "40px");
             $(name).css("font-size", "15px");
             $(name).css("font-weight", "500");
-            
+
         }
         function originalCss(name, display) {
             $(display).css("margin-top", "auto");
@@ -579,7 +579,7 @@
             $(display).css("width", "");
             $(name).css("font-size", "");
             $(name).css("font-weight", "");
-            
+
         }
         function ShowFilePreView(PreviewFile, DisplayPreviewFile, namePreviewFile) {
             if (PreviewFile.files && PreviewFile.files[0]) {
@@ -658,13 +658,13 @@
                 }
             }
             sellingPriceDisabled();
-            
+
             $("input[name='gridRadios']").click(function () {
                 sellingPriceDisabled();
             });
         });
-            
-        
+
+
 
     </script>
 </body>

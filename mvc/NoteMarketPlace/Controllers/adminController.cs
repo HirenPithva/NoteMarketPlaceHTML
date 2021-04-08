@@ -1,10 +1,13 @@
-﻿using NoteMarketPlace.viewModel;
+﻿using NoteMarketPlace.Models;
+using NoteMarketPlace.viewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace NoteMarketPlace.Controllers
@@ -17,6 +20,9 @@ namespace NoteMarketPlace.Controllers
         {
             db = new NoteMarketPlaceEntities();
         }
+
+
+
 
 
 
@@ -141,7 +147,7 @@ namespace NoteMarketPlace.Controllers
                     }
 
                     Rlist.Title = notes.Title;
-
+                    Rlist.noreID = notes.id;
                     Rlist.category = notes.NoteCategory.Name;
 
                     if (notes.IsPaid)
@@ -442,6 +448,7 @@ namespace NoteMarketPlace.Controllers
                 var SingleOBj = new notesUnderReviewViewModel();
                 var user = db.Users.Where(m => m.id == item.SellerID).SingleOrDefault();
                 SingleOBj.seller = user.FirstName + " " + user.LastName;
+                SingleOBj.sellerID = user.id;
                 SingleOBj.Title = item.Title;
                 SingleOBj.status = item.NoteStatu.value;
                 SingleOBj.dateAdded = (DateTime)item.CreatedDate;
@@ -591,10 +598,6 @@ namespace NoteMarketPlace.Controllers
             }
             return obj;
         }
-        public ActionResult memberDetails(int NoteID)
-        {
-            return View();
-        }
         public ActionResult StatusInReview(FormCollection formData)
         {
             var id = int.Parse(formData["noteID"]);
@@ -652,6 +655,1414 @@ namespace NoteMarketPlace.Controllers
             string searchseller = formData["searchseller"];
             int currentPage = int.Parse(formData["currentPage"]);
             return RedirectToAction("NotesUnderReview", new { sortOrder, sortBy, searchtext, searchseller, currentPage });
+        }
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Super Admin,admin")]
+        public ActionResult allPublishedNotes(string sortOrder, string sortBy, string searchtext, string searchseller, int currentPage = 1)
+        {
+            ViewBag.sortOrder = sortOrder;
+            ViewBag.sortBy = sortBy;
+            ViewBag.searchtext = searchtext;
+            ViewBag.searchseller = searchseller;
+            ViewBag.currentPage = currentPage;
+
+
+            //seller filter
+            var allSeller = new List<SelectListItem>();
+            var sellerList = db.SellerNotes.Select(m => m.SellerID).Distinct().ToList();
+            foreach (var item in sellerList)
+            {
+                SelectListItem sellerObj = new SelectListItem()
+                { Value = item.ToString(), Text = db.Users.Where(m => m.id == item).Select(m => m.FirstName).FirstOrDefault() };
+                allSeller.Add(sellerObj);
+            }
+            List<SellerNote> allNotes;
+
+            if (searchseller != null && searchseller != "")
+            {
+                int sellerID = int.Parse(searchseller);
+                allNotes = db.SellerNotes.Where(m => m.SellerID == sellerID && (m.Status == 4)).ToList();
+
+            }
+            else
+            {
+                allNotes = db.SellerNotes.Where(m=>m.Status == 4).ToList();
+            }
+
+            //noteList
+            List<notelist> PBnotes = new List<notelist>();
+            foreach (var item in allNotes)
+            {
+                notelist obj = new notelist();
+                var AdminWhoApproved = db.Users.Where(m => m.id == item.ActionBy).SingleOrDefault();
+                string adminFullName = AdminWhoApproved.FirstName + " " + AdminWhoApproved.LastName;
+                obj.approvedBy = adminFullName;
+                if (item.IsPaid)
+                {
+                    obj.isPaid = "Paid";
+                    obj.price = (int)item.SellingPrice;
+
+                }
+                else
+                {
+                    obj.isPaid = "Free";
+                    obj.price = 0;
+                }
+                obj.noOfDownloads = db.Downloads.Where(m => m.NoteID == item.id).Count();
+                obj.category = item.NoteCategory.Name;
+                obj.noteid = item.id;
+                obj.publishedDate = (DateTime)item.PublishedDate;
+                var seller = db.Users.Where(m => m.id == item.SellerID).SingleOrDefault();
+                obj.seller = seller.FirstName + " " + seller.LastName;
+                obj.sellerID = seller.id;
+                obj.Title = item.Title;
+                PBnotes.Add(obj);
+            }
+            if (searchtext != null)
+            {
+                searchtext = searchtext.ToLower();
+                PBnotes = PBnotes.Where(m => m.Title.ToLower().Contains(searchtext) || m.seller.ToLower().Contains(searchtext) ||
+                                         m.publishedDate.ToString().Contains(searchtext) || m.price.ToString().Contains(searchtext) ||
+                                         m.noOfDownloads.ToString().Contains(searchtext) || m.isPaid.ToLower().Contains(searchtext) ||
+                                         m.category.ToLower().Contains(searchtext) || m.approvedBy.ToLower().Contains(searchtext)).ToList();
+            }
+            PBnotes=sorting( sortOrder, sortBy,PBnotes);
+            ViewBag.TotalPage = Math.Ceiling(PBnotes.Count() / 5.0);
+            publishedNotes NotesAlongSeller = new publishedNotes();
+            NotesAlongSeller.allTHESeller = allSeller.ToList();
+            NotesAlongSeller.allTHENotes = PBnotes.Skip((currentPage - 1) * 5).Take(5).ToList();
+            return View(NotesAlongSeller);
+        }
+        public List<notelist> sorting(string sortOrder, string sortBy, List<notelist> PBnotes)
+        {
+            PBnotes = PBnotes.OrderByDescending(m => m.publishedDate).ToList();
+            switch (sortBy)
+            {
+                case "NOTETITLE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.Title).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "CATEGORY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.category).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "SELLTYPE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.isPaid).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.isPaid).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.isPaid).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "PRICE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.price).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.price).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.price).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "SELLER":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.seller).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "PUBLISHEDDATE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "APPROVEDBY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.approvedBy).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.approvedBy).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.approvedBy).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "DOWNLOADS":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    PBnotes = PBnotes.OrderBy(m => m.noOfDownloads).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.noOfDownloads).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    PBnotes = PBnotes.OrderByDescending(m => m.noOfDownloads).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        PBnotes = PBnotes.OrderByDescending(m => m.publishedDate).ToList();
+                        break;
+                    }
+            }
+
+            return PBnotes;
+        }
+        public ActionResult UnpublishedNote(FormCollection formData)
+        {
+            int id = int.Parse(formData["noteID"]);
+            var note = db.SellerNotes.Where(m => m.id == id).SingleOrDefault();
+            note.Status = 6;
+            note.ActionBy = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m => m.id).SingleOrDefault();
+            note.ModifiedBy = note.ActionBy;
+            note.ModifiedDate = DateTime.Now;
+            note.AdminRemarks = formData["Remark"];
+
+            db.SellerNotes.Attach(note);
+            db.Entry(note).State = EntityState.Modified;
+            db.SaveChanges();
+
+            string sortOrder = formData["sortOrder"];
+            string sortBy = formData["sortBy"];
+            string searchtext = formData["searchtext"];
+            string searchseller = formData["searchseller"];
+            int currentPage = int.Parse(formData["currentPage"]);
+            BuildEmailTamplateForUnpublished(note);
+            return RedirectToAction("allPublishedNotes", new { sortOrder, sortBy, searchtext, searchseller, currentPage });
+        }
+        public ActionResult downloadNOte(int noteID)
+        {
+            var attechment = db.SellerNotesAttechments.Where(m => m.NoteID == noteID).SingleOrDefault();
+
+            FileDownload obj = new FileDownload();
+            var ListOfFile = obj.GetFile(attechment.FilePath).ToList();
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var zipArchiv = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                {
+                    for (int i = 0; i < ListOfFile.Count(); i++)
+                    {
+                        zipArchiv.CreateEntryFromFile(ListOfFile[i].FilePath, ListOfFile[i].FileName);
+                    }
+                }
+                return File(memoryStream.ToArray(), "application/zip", "Attachments.zip");
+            }
+        }
+        public void BuildEmailTamplateForUnpublished(SellerNote note)
+        {
+
+            string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "TextUnpublishedNote" + ".cshtml");
+            var user = db.Users.Where(m => m.id == note.SellerID).SingleOrDefault();
+            body = body.Replace("viewbag.r",note.AdminRemarks);
+            body = body.Replace("viewbag.s", user.FirstName);
+            body = body.Replace("viewbag.t", note.Title);
+            body = body.ToString();
+            string Subject = "Sorry! We need to remove your notes from our portal";
+            string from = db.SystemConfigurations.Where(m => m.Key == "Semail").Select(m => m.Value).SingleOrDefault();
+            string to = user.EmailID;
+            HomeController.buildEmailTamplate(Subject,body,from,to);
+        }
+
+
+
+
+
+        [Authorize(Roles = "Super Admin,admin")]
+        public ActionResult allDownloadNotes(string sortOrder, string sortBy, string searchtext, string searchseller, string searchbyuer, string searchnote, int currentPage = 1)
+        {
+            ViewBag.sortOrder = sortOrder;
+            ViewBag.sortBy = sortBy;
+            ViewBag.searchtext = searchtext;
+            ViewBag.searchseller = searchseller;
+            ViewBag.searchbyuer = searchbyuer;
+            ViewBag.searchnote = searchnote;
+            ViewBag.currentPage = currentPage;
+
+            
+
+
+
+            //notes
+            List<SelectListItem> notesInDownloadTB = new List<SelectListItem>();
+
+            List<int> noteIDs = db.Downloads.Select(m => m.NoteID).Distinct().ToList();
+
+            foreach (var item in noteIDs)
+            {
+                SelectListItem obj = new SelectListItem()
+                {
+                    Value = item.ToString(),
+                    Text = db.SellerNotes.Where(m => m.id == item).Select(m => m.Title).FirstOrDefault()
+                };
+                notesInDownloadTB.Add(obj);
+
+            }
+
+
+
+
+            //seller
+            List<SelectListItem> sellerInDownloadTB = new List<SelectListItem>();
+
+            List<int> sellerIDs = db.Downloads.Select(m => m.Seller).Distinct().ToList();
+
+            foreach (var item in sellerIDs)
+            {
+                var seller = db.Users.Where(m => m.id == item).SingleOrDefault();
+                SelectListItem obj = new SelectListItem()
+                {
+                    Value = item.ToString(),
+                    Text = seller.FirstName + " " + seller.LastName
+                };
+                sellerInDownloadTB.Add(obj);
+
+            }
+
+
+
+            //buyer
+            List<SelectListItem> buyerInDownloadTB = new List<SelectListItem>();
+
+            List<int> buyerIDs = db.Downloads.Select(m => m.Downloader).Distinct().ToList();
+
+            foreach (var item in buyerIDs)
+            {
+                var buyer = db.Users.Where(m => m.id == item).SingleOrDefault();
+                SelectListItem obj = new SelectListItem()
+                {
+                    Value = item.ToString(),
+                    Text = buyer.FirstName + " " + buyer.LastName
+                };
+                buyerInDownloadTB.Add(obj);
+
+            }
+
+            //DownloadTB list
+            
+            var alldownloads = db.Downloads.ToList();
+            if(searchnote!=null && searchnote !="")
+            {
+                var noteID = int.Parse(searchnote);
+                alldownloads = alldownloads.Where(m => m.NoteID == noteID).ToList();
+            }
+            if(searchbyuer != null && searchbyuer != "" )
+            {
+                var buyerID = int.Parse(searchbyuer);
+                alldownloads = alldownloads.Where(m => m.Downloader == buyerID).ToList();
+            }
+            if(searchseller != null && searchseller != "" )
+            {
+                var sellerID = int.Parse(searchseller);
+                alldownloads = alldownloads.Where(m => m.Seller == sellerID).ToList();
+            }
+
+            //listOFDownloads
+            List<downloadList> downloads = new List<downloadList>();
+            foreach(var item in alldownloads)
+            {
+                downloadList obj = new downloadList();
+                obj.downloadID = item.id;
+                obj.Title = item.NoteTitle;
+                if (item.IsPaid)
+                {
+                    obj.ispaid = "Paid";
+                    obj.price = (int)item.PurchasedPrice;
+                }
+                else
+                {
+                    obj.ispaid = "Free";
+                    obj.price = 0;
+                }
+                obj.DownloadedDate = (DateTime)item.AttechmentDownloadedDate;
+                obj.category = item.NoteCategory;
+                var buyer = db.Users.Where(m => m.id == item.Downloader).SingleOrDefault();
+                obj.buyer = buyer.FirstName + " " + buyer.LastName;
+                var seller = db.Users.Where(m => m.id == item.Seller).SingleOrDefault();
+                obj.seller = seller.FirstName + " " + seller.LastName;
+                obj.buyerID = buyer.id;
+                obj.sellerID = seller.id;
+                obj.noteid = item.NoteID;
+                downloads.Add(obj);
+            }
+            if (searchtext != null && searchtext !="")
+            {
+                searchtext = searchtext.ToLower();
+                downloads = downloads.Where(m => m.category.ToLower().Contains(searchtext) || m.buyer.ToLower().Contains(searchtext) ||
+                                            m.seller.ToLower().Contains(searchtext) || m.Title.ToLower().Contains(searchtext) ||
+                                            m.price.ToString().Contains(searchtext) || m.ispaid.ToLower().Contains(searchtext )).ToList();
+            }
+            downloads=sorting(downloads, sortOrder,sortBy);
+            ViewBag.TotalPage = Math.Ceiling(downloads.Count()/5.0);
+            allDownloadNotes AllDownloadNotes = new allDownloadNotes();
+            AllDownloadNotes.allBuyer = buyerInDownloadTB;
+            AllDownloadNotes.allseller = sellerInDownloadTB;
+            AllDownloadNotes.allnotes = notesInDownloadTB;
+            AllDownloadNotes.downloadLists = downloads.Skip((currentPage-1)*5).Take(5).ToList();
+
+            return View(AllDownloadNotes);
+        }
+        public List<downloadList> sorting(List<downloadList> downloads, string sortOrder, string sortBy)
+        {
+            downloads = downloads.OrderByDescending(m => m.DownloadedDate).ToList();
+
+            switch (sortBy)
+            {
+                case "NOTETITLE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.Title).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "CATEGORY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.category).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "SELLER":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.seller).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "BUYER":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.buyer).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.buyer).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.buyer).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "SELLTYPE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.ispaid).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.ispaid).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.ispaid).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "PRICE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.price).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.price).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.price).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "DOWNLOADS":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    downloads = downloads.OrderBy(m => m.DownloadedDate).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.DownloadedDate).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    downloads = downloads.OrderByDescending(m => m.DownloadedDate).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        downloads = downloads.OrderByDescending(m => m.DownloadedDate).ToList();
+                        break;
+                    }
+            }
+            return downloads;
+        }
+
+
+
+
+
+
+        [Authorize(Roles = "Super Admin,admin")]
+        public ActionResult rejectednotes(string sortOrder, string sortBy, string searchtext, string searchseller, int currentPage = 1) 
+        {
+            ViewBag.sortOrder = sortOrder;
+            ViewBag.sortBy = sortBy;
+            ViewBag.searchtext = searchtext;
+            ViewBag.searchseller = searchseller;
+            ViewBag.currentPage = currentPage;
+
+            //seller filter
+            var allSeller = new List<SelectListItem>();
+            var sellerList = db.SellerNotes.Select(m => m.SellerID).Distinct().ToList();
+            foreach (var item in sellerList)
+            {
+                SelectListItem sellerObj = new SelectListItem()
+                { Value = item.ToString(), Text = db.Users.Where(m => m.id == item).Select(m => m.FirstName).FirstOrDefault() };
+                allSeller.Add(sellerObj);
+            }
+            List<SellerNote> allNotes;
+
+            if (searchseller != null && searchseller != "")
+            {
+                int sellerID = int.Parse(searchseller);
+                allNotes = db.SellerNotes.Where(m => m.SellerID == sellerID && (m.Status == 5)).ToList();
+
+            }
+            else
+            {
+                allNotes = db.SellerNotes.Where(m => m.Status == 5).ToList();
+            }
+
+            //rejectedNotes
+            List<rejectedlist> rejectednotesList = new List<rejectedlist>();
+            foreach(var item in allNotes)
+            {
+                var obj = new rejectedlist();
+                obj.title = item.Title;
+                obj.remark = item.AdminRemarks;
+                var rejectedByadmin = db.Users.Where(m => m.id == item.ActionBy).SingleOrDefault();
+                var noteseller = db.Users.Where(m => m.id == item.SellerID).SingleOrDefault();
+                obj.sellerID = noteseller.id;
+                obj.seller = noteseller.FirstName + " " + noteseller.LastName;
+                obj.RejectedBy = rejectedByadmin.FirstName + " " + rejectedByadmin.LastName;
+                obj.modifiedDate = (DateTime)item.ModifiedDate;
+                obj.noteid = item.id;
+                obj.category = item.NoteCategory.Name;
+                rejectednotesList.Add(obj);
+            }
+
+            if (searchtext != null)
+            {
+                searchtext = searchtext.ToLower();
+                rejectednotesList = rejectednotesList.Where(m => m.title.ToLower().Contains(searchtext) || m.seller.ToLower().Contains(searchtext) ||
+                                                              m.remark.ToLower().Contains(searchtext) || m.RejectedBy.ToLower().Contains(searchtext) ||
+                                                              m.modifiedDate.ToString().Contains(searchtext) || m.category.ToLower().Contains(searchtext)).ToList();
+            }
+
+            rejectednotesList=sorting(sortOrder,sortBy, rejectednotesList);
+
+            ViewBag.TotalPage = Math.Ceiling(rejectednotesList.Count() / 5.0);
+            rejectednotesViewModel rejectedNotesListForView = new rejectednotesViewModel();
+            rejectedNotesListForView.seller = allSeller;
+            rejectedNotesListForView.rejectednotes = rejectednotesList.Skip((currentPage - 1) * 5).Take(5).ToList();
+            if (currentPage > 1 && rejectedNotesListForView.rejectednotes.Count()==0)
+            {
+                currentPage = currentPage - 1;
+                ViewBag.currentPage = currentPage;
+                rejectedNotesListForView.rejectednotes = rejectednotesList.Skip((currentPage - 1) * 5).Take(5).ToList();
+            }
+            return View(rejectedNotesListForView);   
+        }
+        public List<rejectedlist> sorting(string sortOrder, string sortBy, List<rejectedlist> rejectednotesList)
+        {
+            rejectednotesList = rejectednotesList.OrderByDescending(m => m.modifiedDate).ToList();
+            switch (sortBy)
+            {
+                case "NOTETITLE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.title).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.title).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.title).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "CATEGORY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.category).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "SELLER":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.seller).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.seller).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "DATEADDED":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.modifiedDate).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.modifiedDate).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.modifiedDate).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "REJECTEDBY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.RejectedBy).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.RejectedBy).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.RejectedBy).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "REMARK":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderBy(m => m.remark).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.remark).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    rejectednotesList = rejectednotesList.OrderByDescending(m => m.remark).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        rejectednotesList = rejectednotesList.OrderByDescending(m => m.modifiedDate).ToList();
+                        break;
+                    }
+            }
+            return rejectednotesList;
+        }
+        public ActionResult publishedNotes(FormCollection formData)
+        {
+            int noteID =int.Parse(formData["noteID"]);
+            var note = db.SellerNotes.Where(m => m.id == noteID).SingleOrDefault();
+            var userID= db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m => m.id).SingleOrDefault();
+            note.ModifiedBy = userID;
+            note.ModifiedDate = DateTime.Now;
+            note.ActionBy = userID;
+            note.Status = 4;
+            note.PublishedDate = DateTime.Now;
+            db.SellerNotes.Attach(note);
+            db.Entry(note).State = EntityState.Modified;
+            db.SaveChanges();
+            string sortOrder = formData["sortOrder"];
+            string sortBy = formData["sortBy"];
+            string searchtext = formData["searchtext"];
+            string searchseller = formData["searchseller"];
+            int currentPage = int.Parse(formData["currentPage"]);
+            return RedirectToAction("rejectednotes", new { sortOrder, sortBy, searchtext, searchseller, currentPage });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Super Admin,admin")]
+        public ActionResult allmember(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
+        {
+            ViewBag.sortOrder = sortOrder;
+            ViewBag.sortBy = sortBy;
+            ViewBag.searchtext = searchtext;
+            ViewBag.currentPage = currentPage;
+            var allRegistredusers = db.Users.Where(m=>m.RoleID==3).ToList();
+            List<memberViewmodel> membersList = new List<memberViewmodel>();
+            foreach(var item in allRegistredusers)
+            {
+                memberViewmodel obj = new memberViewmodel();
+                obj.first = item.FirstName;
+                obj.last = item.LastName;
+                obj.memberID = item.id;
+                obj.email = item.EmailID;
+                obj.joiningDate = (DateTime)item.CreatedDate;
+                obj.underreview = db.SellerNotes.Where(m => m.SellerID == item.id && m.Status == 2 && m.Status == 3).Count();
+                obj.publishednotes = db.SellerNotes.Where(m => m.SellerID == item.id && m.Status == 4).Count();
+                obj.downloadnotes = db.Downloads.Where(m => m.Downloader == item.id).Count();
+                var expense = db.Downloads.Where(m => m.Downloader == item.id && m.IsPaid == true).ToList();
+                if (expense.Count() != 0)
+                {
+                    obj.expenses = (int)expense.Select(m => m.PurchasedPrice).Sum();
+
+                }
+                else
+                {
+                    obj.expenses = 0;
+                }
+                var earning = db.Downloads.Where(m => m.Seller == item.id && m.IsPaid == true).ToList();
+                if (earning.Count() != 0)
+                {
+                    obj.earnings = (int)earning.Select(m => m.PurchasedPrice).Sum();
+
+                }
+                else
+                {
+                    obj.earnings = 0;
+
+                }
+                membersList.Add(obj);
+            }
+            if (searchtext != null)
+            {
+                searchtext = searchtext.ToLower();
+                membersList = membersList.Where(m => m.first.ToLower().Contains(searchtext) || m.last.ToLower().Contains(searchtext) ||
+                                             m.email.ToLower().Contains(searchtext) || m.downloadnotes.ToString().Contains(searchtext) ||
+                                             m.underreview.ToString().Contains(searchtext) || m.publishednotes.ToString().Contains(searchtext) ||
+                                             m.joiningDate.ToString().Contains(searchtext) || m.expenses.ToString().Contains(searchtext) ||
+                                             m.earnings.ToString().Contains(searchtext)).ToList();
+            }
+            membersList = sorting(sortOrder, sortBy, membersList);
+            ViewBag.TotalPage = Math.Ceiling(membersList.Count() / 5.0);
+            membersList = membersList.Skip((currentPage - 1) * 5).Take(5).ToList();
+            if(membersList.Count()==0 && currentPage > 1)
+            {
+                currentPage = currentPage - 1;
+                ViewBag.currentPage = currentPage;
+                membersList = membersList.Skip((currentPage - 1) * 5).Take(5).ToList();
+            }
+            return View(membersList);
+            
+        }
+        public List<memberViewmodel> sorting(string sortOrder, string sortBy, List<memberViewmodel> membersList)
+        {
+            membersList = membersList.OrderByDescending(m => m.joiningDate).ToList();
+            switch (sortBy)
+            {
+                case "FIRSTNAME":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.first).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.first).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.first).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "LASTNAME":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.last).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.last).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.last).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "EMAIL":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.email).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.email).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.email).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "JOININGDATE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.joiningDate).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.joiningDate).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.joiningDate).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "UNDERREVIEWNOTES":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.underreview).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.underreview).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.underreview).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "PUBLISHEDNOTES":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.publishednotes).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.publishednotes).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.publishednotes).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "DOWNLOADEDNOTES":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.downloadnotes).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.downloadnotes).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.downloadnotes).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "TOTAlEXPENSES":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.expenses).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.expenses).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.expenses).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "TOTALEARNINGS":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    membersList = membersList.OrderBy(m => m.earnings).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.earnings).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    membersList = membersList.OrderByDescending(m => m.earnings).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        membersList = membersList.OrderByDescending(m => m.joiningDate).ToList();
+
+                        break;
+                    }
+            }
+            return membersList;
+        }
+        public ActionResult Deactivate(FormCollection formData) 
+        {
+            var memberID = int.Parse(formData["memberID"]);
+            var notes = db.SellerNotes.Where(m => m.SellerID == memberID).ToList();
+            var admin = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).Select(m=>m.id).SingleOrDefault();
+            foreach(var item in notes)
+            {
+                item.Status = 6;
+                item.ModifiedDate = DateTime.Now;
+                item.ModifiedBy = admin;
+                item.ActionBy = admin;
+
+                db.SellerNotes.Attach(item);
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            var user = db.Users.Where(m => m.id == memberID).SingleOrDefault();
+            user.IsActive = false;
+            user.ModifiedBy = admin;
+            user.ModifiedDate = DateTime.Now;
+            db.Users.Attach(user);
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+
+            string sortOrder = formData["sortOrder"];
+            string sortBy = formData["sortBy"];
+            string searchtext = formData["searchtext"];
+            int currentPage = int.Parse(formData["currentPage"]);
+            return RedirectToAction("allmember", new { sortOrder, sortBy, searchtext, currentPage });
+        }
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Super Admin,admin")]
+        public ActionResult memberDetails(int memberID, string sortOrder, string sortBy, int currentPage = 1) 
+        {
+            ViewBag.sortOrder = sortOrder;
+            ViewBag.sortBy = sortBy;
+            ViewBag.currentPage = currentPage;
+
+            var noteList = db.SellerNotes.Where(m => m.SellerID == memberID && (m.Status == 2 || m.Status == 3 || m.Status == 4 || m.Status == 5)).ToList();
+            List<notedetailswithList> notelistForView = new List<notedetailswithList>();
+            foreach (var item in noteList)
+            {
+                notedetailswithList obj = new notedetailswithList();
+                obj.Title = item.Title;
+                obj.category = item.NoteCategory.Name;
+                obj.status = item.NoteStatu.value;
+                var earning = db.Downloads.Where(m => m.Seller == memberID && m.NoteID==item.id && m.IsPaid == true).ToList();
+                if (earning.Count() != 0)
+                {
+                    obj.totalEarning = (int)earning.Select(m => m.PurchasedPrice).Sum();
+                }
+                else
+                {
+                    obj.totalEarning = 0;
+                }
+                obj.downloadNote = db.Downloads.Where(m => m.Downloader == item.id).Count();
+                obj.noteID = item.id;
+                obj.dateAdded =(DateTime) item.CreatedDate;
+                if (item.Status == 4)
+                {
+                    obj.publishedDate = item.PublishedDate;
+                }
+                else
+                {
+                    obj.publishedDate = null;
+                }
+
+                notelistForView.Add(obj);
+            }
+            notelistForView = sorting(sortOrder, sortBy, notelistForView);
+            var member = new memberDetailsViewModel();
+            ViewBag.TotalPage = Math.Ceiling(notelistForView.Count() / 5.0);
+            member.notes = notelistForView.Skip((currentPage-1)*5).Take(5).ToList();
+            member.profile = db.UserProfiles.Where(m => m.UserID == memberID).SingleOrDefault();
+            member.basicInfo = db.Users.Where(m => m.id == memberID).SingleOrDefault();
+            if (member.profile != null && member.profile.ProfilePicture!=null)
+            {
+                member.img = member.profile.ProfilePicture;
+            }
+            else
+            {
+                member.img = db.SystemConfigurations.Where(m => m.Key == "DefaultProfilePicture").Select(m => m.Value).SingleOrDefault();
+            }
+                return View(member);
+        }
+        public List<notedetailswithList> sorting(string sortOrder,string sortBy, List<notedetailswithList> notelistForView)
+        {
+            notelistForView = notelistForView.OrderByDescending(m => m.publishedDate).ToList();
+
+            switch (sortBy)
+            {
+                case "NOTETITLE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.Title).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.Title).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "CATEGOTY":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.category).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.category).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "STATUS":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.status).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.status).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.status).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "TOTALEARNINGS":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.totalEarning).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.totalEarning).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.totalEarning).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "DATEADDED":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.dateAdded).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.dateAdded).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.dateAdded).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case "PUBLISHDATE":
+                    {
+                        switch (sortOrder)
+                        {
+                            case "asc":
+                                {
+                                    notelistForView = notelistForView.OrderBy(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                            case "dsc":
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                            default:
+                                {
+                                    notelistForView = notelistForView.OrderByDescending(m => m.publishedDate).ToList();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        notelistForView = notelistForView.OrderByDescending(m => m.publishedDate).ToList();
+                        break;
+                    }
+            }
+            
+            return notelistForView;
         }
     }
 }

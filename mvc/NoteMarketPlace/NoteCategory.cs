@@ -11,7 +11,8 @@ namespace NoteMarketPlace
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class NoteCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,11 @@ namespace NoteMarketPlace
         }
     
         public int ID { get; set; }
+        [Required]
+        [Display(Name="Category name*")]
         public string Name { get; set; }
+        [Required]
+        [Display(Name = "Description*")]
         public string Description { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }

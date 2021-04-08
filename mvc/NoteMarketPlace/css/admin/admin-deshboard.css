@@ -11,6 +11,21 @@
     justify-content: space-between;
     height: 151px;
 }
+th a:hover {
+    color: #333333;
+    text-decoration: none;
+}
+td a {
+    color: #6255a5;
+}
+
+    td a:hover {
+        color: #6255a5;
+        text-decoration: none;
+    }
+th a {
+    color: #333333;
+}
 .w-admin-deshboard-heading h4{
     color: #6255a5;
     font-size: 30px;
@@ -87,7 +102,7 @@ div.adminDesh-equal-box:nth-child(2){
     box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
 
-.search-bar-in-progress-section .search-btn{
+.search-bar-in-progress-section .search-btn {
     color: #fff;
     height: 40px;
     text-decoration: none;
@@ -95,13 +110,16 @@ div.adminDesh-equal-box:nth-child(2){
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto  15px;
+    margin: auto 15px;
+    margin-bottom:0px;
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 3px;
     font-family: Open Sans;
     font-size: 16px;
     font-weight: 600;
+    outline: none;
+    border: none;
 }
 .custom-select{
     

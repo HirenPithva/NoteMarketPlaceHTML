@@ -1,0 +1,277 @@
+﻿@model IEnumerable<NoteMarketPlace.viewModel.CountriesViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MarketPlace-admin</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--font awsome-->
+    <link rel="stylesheet" type="text/css" href="/css/font-awsome/font-awesome.css">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+
+    <!--costume style-->
+    <link rel="stylesheet" type="text/css" href="~/css/admin/admin-style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dropdown/style(dropdown).css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/admin-deshboard.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/manage-administrator.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/manage-category.css" />
+    <!--responsive style-->
+
+    <style>
+        th:nth-child(3), td:nth-child(3) {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--header-->
+    @Html.Partial("AdminNavbar")
+
+    <!--published notes-->
+    <section id="published-notes">
+        <div class="container-bgs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("ManageCountry", "SuperAdmin", FormMethod.Get, new { @id = "searchForm" }))
+                        {
+                            <div class="w-heading-searchbar">
+
+                                <div class="w-admin-deshboard-heading">
+                                    <h4>Manage Country</h4>
+                                </div>
+                                <div class="w-adminManagebtn-serchbar">
+                                    <a href="@Url.Action("addcountry","SuperAdmin")" class="manage-btn" role="button">ADD COUNTRY</a>
+                                    <div class="search-bar-in-progress-section">
+                                        @*<input class="form-control" type="text" placeholder="search">
+                                            <a href="" role="button" class="search-btn">SEARCH</a>*@
+                                        @Html.TextBox("searchtext", null, new { @class = "form-control", @type = "text", @placeholder = "search" })
+                                        <button role="button" class="search-btn">SEARCH</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                    </div>
+
+                    <!--table-->
+                    <div class="col-md-12">
+                        <div class="w-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("COUNTRY NAME", "ManageCountry", new { sortBy = "COUNTRY", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext })</th>
+                                        <th scope="col">@Html.ActionLink("COUNTRY CODE", "ManageCountry", new { sortBy = "COUNTRYCODE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext })</th>
+                                        <th scope="col">@Html.ActionLink("DATE ADDED", "ManageCountry", new { sortBy = "DATEADDED", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext })</th>
+                                        <th scope="col">@Html.ActionLink("ADDED BY", "ManageCountry", new { sortBy = "ADDEDBY", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext })</th>
+                                        <th scope="col">@Html.ActionLink("ACTIVE", "ManageCountry", new { sortBy = "ACTIVE", sortOrder = ViewBag.sortOrder == null ? "dsc" : ((@ViewBag.sortOrder == "asc") ? "dsc" : "asc"), searchtext = @ViewBag.searchtext })</th>
+                                        <th scope="col">ACTION</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int srno = ((ViewBag.currentPage - 1) * 5);
+                                        foreach (var item in Model)
+                                        {
+                                            srno++;
+                                            <tr class="hover-effect">
+                                                <td>@srno</td>
+                                                <td>@item.country</td>
+                                                <td>@item.countryCode</td>
+                                                <td>@item.dateAdded.ToString("dd-MM-yyyy, hh:mm")</td>
+                                                <td>@item.addedBy</td>
+                                                <td>@item.active</td>
+                                                <td class="action-logo">
+                                                    <div class="w-seperate-images-for">
+                                                        <a href="@Url.Action("addcountry","SuperAdmin",new { countryID=item.countryID})"><img src="/images/dashboard/edit.png"></a>
+                                                        <a data-id="@item.countryID" class="delete-country-link"><img src="/images/dashboard/delete-use.png"></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            @if (srno == 0)
+                            {
+                                <h4 style="color:#6255a5; text-align:center;">No record found</h4>
+                            }
+                        </div>
+                    </div>
+
+                    <!--navigation bar-->
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = (ViewBag.currentPage == null) ? 1 : (ViewBag.currentPage == 1) ? 1 : (ViewBag.currentPage - 1) })" aria-label="Previous">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                @{
+                                    int from = (int)(ViewBag.currentPage - 2);
+                                    int to = (int)(ViewBag.currentPage + 2);
+                                    from = (int)Math.Max(1, from);
+                                    to = (int)Math.Min(to, ViewBag.TotalPage);
+                                    if (ViewBag.TotalPage - to == 1)
+                                    {
+                                        to = (int)ViewBag.TotalPage;
+                                    }
+                                    if (from > 1)
+                                    {
+
+                                        <li class="page-item"><a class="page-link" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = 1})">1</a></li>
+
+                                        if (from > 2)
+                                        {
+                                            var middleNumber = (int)Math.Ceiling((double)(from - 2) / 2) + 1;
+                                            <li><a class="page-link" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middleNumber})">..</a></li>
+
+                                        }
+                                    }
+                                    for (int J = from; J <= to; J = J + 1)
+                                    {
+                                        if (ViewBag.currentPage == J)
+                                        {
+                                            <li class="page-item"><a class="page-link active" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J})">@J</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = J})">@J</a></li>
+                                        }
+                                    }
+                                    if (to < ViewBag.TotalPage)
+                                    {
+                                        int middelNumber = (int)Math.Ceiling((double)(ViewBag.TotalPage - to) / 2) + to;
+                                        <li class=""><a class="page-link" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = middelNumber})">..</a></li>
+
+                                        if (to < ViewBag.TotalPage - 1)
+                                        {
+
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("ManageCountry", "SuperAdmin", new { sortOrder = (ViewBag.sortOrder == null) ? "dsc" : ViewBag.sortOrder, sortBy = (ViewBag.sortBy == null) ? "DATE" : ViewBag.sortBy, searchtext = @ViewBag.searchtext, currentPage = ViewBag.TotalPage })">@ViewBag.TotalPage</a></li>
+
+                                        }
+                                    }
+
+                                }
+
+
+                                <li class="page-item">
+                                    <a class="page-link first" href="@Url.Action("ManageCountry", "SuperAdmin",new {sortOrder=(ViewBag.sortOrder==null)?"dsc":ViewBag.sortOrder, sortBy=(ViewBag.sortBy==null)?"DATE":ViewBag.sortBy,  searchtext= @ViewBag.searchtext , currentPage=(ViewBag.currentPage==null)?1:(ViewBag.currentPage==ViewBag.TotalPage)?ViewBag.TotalPage:(ViewBag.currentPage+1)})" aria-label="Next">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    @using (Html.BeginForm("deleteCountry", "SuperAdmin", FormMethod.Post))
+    {
+        @Html.Hidden("countryID", "", new { @class = "countryID" })
+        @Html.Hidden("sortOrder", (string)ViewBag.sortOrder)
+        @Html.Hidden("sortBy", (string)ViewBag.sortBy)
+        @Html.Hidden("searchtext", (string)ViewBag.searchtext)
+        @Html.Hidden("currentPage", (int)ViewBag.currentPage)
+
+        <div class="w-model-add-review">
+            <div class="modal fade my_modal" id="deactivateCountryModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+
+                                <p>
+                                    Are you sure you want to make this country inactive?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="w-submit-btn">
+
+                                <button type="submit" name="btn" value="btnPublish" class="submit-btn text-center float-left">YES</button>
+                                <button name="btn" value="btnCancel" data-dismiss="modal" aria-label="Close" class="submit-btn text-center" href="">NO</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <!--footer-->
+    <footer class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="w-footer">
+                        <p><span class="version-footer">Version:1.1.24</span><span class="rights-description">Copyright &copy; TatvaSoft All rights reserved</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!--jquery-->
+    <script src="/javascript/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+    <!--bootstrap-->
+    <script src="/javascript/bootstrap.js"></script>
+
+    <!--costume script-->
+    <script src="/javascript/admin-navbar/admin-script.js"></script>
+    <script>
+        $(function () {
+            $(".delete-country-link").on('click', function () {
+                $("#deactivateCountryModel").modal("show");
+                var id = $(this).attr("data-id");
+                $(".countryID").val(id);
+            });
+        });
+    </script>
+</body>
+</html>

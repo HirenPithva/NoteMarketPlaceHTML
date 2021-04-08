@@ -38,7 +38,7 @@ namespace NoteMarketPlace.Models
         public override string[] GetRolesForUser(string username)
         {
             NoteMarketPlaceEntities db = new NoteMarketPlaceEntities();
-            string[] UserRole = db.Users.Where(m => m.EmailID == username).Select(m => m.UserRole.Name).ToArray();
+            string[] UserRole = db.Users.Where(m => m.EmailID == username && m.IsActive==true).Select(m => m.UserRole.Name).ToArray();
             return UserRole;
         }
 

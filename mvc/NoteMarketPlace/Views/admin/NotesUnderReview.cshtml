@@ -96,17 +96,17 @@
                                 </thead>
                                 <tbody>
                                     @{
-                                        int srno = 0;
+                                        int srno = ((ViewBag.currentPage - 1) * 5);
                                         foreach (var item in Model.allTHENotes)
                                         {
                                             srno++;
                                             <tr class="hover-effect">
 
                                                 <td>@srno</td>
-                                                <td>@item.Title</td>
+                                                <td><a href="@Url.Action("AdminNoteDetails","Home",new { noteID=item.noteid})">@item.Title</a></td>
                                                 <td>@item.category</td>
                                                 <td>@item.seller </td>
-                                                <td><a href="@Url.Action("NoteID","admin",new { NoteID=item.noteid})"><img src="/images/dashboard/eye.png"></a></td>
+                                                <td><a href="@Url.Action("memberDetails","admin",new { memberID=item.sellerID})"><img src="/images/dashboard/eye.png"></a></td>
                                                 <td>@item.dateAdded.ToString("dd-MM-yyyy, hh:mm")</td>
                                                 <td>@item.status</td>
                                                 <td>
@@ -129,9 +129,8 @@
                                                             <img src="/images/dashboard/three-dots.png" />
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Download Note</a>
-                                                            <a class="dropdown-item" href="#">View More Details</a>
-                                                            <a class="dropdown-item" href="#">Unpublish</a>
+                                                            <a class="dropdown-item" href="@Url.Action("downloadNOte","admin",new { noteID=item.noteid})">Download Note</a>
+                                                            <a class="dropdown-item" href="@Url.Action("AdminNoteDetails","Home",new { noteID=item.noteid})">View More Details</a>
                                                         </div>
                                                     </div>
                                                 </td>
