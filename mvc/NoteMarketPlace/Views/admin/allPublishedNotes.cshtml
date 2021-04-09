@@ -111,7 +111,7 @@
                                                 <td><a href="@Url.Action("memberDetails","admin",new { memberID=item.sellerID})"><img src="/images/dashboard/eye.png"></a></td>
                                                 <td>@item.publishedDate.ToString("dd-MM-yyyy, hh:mm")</td>
                                                 <td>@item.approvedBy</td>
-                                                <td>@item.noOfDownloads</td>
+                                                <td><a href="@Url.Action("allDownloadNotes","admin",new { searchnote=item.noteid})">@item.noOfDownloads</a></td>
                                                 <td class="action-logo">
                                                     <div class="btn-group dropleft">
                                                         <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

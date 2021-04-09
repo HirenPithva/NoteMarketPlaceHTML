@@ -19,6 +19,8 @@ namespace NoteMarketPlace.Controllers
         }
         [Authorize(Roles = "Super Admin")]
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("SystemConfiguration")]
         public ActionResult systemConfiguration()
         {
             systemConfigurationViewmodel systemdata=new systemConfigurationViewmodel ();
@@ -34,6 +36,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("SystemConfiguration")]
         public ActionResult systemConfiguration(systemConfigurationViewmodel systemdata)
         {
             if (ModelState.IsValid)
@@ -123,6 +127,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin")]
+        [OutputCache(Duration = 0)]
+        [Route("Administrator")]
         public ActionResult administrator(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -309,6 +315,8 @@ namespace NoteMarketPlace.Controllers
             return adminListForAdmin;
         }
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("AddAdministrator")]
         public ActionResult Addadministrator(int memberID=0)
         {
             var adminnistratorDetails = new addAdministratorViewModel();
@@ -335,6 +343,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("AddAdministrator")]
         public ActionResult Addadministrator(addAdministratorViewModel adminDetails)
         {
             if (ModelState.IsValid)
@@ -435,6 +445,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("Category")]
         public ActionResult manageCategory(string sortOrder, string sortBy, string searchtext, int currentPage = 1) 
         {
             ViewBag.sortOrder = sortOrder;
@@ -607,6 +619,8 @@ namespace NoteMarketPlace.Controllers
             return categoriesforView;
         }
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("AddCategory")]
         public ActionResult AddCategory(int categoryID=0) 
         {
             if (categoryID != 0)
@@ -622,6 +636,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("AddCategory")]
         public ActionResult AddCategory(addCategory category) 
         {
             if (ModelState.IsValid)
@@ -677,6 +693,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("Type")]
         public ActionResult managetype(string sortOrder, string sortBy, string searchtext, int currentPage = 1) {
             ViewBag.sortOrder = sortOrder;
             ViewBag.sortBy = sortBy;
@@ -848,6 +866,8 @@ namespace NoteMarketPlace.Controllers
             return categoriesforView;
         }
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("AddType")]
         public ActionResult AddType(int typeID=0)
         {
             if (typeID != 0)
@@ -863,6 +883,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("AddType")]
         public ActionResult AddType(addType type)
         {
             if (ModelState.IsValid)
@@ -920,6 +942,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("Country")]
         public ActionResult ManageCountry(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -1086,6 +1110,8 @@ namespace NoteMarketPlace.Controllers
             return categoriesforView;
         }
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("AddCountry")]
         public ActionResult addcountry(int countryID=0)
         {
             if (countryID != 0)
@@ -1101,6 +1127,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("AddCountry")]
         public ActionResult addcountry(AddCountriesModel country)
         {
             if (ModelState.IsValid)
@@ -1159,6 +1187,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("SpamReport")]
         public ActionResult spamReport(string sortOrder, string sortBy, string searchtext, int currentPage = 1) 
         {
             ViewBag.sortOrder = sortOrder;
@@ -1341,6 +1371,8 @@ namespace NoteMarketPlace.Controllers
 
         [Authorize(Roles = "Super Admin,admin")]
         [HttpGet]
+        [OutputCache(Duration = 0)]
+        [Route("AdminProfile")]
         public ActionResult AdminProfile()
         {
 
@@ -1372,6 +1404,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("AdminProfile")]
         public ActionResult AdminProfile(adminProfileViewmodal admin)
         {
             if (ModelState.IsValid)

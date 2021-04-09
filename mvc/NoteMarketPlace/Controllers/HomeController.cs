@@ -26,14 +26,26 @@ namespace NoteMarketPlace.Controllers
         }
         // GET: Home
         [AllowAnonymous]
+        [OutputCache(Duration = 0)]
         public ActionResult Index()
         {
 
-
+            if(User.Identity.IsAuthenticated && (User.IsInRole("Super Admin") || User.IsInRole("admin") || User.IsInRole("user")))
+            {
+                if(User.IsInRole("Super Admin") || User.IsInRole("admin")){
+                    return RedirectToAction("Index","admin");
+                }
+                else
+                {
+                    return RedirectToAction("Serch_note","Home");
+                }
+            }
             return View();
         }
        
         [AllowAnonymous]
+        [OutputCache(Duration = 0)]
+        [Route("search")]
         public ActionResult Serch_note()
         {
             
@@ -43,8 +55,6 @@ namespace NoteMarketPlace.Controllers
 
             var cors = (from m in db.SellerNotes select m.Course).Distinct().ToList();
             var courses = cors.Select(x => new SelectListItem() { Value = x, Text = x }).ToList();
-
-
 
             var ratings = new SelectList(new[]
             {
@@ -186,19 +196,29 @@ namespace NoteMarketPlace.Controllers
         }
 
 
+
+
+
+
         [AllowAnonymous]
+        [OutputCache(Duration = 0)]
+        [Route("FAQ")]
         public ActionResult FAQ()
         {
             return View();
         }
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(Duration = 0)]
+        [Route("ContactUs")]
         public ActionResult contact_us()
         {
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
+        [OutputCache(Duration = 0)]
+        [Route("ContactUs")]
         public ActionResult contact_us(ContactUs contactUs)
         {
             if (ModelState.IsValid)
@@ -284,7 +304,9 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
+        [OutputCache(Duration = 0)]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [Route("AddNote")]
         public ActionResult Add_note()
         {
             ViewBag.initial = "initial";
@@ -299,7 +321,9 @@ namespace NoteMarketPlace.Controllers
             return View(noteDetails);
         }
         [HttpPost]
+        [OutputCache(Duration = 0)]
         [ValidateAntiForgeryToken]
+        [Route("AddNote")]
         public ActionResult Add_note(AddNotesCategoriesTypeCountry addNotesCategoriesTypeCountry)
         {
             if (ModelState.IsValid)
@@ -441,7 +465,9 @@ namespace NoteMarketPlace.Controllers
 
 
         [HttpGet]
+        [OutputCache(Duration =0)]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [Route("EditNote")]
         public ActionResult Edit_notes(int noteID)
         {
             
@@ -506,7 +532,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [OutputCache(Duration = 0)]
+        [Route("EditNote")]
         public ActionResult Edit_notes(Edit_notesViewModel addNotesCategoriesTypeCountry) 
         {
             if (ModelState.IsValid)
@@ -722,7 +749,7 @@ namespace NoteMarketPlace.Controllers
                 return RedirectToAction("Deshboard");
             }
 
-            return View();
+            return RedirectToAction("Edit_notes","Home",new { noteID =addNotesCategoriesTypeCountry.IDofNote});
         }
 
         public void buildEmailTamplateSellerPublishedNote(SellerNote noteDetail)
@@ -771,6 +798,8 @@ namespace NoteMarketPlace.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("Details")]
         public ActionResult Note_details(int idForNoteDetails)
         {
 
@@ -841,6 +870,8 @@ namespace NoteMarketPlace.Controllers
         }
        
         [HttpPost]
+        [OutputCache(Duration = 0)]
+        [Route("Details")]
         public ActionResult Note_details(NoteDetailsViewModel notedetail)
         {
             if (!(User.Identity.IsAuthenticated))
@@ -1016,6 +1047,8 @@ namespace NoteMarketPlace.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("BuyerRequest")]
         public ActionResult ByuerRequest(string SortOrder,string SortBy,string searchtext,int pagenumber=1)
         {
             ViewBag.sortorder = SortOrder;
@@ -1250,6 +1283,8 @@ namespace NoteMarketPlace.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("Deshboard")]
         public ActionResult Deshboard(string SerchText, string publishedSerchText, string SortOrder, string SortBy, string SortOrderpub, string SortBypub, int pageOfDraft = 1, int pageOfpublished = 1)
 
         {

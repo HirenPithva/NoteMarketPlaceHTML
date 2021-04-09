@@ -26,6 +26,8 @@ namespace NoteMarketPlace.Controllers
             return View();
         }
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("UserProfile")]
         public ActionResult UserProfile()
         {
             var loginUser = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
@@ -72,6 +74,8 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("UserProfile")]
         public ActionResult UserProfile(UserProfileViewModel user)
         {
             user.genderList = db.genders.ToList();
@@ -184,6 +188,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("MyDownloads")]
         public ActionResult MyDonwloads(string sortOrder,string sortBy,string searchtext,int currentPage=1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -546,6 +552,8 @@ namespace NoteMarketPlace.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("MySoldNotes")]
         public ActionResult MysoldNotes(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -771,6 +779,8 @@ namespace NoteMarketPlace.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Super Admin,admin,user")]
+        [OutputCache(Duration = 0)]
+        [Route("MyRejectedNotes")]
         public ActionResult MyRejectedNotes(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;

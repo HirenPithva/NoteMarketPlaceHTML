@@ -46,18 +46,23 @@ div.adminDesh-equal-box:nth-child(2){
     margin-right: 20px;
     
 }
-.adminDesh-equal-box h5{
+.adminDesh-equal-box h5 a{
     font-size: 26px;
     color: #6255a5;
     font-weight: 700;
 }
-.adminDesh-equal-box p{
-    font-size: 18px;
-    color: #333333;
-    font-weight: 400;
-    text-align-last: center;
-
-}
+    .adminDesh-equal-box h5 a:hover,
+    .adminDesh-equal-box h5 a:focus,
+    .adminDesh-equal-box h5 a:active {
+        text-decoration: none;
+        color: #6255a5;
+    }
+    .adminDesh-equal-box p {
+        font-size: 18px;
+        color: #333333;
+        font-weight: 400;
+        text-align-last: center;
+    }
 .adminDesh-equal-box p span{
     white-space: nowrap;
 }

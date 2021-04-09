@@ -28,6 +28,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("AdminDeshboard")]
         public ActionResult Index(string sortOrder, string sortBy, string searchtext, string searchmonth, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -413,6 +415,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("UnderReviewNotes")]
         public ActionResult NotesUnderReview(string sortOrder, string sortBy, string searchtext, string searchseller, int currentPage = 1)
         
         {
@@ -667,6 +671,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("PublishedNotes")]
         public ActionResult allPublishedNotes(string sortOrder, string sortBy, string searchtext, string searchseller, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -992,6 +998,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("DownloadedNotes")]
         public ActionResult allDownloadNotes(string sortOrder, string sortBy, string searchtext, string searchseller, string searchbyuer, string searchnote, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -1300,6 +1308,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("RejectedNotes")]
         public ActionResult rejectednotes(string sortOrder, string sortBy, string searchtext, string searchseller, int currentPage = 1) 
         {
             ViewBag.sortOrder = sortOrder;
@@ -1548,6 +1558,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("Members")]
         public ActionResult allmember(string sortOrder, string sortBy, string searchtext, int currentPage = 1)
         {
             ViewBag.sortOrder = sortOrder;
@@ -1864,6 +1876,8 @@ namespace NoteMarketPlace.Controllers
 
 
         [Authorize(Roles = "Super Admin,admin")]
+        [OutputCache(Duration = 0)]
+        [Route("MemberDetail")]
         public ActionResult memberDetails(int memberID, string sortOrder, string sortBy, int currentPage = 1) 
         {
             ViewBag.sortOrder = sortOrder;

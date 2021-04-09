@@ -26,6 +26,7 @@ namespace NoteMarketPlace.Controllers
         {
             return View();
         }
+        [Route("LOGIN")]
         public ActionResult Login()
         {
             
@@ -52,6 +53,8 @@ namespace NoteMarketPlace.Controllers
 
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("LOGIN")]
         public ActionResult Login(UserLoginRemember userloginremembers)
         {
             //bool active = db.Users.Any(m => m.IsActive == true);
@@ -127,7 +130,13 @@ namespace NoteMarketPlace.Controllers
             return View();
         }
         
+
+
+
+
+
         [HttpGet]
+        [Route("SIGNUP")]
         public ActionResult Signup()
         {
             var user = new usersignup();
@@ -135,6 +144,7 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("SIGNUP")]
         public ActionResult Signup(usersignup usersignup)
         {
             bool exist = db.Users.Any(m => m.EmailID == usersignup.emailAddress);
@@ -168,11 +178,19 @@ namespace NoteMarketPlace.Controllers
                     db.Users.Add(user);
                     db.SaveChanges();
                     TempData["register"] = "succesfully created";
-                    //buildEmailTamplate(user.id);
+                    buildEmailTamplate(user.id);
                 }
             }
             return View(usersignup);
         }
+
+
+
+
+
+
+
+
         public ActionResult confirm(int regid)
         {
             ViewBag.regid = regid;
@@ -189,6 +207,9 @@ namespace NoteMarketPlace.Controllers
             var msg = "your Email is varified";
             return Json(msg,JsonRequestBehavior.AllowGet);
         }
+
+
+
 
         public void buildEmailTamplate(int regid)
         {
@@ -210,6 +231,8 @@ namespace NoteMarketPlace.Controllers
             buildEmailTamplate("New Temporary Password has been created for you", body, userinfo.EmailID);
         }
         
+
+
         public static void buildEmailTamplate(string subject,string body,string to)
         {
             string From, To, bcc, cc, Subject, Body;
@@ -255,6 +278,10 @@ namespace NoteMarketPlace.Controllers
                 throw ex;
             }
         }
+
+
+
+
         [Authorize]
         public ActionResult Logout()
         {
@@ -272,12 +299,18 @@ namespace NoteMarketPlace.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
+
+
+
+
+        [Route("FORGET")]
         public ActionResult forget()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("FORGET")]
         public ActionResult forget(UserForget userForget)
         {
             if (ModelState.IsValid)
@@ -314,14 +347,24 @@ namespace NoteMarketPlace.Controllers
             }
             return View();
         }
+
+
+
+
+
+
         [HttpGet]
         [Authorize]
+        [OutputCache(Duration =0)]
+        [Route("CHANGEPASSWORD")]
         public ActionResult changePassword()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 0)]
+        [Route("CHANGEPASSWORD")]
         public ActionResult changePassword(userPassword userPasswords)
         {
             User authuser = db.Users.Where(m => m.EmailID == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();

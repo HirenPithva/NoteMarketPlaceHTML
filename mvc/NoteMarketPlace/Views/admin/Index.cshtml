@@ -47,15 +47,15 @@
                     <div class="col-md-12">
                         <div class="w-all-adminDesh-boxes">
                             <div class="adminDesh-equal-box">
-                                <h5>@Model.InReview</h5>
+                                <h5><a href="@Url.Action("NotesUnderReview","admin")">@Model.InReview</a></h5>
                                 <p>Number of Notes in Review for Publish</p>
                             </div>
                             <div class="adminDesh-equal-box">
-                                <h5>@Model.Downloaded</h5>
+                                <h5><a href="@Url.Action("allDownloadNotes","admin")">@Model.Downloaded</a></h5>
                                 <p>Number of New Notes Downloaded<br><span>(last 7 days)</span></p>
                             </div>
                             <div class="adminDesh-equal-box">
-                                <h5>@Model.registration</h5>
+                                <h5><a href="@Url.Action("allmember","admin")">@Model.registration</a></h5>
                                 <p>Number of New Registration <span>(last 7 days)</span></p>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                                 <td>$@item.price</td>
                                                 <td>@item.fullname</td>
                                                 <td>@item.publishDate.ToString("dd-MM-yyyy, hh:mm")</td>
-                                                <td>@item.NoDownloads</td>
+                                                <td><a href="@Url.Action("allDownloadNotes","admin",new { searchnote=item.noreID})">@item.NoDownloads</a> </td>
                                                 <td class="action-logo">
                                                     <div class="btn-group dropleft">
                                                         <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

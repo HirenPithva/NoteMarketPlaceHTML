@@ -33,7 +33,7 @@
 
 <body>
 
-    
+
     @Html.Partial("_navabrAuthenticat")
     <!--banner-->
     <section id="user-banner">
@@ -45,7 +45,8 @@
     </section>
 
     <!--basic profile details-->
-    <form action="Add_note" EncType="multipart/form-data" method="post">
+    @using (Html.BeginForm("Add_note", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
         @Html.AntiForgeryToken()
         <section id="profile-details">
             <div class="big-container">
@@ -67,7 +68,7 @@
 
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Title*</label>
-                                <input type="text" class="form-control" placeholder="Enter your Notes Title">*@
+                                    <input type="text" class="form-control" placeholder="Enter your Notes Title">*@
                                 @Html.LabelFor(m => m.Title)
                                 @Html.TextBoxFor(m => m.Title, new { @placeholder = "Enter your Notes Title", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
@@ -86,7 +87,7 @@
 
 
                                 @*<label for="exampleInputEmail1">Category*</label>
-                                <input type="text" class="form-control" placeholder="Select Your Category">*@
+                                    <input type="text" class="form-control" placeholder="Select Your Category">*@
                             </div>
 
 
@@ -131,10 +132,10 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Type</label>
-                                <select class="custom-select " id="validationDefault02" required>
-                                    <option selected disabled value="">select type</option>
-                                    <option>...</option>
-                                </select>*@
+                                    <select class="custom-select " id="validationDefault02" required>
+                                        <option selected disabled value="">select type</option>
+                                        <option>...</option>
+                                    </select>*@
                                 @Html.LabelFor(m => m.NoteType)
                                 @Html.DropDownListFor(m => m.NoteType, new SelectList(Model.noteTypes, "Id", "Name"), "Select Note Type", new { @class = "form-control custom-select" })
 
@@ -151,7 +152,7 @@
                                 @Html.ValidationMessageFor(m => m.NumberOfPages, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Number Of Pages</label>
-                                <input type="text" class="form-control" placeholder="Enter Number of NotePages">*@
+                                    <input type="text" class="form-control" placeholder="Enter Number of NotePages">*@
                             </div>
 
                         </div>
@@ -165,7 +166,7 @@
                                 @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
 
                                 @*<label>Description*</label>
-                                <textarea class="form-control set-height-of-description" placeholder="Enter your description"></textarea>*@
+                                    <textarea class="form-control set-height-of-description" placeholder="Enter your description"></textarea>*@
                             </div>
 
                         </div>
@@ -184,10 +185,10 @@
 
                             <div class="form-group">
                                 @*<label for="exampleInputEmail1">Country*</label>
-                                <select class="custom-select form-control" id="validationDefault02" required>
-                                    <option selected disabled value="">select Your country</option>
-                                    <option>...</option>
-                                </select>*@
+                                    <select class="custom-select form-control" id="validationDefault02" required>
+                                        <option selected disabled value="">select Your country</option>
+                                        <option>...</option>
+                                    </select>*@
                                 @Html.LabelFor(m => m.Country)
                                 @Html.DropDownListFor(m => m.Country, new SelectList(Model.countries, "ID", "Name"), "Select Note Type", new { @class = "custom-select form-control" })
                                 @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
@@ -205,7 +206,7 @@
                                 @Html.ValidationMessageFor(m => m.UniversityName, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Institution Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your institution name">*@
+                                    <input type="text" class="form-control" placeholder="Enter your institution name">*@
                             </div>
 
                         </div>
@@ -229,7 +230,7 @@
                                 @Html.ValidationMessageFor(m => m.Course, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">Course Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your Course Name">*@
+                                    <input type="text" class="form-control" placeholder="Enter your Course Name">*@
                             </div>
 
                         </div>
@@ -243,7 +244,7 @@
                                 @Html.ValidationMessageFor(m => m.CourseCode, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">course code</label>
-                                <input type="text" class="form-control" placeholder="Enter course code">*@
+                                    <input type="text" class="form-control" placeholder="Enter course code">*@
                             </div>
 
                         </div>
@@ -257,7 +258,7 @@
                                 @Html.ValidationMessageFor(m => m.Professor, "", new { @class = "text-danger" })
 
                                 @*<label for="exampleInputEmail1">professor/Lecturer</label>
-                                <input type="text" class="form-control" placeholder="Enter your professor name">*@
+                                    <input type="text" class="form-control" placeholder="Enter your professor name">*@
                             </div>
 
                         </div>
@@ -310,7 +311,7 @@
                                         @Html.ValidationMessageFor(m => m.SellingPrice, "", new { @class = "text-danger" })
 
                                         @*<label for="exampleInputEmail1">Sell Price</label>
-                                        <input type="text" class="form-control" value="0" placeholder="Enter your price">*@
+                                            <input type="text" class="form-control" value="0" placeholder="Enter your price">*@
                                     </div>
                                 </div>
                             </div>
@@ -330,19 +331,19 @@
                         </div>
 
                         @*if (ViewBag.initial == "edit")
-                        {
-                            <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
+                            {
+                                <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
 
-                                <div class="w-submit-btn">
+                                    <div class="w-submit-btn">
 
-                                    <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAve</button>
+                                        <button type="submit" name="btn" value="btnSave" class="submit-btn text-center">SAve</button>
 
 
+                                    </div>
                                 </div>
-                            </div>
 
 
-                        }*@
+                            }*@
                         @if (ViewBag.initial == "initial")
                         {
                             <div class="col-lg-2 col-4 col-md-3 offset-sm-2 offset-2 offset-md-0  col-sm-4">
@@ -402,8 +403,9 @@
                 </div>
             </div>
         </div>
-
-    </form>
+    }
+    @*<form action="Add_note" EncType="multipart/form-data" method="post">
+    </form>*@
 
 
 
@@ -411,21 +413,21 @@
     <!--footer-->
     @Html.Partial("footer")
     @*<footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="w-footer">
-                        <p>Copyright &copy; TatvaSoft All rights reserved</p>
-                        <div class="footer-icon pull-right">
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
-                            <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="w-footer">
+                            <p>Copyright &copy; TatvaSoft All rights reserved</p>
+                            <div class="footer-icon pull-right">
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="w-icon text-center"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>*@
+        </footer>*@
 
 
 
@@ -452,10 +454,10 @@
                     $("#priceID").removeAttr("disabled", "disabled");
                 }
             });
-            
-            
+
+
         });
-        
+
     </script>
 </body>
 </html>

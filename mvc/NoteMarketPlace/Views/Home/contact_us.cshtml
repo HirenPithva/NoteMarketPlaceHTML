@@ -171,35 +171,39 @@
 
                             <!--info-->
                             <div class="col-md-6 col-sm-12">
-                                <form id="usr-form" method="post" action="contact_us">
+                                @using (Html.BeginForm("contact_us", "Home", FormMethod.Post, new { @id = "usr-form" }))
+                                {
+                                    @*<form id="usr-form" method="post" action="contact_us">*@
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.fullName, new { @for = "first-name" })
-                                        @Html.EditorFor(m => m.fullName, new { htmlAttributes = new { @id = "first-name", @placeholder = "Full Name", @class = "form-control", } })
-                                        @Html.ValidationMessageFor(m => m.fullName, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.fullName, new { @for = "first-name" })
+                                            @Html.EditorFor(m => m.fullName, new { htmlAttributes = new { @id = "first-name", @placeholder = "Full Name", @class = "form-control", } })
+                                            @Html.ValidationMessageFor(m => m.fullName, "", new { @class = "text-danger" })
 
-                                        @*<label for="first-name">First Name*</label>
-                                            <input type="text" class="form-control" id="first-name" placeholder="Enter your first name">*@
-                                    </div>
+                                            @*<label for="first-name">First Name*</label>
+                    <input type="text" class="form-control" id="first-name" placeholder="Enter your first name">*@
+                                        </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.EmailAddress, new { @for = "last-name" })
-                                        @Html.EditorFor(m => m.EmailAddress, new { htmlAttributes = new { @id = "last-name", @placeholder = "Email address", @class = "form-control", } })
-                                        @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmailAddress, new { @for = "last-name" })
+                                            @Html.EditorFor(m => m.EmailAddress, new { htmlAttributes = new { @id = "last-name", @placeholder = "Email address", @class = "form-control", } })
+                                            @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger" })
 
-                                        @*<label for="last-name">Last Name*</label>
-                                            <input type="text" class="form-control" id="last-name" placeholder="Enter your last name">*@
-                                    </div>
+                                            @*<label for="last-name">Last Name*</label>
+                    <input type="text" class="form-control" id="last-name" placeholder="Enter your last name">*@
+                                        </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Subject, new { @for = "Subject" })
-                                        @Html.EditorFor(m => m.Subject, new { htmlAttributes = new { @id = "Subject", @placeholder = "Subject", @class = "form-control", } })
-                                        @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Subject, new { @for = "Subject" })
+                                            @Html.EditorFor(m => m.Subject, new { htmlAttributes = new { @id = "Subject", @placeholder = "Subject", @class = "form-control", } })
+                                            @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
 
-                                        @*<label for="Subject">Subject*</label>
-                                            <input type="text" class="form-control" id="Subject" placeholder="Enter your Subject">*@
-                                    </div>
-                                </form>
+                                            @*<label for="Subject">Subject*</label>
+                    <input type="text" class="form-control" id="Subject" placeholder="Enter your Subject">*@
+                                        </div>
+                                    @*</form>*@
+                                }
+
                             </div>
 
                             <!--comments-->
