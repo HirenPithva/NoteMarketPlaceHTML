@@ -228,7 +228,7 @@ namespace NoteMarketPlace.Controllers
         {
             if (ModelState.IsValid)
             {
-               // buildEmailTamplateContactUs(contactUs);
+                buildEmailTamplateContactUs(contactUs);
                 return RedirectToAction("Index");
             }
             return View();
@@ -743,7 +743,7 @@ namespace NoteMarketPlace.Controllers
                 notesAttechment.ModifiedDate = DateTime.Now;
                 if (addNotesCategoriesTypeCountry.btn == "btnPublish")
                 {
-                   // buildEmailTamplateSellerPublishedNote(noteDetail);
+                    buildEmailTamplateSellerPublishedNote(noteDetail);
                 }
                 db.SellerNotesAttechments.Attach(notesAttechment);
                 db.SellerNotes.Attach(noteDetail);
@@ -1009,7 +1009,7 @@ namespace NoteMarketPlace.Controllers
             
 
 
-            //buildEmailTamplateDownloadRequest(downloadEntry);
+            buildEmailTamplateDownloadRequest(downloadEntry);
 
             TempData["MailSent"]= "mail has been sent";
             return RedirectToAction("Note_details", "Home",new { idForNoteDetails= notedetail.sellerNote.id });
@@ -1258,7 +1258,7 @@ namespace NoteMarketPlace.Controllers
                 db.SaveChanges();
             }
                
-           // buildEmailTamplateApprovedRequest(updateRow);
+            buildEmailTamplateApprovedRequest(updateRow);
             return RedirectToAction( "ByuerRequest", "Home");
         }
         public void buildEmailTamplateApprovedRequest(Download updateRow)

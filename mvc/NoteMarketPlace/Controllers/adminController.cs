@@ -957,7 +957,7 @@ namespace NoteMarketPlace.Controllers
             string searchtext = formData["searchtext"];
             string searchseller = formData["searchseller"];
             int currentPage = int.Parse(formData["currentPage"]);
-            //BuildEmailTamplateForUnpublished(note);
+            BuildEmailTamplateForUnpublished(note);
             return RedirectToAction("allPublishedNotes", new { sortOrder, sortBy, searchtext, searchseller, currentPage });
         }
         public ActionResult downloadNOte(int noteID)

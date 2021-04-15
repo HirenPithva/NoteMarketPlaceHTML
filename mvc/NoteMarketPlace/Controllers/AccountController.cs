@@ -178,7 +178,7 @@ namespace NoteMarketPlace.Controllers
                     db.Users.Add(user);
                     db.SaveChanges();
                     TempData["register"] = "succesfully created";
-                   // buildEmailTamplate(user.id);
+                    buildEmailTamplate(user.id);
                 }
             }
             return View(usersignup);
@@ -334,7 +334,7 @@ namespace NoteMarketPlace.Controllers
                     db.Entry(user).Property(m => m.Password).IsModified = true;
 
                     db.SaveChanges();
-                   // buildEmailTamplateforget(user.id);
+                    buildEmailTamplateforget(user.id);
                     ViewBag.success = "letter sent";
                     return View();
                 }
