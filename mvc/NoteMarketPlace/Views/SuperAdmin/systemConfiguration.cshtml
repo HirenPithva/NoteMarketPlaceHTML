@@ -107,7 +107,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Facebook)
-                                @Html.TextBoxFor(m => m.Facebook, new { @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter Facebook URL" })
+                                @Html.TextBoxFor(m => m.Facebook, new { @type = "url", @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter Facebook URL" })
                                 @Html.ValidationMessageFor(m => m.Facebook, "", new { @class = "text-danger" })
 
                                 @*<label for="Facebook-URL">Facebook URL</label>
@@ -123,7 +123,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.twitter)
-                                @Html.TextBoxFor(m => m.twitter, new { @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter twitter URL" })
+                                @Html.TextBoxFor(m => m.twitter, new { @type = "url", @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter twitter URL" })
                                 @Html.ValidationMessageFor(m => m.twitter, "", new { @class = "text-danger" })
 
                                 @*<label for="Twitter-URL">Twitter URL</label>
@@ -139,7 +139,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Linkdin)
-                                @Html.TextBoxFor(m => m.Linkdin, new { @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter Linkedin URL" })
+                                @Html.TextBoxFor(m => m.Linkdin, new { @type = "url", @id = "Support-Email-Address", @class = "form-control", @placeholder = "Enter Linkedin URL" })
                                 @Html.ValidationMessageFor(m => m.Linkdin, "", new { @class = "text-danger" })
 
                                 @*<label for="Linkedin-URL">Linkedin URL</label>

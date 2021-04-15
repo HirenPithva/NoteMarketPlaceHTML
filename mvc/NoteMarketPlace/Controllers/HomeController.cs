@@ -183,6 +183,11 @@ namespace NoteMarketPlace.Controllers
                     noteList = temp.Where(m => m.sellerNote.Course.Contains(obj.cors)).ToList();
                 }
             }
+            if (obj.rtng != null)
+            {
+                var selectedRating = int.Parse(obj.rtng);
+                noteList=noteList.Where(m => m.rate == selectedRating).ToList();
+            }
             ViewBag.totalnotes = noteList.Count();
             ViewBag.TotalPages = Math.Ceiling(noteList.Where(m => m.sellerNote.Status == 4).Count() / 6.0);
             if(ViewBag.TotalPages< ViewBag.pagenum)
@@ -223,7 +228,7 @@ namespace NoteMarketPlace.Controllers
         {
             if (ModelState.IsValid)
             {
-                buildEmailTamplateContactUs(contactUs);
+               // buildEmailTamplateContactUs(contactUs);
                 return RedirectToAction("Index");
             }
             return View();
@@ -738,7 +743,7 @@ namespace NoteMarketPlace.Controllers
                 notesAttechment.ModifiedDate = DateTime.Now;
                 if (addNotesCategoriesTypeCountry.btn == "btnPublish")
                 {
-                    buildEmailTamplateSellerPublishedNote(noteDetail);
+                   // buildEmailTamplateSellerPublishedNote(noteDetail);
                 }
                 db.SellerNotesAttechments.Attach(notesAttechment);
                 db.SellerNotes.Attach(noteDetail);
@@ -1004,7 +1009,7 @@ namespace NoteMarketPlace.Controllers
             
 
 
-            buildEmailTamplateDownloadRequest(downloadEntry);
+            //buildEmailTamplateDownloadRequest(downloadEntry);
 
             TempData["MailSent"]= "mail has been sent";
             return RedirectToAction("Note_details", "Home",new { idForNoteDetails= notedetail.sellerNote.id });
@@ -1079,10 +1084,10 @@ namespace NoteMarketPlace.Controllers
             ViewBag.Totalpage = (double)(Math.Ceiling(requestList.Count() / 10.0));
             if (searchtext != null)
             {
-                requestList = requestList.Where(m => m.Title.ToLower().Contains(searchtext.ToLower()) || 
-                                (m.price.ToString().ToLower()).Contains(searchtext.ToLower()) || m.phoneNumber.Contains(searchtext.ToLower()) ||
-                                m.category.ToLower().Contains(searchtext.ToLower()) || m.emailID.ToLower().Contains(searchtext.ToLower()) ||
-                                m.DownloadedTime.ToString("dd MMM yyyy, hh:mm:ss").ToLower().Contains(searchtext.ToLower())).ToList();
+                requestList = requestList.Where(m => m.Title.ToLower().Contains(searchtext.ToLower()) ||
+                                m.price.ToString().Contains(searchtext.ToLower())  ||
+                                m.category.ToLower().Contains(searchtext.ToLower()) || m.emailID.ToLower().Contains(searchtext.ToLower()) 
+                                ).ToList();
 
             }
             requestList=sortingAlgo(requestList, SortOrder, SortBy);
@@ -1253,7 +1258,7 @@ namespace NoteMarketPlace.Controllers
                 db.SaveChanges();
             }
                
-            buildEmailTamplateApprovedRequest(updateRow);
+           // buildEmailTamplateApprovedRequest(updateRow);
             return RedirectToAction( "ByuerRequest", "Home");
         }
         public void buildEmailTamplateApprovedRequest(Download updateRow)
@@ -1298,14 +1303,15 @@ namespace NoteMarketPlace.Controllers
 
             ViewBag.TpageForReview = (double)Math.Ceiling(db.SellerNotes.Where(m => m.SellerID == user.id && (m.Status == 1 || m.Status == 2 || m.Status == 3)).Count() / 5.0);
             ViewBag.TpageForpublished = (double)Math.Ceiling(db.SellerNotes.Where(m => m.SellerID == user.id && m.Status == 4).Count() / 5.0);
-            var userNoteRelateddetails = new SellerNoteDownload();
-
-            userNoteRelateddetails.sellernotes = db.SellerNotes.OrderByDescending(m => m.CreatedDate).Where(m => m.SellerID == user.id && (m.Status == 1 || m.Status == 2 || m.Status == 3)).ToList();
-            userNoteRelateddetails.sellernotes2 = db.SellerNotes.OrderByDescending(m => m.CreatedDate).Where(m => m.SellerID == user.id && m.Status == 4).ToList();
-            userNoteRelateddetails.categories = db.NoteCategories.ToList();
-            userNoteRelateddetails.Request = db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == false).Count();
-            userNoteRelateddetails.rejected = db.SellerNotes.Where(m => m.SellerID == user.id && m.Status == 5).Count();
-            userNoteRelateddetails.NoOfDownload = db.Downloads.Where(m => m.Downloader == user.id && m.IsAttechmentDownloaded == true).Count();
+            var userNoteRelateddetails = new SellerNoteDownload
+            {
+                sellernotes = db.SellerNotes.OrderByDescending(m => m.CreatedDate).Where(m => m.SellerID == user.id && (m.Status == 1 || m.Status == 2 || m.Status == 3)).ToList(),
+                sellernotes2 = db.SellerNotes.OrderByDescending(m => m.CreatedDate).Where(m => m.SellerID == user.id && m.Status == 4).ToList(),
+                categories = db.NoteCategories.ToList(),
+                Request = db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == false).Count(),
+                rejected = db.SellerNotes.Where(m => m.SellerID == user.id && m.Status == 5).Count(),
+                NoOfDownload = db.Downloads.Where(m => m.Downloader == user.id && m.IsAttechmentDownloaded == true).Count()
+            };
             var earning= db.Downloads.Where(m => m.Seller == user.id && m.IsSellerHasAllowedDownload == true && m.IsAttechmentDownloaded == true).Sum(m => m.PurchasedPrice);
             if(earning != null)
             {

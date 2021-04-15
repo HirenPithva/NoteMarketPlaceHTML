@@ -525,7 +525,7 @@ namespace NoteMarketPlace.Controllers
             
             db.SellerNotesReportedIssues.Add(NewReport);
             db.SaveChanges();
-            buildEmailTamplateReportedIssues(NewReport);
+            //buildEmailTamplateReportedIssues(NewReport);
             return RedirectToAction("MyDonwloads");
         }
         public void buildEmailTamplateReportedIssues(SellerNotesReportedIssue NewReport)

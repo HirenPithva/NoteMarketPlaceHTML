@@ -1412,6 +1412,26 @@ namespace NoteMarketPlace.Controllers
             {
                 var olduser = db.Users.Where(m => m.id == admin.memverID).SingleOrDefault();
                 var oldprofile = db.UserProfiles.Where(m => m.UserID == admin.memverID).SingleOrDefault();
+
+                if (olduser.RoleID == 1 && oldprofile==null)
+                {
+                    var userprofile = new UserProfile();
+                    userprofile.UserID = olduser.id;
+                    userprofile.AddressLine1 = "NA";
+                    userprofile.AddressLine2 = "NA";
+                    userprofile.State = "NA";
+                    userprofile.City = "NA";
+                    userprofile.ZipCode = "NA";
+                    userprofile.Country = int.Parse(db.Countries.Take(1).Select(m => m.CountryCode).SingleOrDefault());
+                    if (admin.phoneNUmber != null)
+                    {
+                        userprofile.PhoneNumber = admin.phoneNUmber;
+                        userprofile.PhoneNumber_code = admin.PhonCode;
+                    }
+                    db.UserProfiles.Add(userprofile);
+                    db.SaveChanges();
+                    oldprofile = userprofile;
+                }
                 olduser.FirstName = admin.firstname;
                 olduser.LastName = admin.Lastname;
                 oldprofile.SecondryEmailAddress = admin.SecondoryEmailID;
